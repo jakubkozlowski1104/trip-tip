@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 
 const CreateUser = () => {
   const [inputs, setInputs] = useState({});
@@ -11,8 +12,12 @@ const CreateUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    axios.post('http://localhost/api/index.php', inputs);
+
     console.log(inputs);
   };
+
   return (
     <>
       <h1>Create User</h1>
