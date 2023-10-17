@@ -13,7 +13,7 @@ const CreateUser = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost/api/index.php', inputs);
+    axios.post('http://localhost/TripTipApi/index.php', inputs);
 
     console.log(inputs);
   };
