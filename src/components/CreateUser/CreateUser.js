@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const CreateUser = () => {
   const [inputs, setInputs] = useState({});
+  const navigate = useNavigate(); // Use useNavigate instead of Navigate
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -13,9 +15,13 @@ const CreateUser = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost/TripTipApi/index.php', inputs);
-
-    console.log(inputs);
+    axios
+      .post('http://localhost/TripTipApi/index.php', inputs)
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        navigate('/'); // Use navigate function
+      });
   };
 
   return (
