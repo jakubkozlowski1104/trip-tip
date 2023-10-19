@@ -9,11 +9,10 @@ const EditUser = () => {
     name: '',
     password: '',
   });
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const { id } = useParams();
 
-  // Make getUsers async
   const getUsers = async () => {
     try {
       const response = await axios.get(
@@ -25,10 +24,6 @@ const EditUser = () => {
       console.error('Error fetching user:', error);
     }
   };
-
-  useEffect(() => {
-    getUsers();
-  }, []);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -47,6 +42,11 @@ const EditUser = () => {
         console.error('Error submitting form:', error);
       });
   };
+
+  useEffect(() => {
+    getUsers();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
@@ -71,7 +71,7 @@ const EditUser = () => {
             onChange={handleChange}
           />
         </div>
-        <button>Create</button>
+        <button>Save</button>
       </form>
     </>
   );
