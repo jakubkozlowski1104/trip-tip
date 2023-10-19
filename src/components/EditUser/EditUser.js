@@ -36,11 +36,10 @@ const EditUser = () => {
     setInput((values) => ({ ...values, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    axios
-      .post('http://localhost/TripTipApi/index.php', input)
+    await axios
+      .put(`http://localhost/TripTipApi/user/${id}/edit`, input)
       .then((response) => {
         navigate('/');
       })
