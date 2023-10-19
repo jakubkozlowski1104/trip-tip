@@ -20,9 +20,18 @@ $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
     case "GET":
         $sql = "SELECT * FROM users";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $path = explode('/', echo $_SERVER['REQUEST_URI'])
+        if(isset($path[3]) && is_numeric($path[3])) {
+            $sql .= " WHERE id = :id";
+            $stmt->bindParam(':id', $path[3]);
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
         header('Content-Type: application/json');  // Set the Content-Type header
         echo json_encode($users);
         break;
