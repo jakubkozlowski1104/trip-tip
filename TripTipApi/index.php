@@ -4,12 +4,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
     header("Access-Control-Allow-Headers: Content-Type, Authorization");
     header("Access-Control-Allow-Credentials: true");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT");
     exit();
 }
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
 include 'DbConnect.php';
 $objDb = new DbConnect();
@@ -62,7 +64,22 @@ switch ($method) {
         }
         echo json_encode($response);
         break;
+    case "DELETE":
+        $sql = "DELETE FROM users WHERE id = :id";
+        $path = explode('/', $_SERVER['REQUEST_URI']);
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':id', $path[3]);
+        $stmt->execute();
+        if ($stmt->execute()) {
+            $response = ['status' => 1, 'message' => 'Record deleted successfully'];
+        } else {
+            $response = ['status' => 0, 'message' => 'Failed to delete record'];
+        }
+        echo json_encode($response);
+        break;
+        
     }
+    
 ?>
 
 
