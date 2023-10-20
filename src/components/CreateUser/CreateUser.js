@@ -14,8 +14,12 @@ const CreateUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(inputs);
     await axios
-      .post('http://localhost/TripTipApi/index.php', inputs)
+      .post('http://localhost/TripTipApi/index.php', {
+        action: 'create',
+        inputs,
+      })
       .then((response) => {
         navigate('/');
       });
