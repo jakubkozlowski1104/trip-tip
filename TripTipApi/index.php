@@ -18,6 +18,27 @@ $conn = $objDb->connect();
 
 $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
+    case "POST":
+        $requestData = json_decode(file_get_contents('php://input'));
+        $actionType = $requestData->action;
+    
+        if ($actionType === 'create') {
+            $user = $requestData->inputs;
+    
+            $sql = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':name', $user->name);
+            $stmt->bindParam(':email', $user->email);
+            $stmt->bindParam(':password', $user->password);
+    
+            if ($stmt->execute()) {
+                $response = ['status' => 1, 'message' => 'Record created successfully'];
+            } else {
+                $response = ['status' => 0, 'message' => 'Failed to create record'];
+            }
+         }
+        echo json_encode($response);
+        break;
     case "GET":
         $sql = "SELECT * FROM users";
         $path = explode('/', $_SERVER['REQUEST_URI']); // Added semicolon here
@@ -34,20 +55,6 @@ switch ($method) {
         }
         header('Content-Type: application/json');
         echo json_encode($users);
-        break;
-    case "POST":
-        $user = json_decode(file_get_contents('php://input'));
-        $sql = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':name', $user->name);
-        $stmt->bindParam(':email', $user->email);
-        $stmt->bindParam(':password', $user->password);
-        if ($stmt->execute()) {
-            $response = ['status' => 1, 'message' => 'Record created successfully'];
-        } else {
-            $response = ['status' => 0, 'message' => 'Failed to create record'];
-        }
-        echo json_encode($response);
         break;
     case "PUT":
         $user = json_decode(file_get_contents('php://input'));
@@ -76,7 +83,9 @@ switch ($method) {
         }
         echo json_encode($response);
         break;
+        
     }
+    
 ?>
 
 
