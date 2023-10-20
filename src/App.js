@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
-import UserList from './components/UserList/UserList';
-import Registration from './components/Registration/Registration';
-import EditUser from './components/EditUser/EditUser';
+import SignUp from './components/SignUp/SignUp';
 import LogIn from './components/LogIn/LogIn';
+import UserList from './components/UserList/UserList';
+import EditUser from './components/EditUser/EditUser';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
               <NavLink to='/'>User List</NavLink>
             </li>
             <li>
-              <NavLink to='user/create'>Create User</NavLink>
+              <NavLink to='user/signup'>Sign Up</NavLink>
             </li>
             <li>
               <NavLink to='user/login'>Log In</NavLink>
@@ -24,7 +24,7 @@ function App() {
         </nav>
         <Routes>
           <Route index element={<UserList />} />
-          <Route path='user/create' element={<Registration />} />
+          <Route path='user/signup' element={<SignUp />} />
           <Route path='user/login' element={<LogIn />} />
           <Route path='user/:id/edit' element={<EditUser />} />
         </Routes>

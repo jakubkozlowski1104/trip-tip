@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const CreateUser = () => {
+const SignUp = () => {
   const [inputs, setInputs] = useState({});
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -14,6 +15,7 @@ const CreateUser = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     axios.post('http://localhost/TripTipApi/index.php', {
       action: 'create',
       inputs,
@@ -23,7 +25,7 @@ const CreateUser = () => {
 
   return (
     <>
-      <h1>Create new accont</h1>
+      <h1>Create User</h1>
       <form onSubmit={handleSubmit}>
         <div className='form-input'>
           <label>Email:</label>
@@ -37,10 +39,10 @@ const CreateUser = () => {
           <label>Password:</label>
           <input type='password' name='password' onChange={handleChange} />
         </div>
-        <button>Sign up</button>
+        <button>Create</button>
       </form>
     </>
   );
 };
 
-export default CreateUser;
+export default SignUp;

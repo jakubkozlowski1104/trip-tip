@@ -18,6 +18,7 @@ const LogIn = () => {
         inputs,
       })
       .then((response) => {
+        console.log(response.data.status);
         if (response.data.status === 1) {
           alert('udalo sie zalogowac');
           console.log(response.data.message);

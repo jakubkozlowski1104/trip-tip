@@ -41,7 +41,7 @@ switch ($method) {
         break;
     case "GET":
         $sql = "SELECT * FROM users";
-        $path = explode('/', $_SERVER['REQUEST_URI']); // Added semicolon here
+        $path = explode('/', $_SERVER['REQUEST_URI']);
         if (isset($path[3]) && is_numeric($path[3])) {
             $sql .= " WHERE id = :id";
             $stmt = $conn->prepare($sql);
@@ -82,10 +82,8 @@ switch ($method) {
             $response = ['status' => 0, 'message' => 'Failed to delete record'];
         }
         echo json_encode($response);
-        break;
-        
+        break;  
     }
-    
 ?>
 
 
