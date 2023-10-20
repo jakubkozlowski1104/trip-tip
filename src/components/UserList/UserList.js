@@ -15,6 +15,14 @@ const UserList = () => {
     getUsers();
   }, []);
 
+  const deleteUser = (id) => {
+    axios
+      .delete(`http://localhost/TripTipApi/user/${id}/delete`)
+      .then((response) => {
+        getUsers();
+      });
+  };
+
   return (
     <>
       <h1>User List</h1>
@@ -25,7 +33,7 @@ const UserList = () => {
             <p>Name: {user.name}</p>
             <p>Email: {user.email}</p>
             <NavLink to={`user/${user.id}/edit`}>Edit </NavLink>
-            <button>deltete</button>
+            <button onClick={() => deleteUser(user.id)}>deltete</button>
           </li>
         ))}
       </ul>
