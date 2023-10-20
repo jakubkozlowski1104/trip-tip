@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { StyledLogin, StyledCenter, StyledForm } from '../LogIn/LogIn.styles';
 
 const LogIn = () => {
   const [inputs, setInputs] = useState({});
+  const [isLogIn, setIsLogIn] = useState(false);
+  const [wrongLogin, setWrongLogin] = useState(false);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -20,32 +23,51 @@ const LogIn = () => {
       .then((response) => {
         console.log(response.data.status);
         if (response.data.status === 1) {
-          alert('udalo sie zalogowac');
-          console.log(response.data.message);
-          console.log(response.data.user);
+          setIsLogIn(true);
+          setWrongLogin(false);
         } else {
-          alert('NIE udalo sie zalogowac');
-          console.log(response.data.message);
+          setWrongLogin(true);
         }
       });
-    console.log(inputs);
   };
 
   return (
-    <>
-      <h1>LogIn</h1>
-      <form onSubmit={handleSubmit}>
-        <div className='form-input'>
-          <label>Email:</label>
-          <input type='text' name='email' onChange={handleChange} />
-        </div>
-        <div className='form-input'>
-          <label>Password:</label>
-          <input type='password' name='password' onChange={handleChange} />
-        </div>
-        <button>Sign up</button>
-      </form>
-    </>
+    <StyledCenter>
+      <StyledLogin className='loginContainer'>
+        <h1>Login</h1>
+        {isLogIn && <h1>Jesteś zalogowany</h1>}
+        <StyledForm onSubmit={handleSubmit}>
+          {wrongLogin && (
+            <p style={{ color: 'red', fontSize: '25px' }}>Niepoprawne dane</p>
+          )}
+          <div className='form-input'>
+            <input
+              placeholder='Email'
+              type='text'
+              name='email'
+              onChange={handleChange}
+            />
+          </div>
+          <div className='form-input'>
+            <input
+              placeholder='Password'
+              type='password'
+              name='password'
+              onChange={handleChange}
+            />
+          </div>
+          <div className='forgot'>
+            <p>Forgot Password?</p>
+          </div>
+          <button>Login</button>
+          <div className='register'>
+            <p>
+              Don't have an accont? <span>Register</span>
+            </p>
+          </div>
+        </StyledForm>
+      </StyledLogin>
+    </StyledCenter>
   );
 };
 
