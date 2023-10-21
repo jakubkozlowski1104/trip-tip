@@ -1,11 +1,15 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { StyledLogin, StyledCenter, StyledForm } from '../LogIn/LogIn.styles';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'; // Import the specific icon
 
 const LogIn = () => {
   const [inputs, setInputs] = useState({});
   const [isLogIn, setIsLogIn] = useState(false);
-  const [wrongLogin, setWrongLogin] = useState(false);
+  const [isloginwrong, setIsLoginWrong] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -24,22 +28,19 @@ const LogIn = () => {
         console.log(response.data.status);
         if (response.data.status === 1) {
           setIsLogIn(true);
-          setWrongLogin(false);
+          setIsLoginWrong(false);
         } else {
-          setWrongLogin(true);
+          setIsLoginWrong(true);
         }
       });
   };
 
   return (
     <StyledCenter>
-      <StyledLogin className='loginContainer'>
+      <StyledLogin isloginwrong={isloginwrong ? 'true' : undefined}>
         <h1>Login</h1>
         {isLogIn && <h1>Jesteś zalogowany</h1>}
         <StyledForm onSubmit={handleSubmit}>
-          {wrongLogin && (
-            <p style={{ color: 'red', fontSize: '25px' }}>Niepoprawne dane</p>
-          )}
           <div className='form-input'>
             <input
               placeholder='Email'
@@ -56,13 +57,21 @@ const LogIn = () => {
               onChange={handleChange}
             />
           </div>
-          <div className='forgot'>
-            <p>Forgot Password?</p>
+          <div className='info'>
+            <div className='error'>
+              <FontAwesomeIcon
+                className='error-icon'
+                icon={faCircleExclamation}
+              />
+              <p>entered data is invalid</p>
+            </div>
+            <p className='forgot'>Forgot Password?</p>
           </div>
           <button>Login</button>
           <div className='register'>
             <p>
-              Don't have an accont? <span>Register</span>
+              Don't have an accont?{' '}
+              <span onClick={() => navigate('user/signup')}>Register</span>
             </p>
           </div>
         </StyledForm>

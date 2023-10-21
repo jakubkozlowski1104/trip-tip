@@ -27,11 +27,17 @@ export const StyledLogin = styled.div`
       padding: 10px 10px;
       width: 250px;
       height: 20px;
-      border-radius: 2px;
+      border-radius: 3px;
       outline: none;
       border: none;
       margin: 8px 0;
       background-color: #343334;
+      border: ${(props) => props.isloginwrong && '1px solid red'};
+      color: white;
+    }
+    input:-webkit-autofill {
+      transition: background-color 5000s;
+      -webkit-text-fill-color: white;
     }
   }
 `;
@@ -46,6 +52,7 @@ export const StyledForm = styled.form`
 
   button {
     cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
     padding: 10px 10px;
     width: 270px;
     height: 40px;
@@ -54,6 +61,32 @@ export const StyledForm = styled.form`
     border: none;
     margin: 5px 0;
     background-color: #03b8e9;
+    font-size: 1.1rem;
+  }
+
+  .info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    .error {
+      display: flex;
+      align-items: center;
+      .error-icon {
+        margin-right: 5px;
+        color: red;
+      }
+      p {
+        color: red;
+        font-size: 0.75rem;
+        margin: 2px 0px;
+      }
+    }
+    .forgot {
+      margin: 5px 0;
+      color: #18c9ec;
+      font-size: 0.75rem;
+      cursor: pointer;
+    }
   }
 
   .register p {
