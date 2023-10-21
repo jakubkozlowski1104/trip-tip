@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const CreateUser = () => {
+const SignUp = () => {
   const [inputs, setInputs] = useState({});
   const navigate = useNavigate();
 
@@ -14,15 +15,12 @@ const CreateUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputs);
-    await axios
-      .post('http://localhost/TripTipApi/index.php', {
-        action: 'create',
-        inputs,
-      })
-      .then((response) => {
-        navigate('/');
-      });
+
+    axios.post('http://localhost/TripTipApi/index.php', {
+      action: 'create',
+      inputs,
+    });
+    navigate('/');
   };
 
   return (
@@ -47,4 +45,4 @@ const CreateUser = () => {
   );
 };
 
-export default CreateUser;
+export default SignUp;

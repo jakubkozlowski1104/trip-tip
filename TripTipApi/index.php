@@ -36,12 +36,28 @@ switch ($method) {
             } else {
                 $response = ['status' => 0, 'message' => 'Failed to create record'];
             }
-         }
+         }elseif ($actionType === 'login') {
+            $email = $requestData->inputs->email;
+            $password = $requestData->inputs->password;
+    
+            $sql = "SELECT * FROM users WHERE email = :email AND password = :password";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':password', $password);
+            $stmt->execute();
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            if ($user) {
+                $response = ['status' => 1, 'message' => 'Login successful', 'user' => $user];
+            } else {
+                $response = ['status' => 0, 'message' => 'Login failed'];
+            }
+        }
         echo json_encode($response);
         break;
     case "GET":
         $sql = "SELECT * FROM users";
-        $path = explode('/', $_SERVER['REQUEST_URI']); // Added semicolon here
+        $path = explode('/', $_SERVER['REQUEST_URI']);
         if (isset($path[3]) && is_numeric($path[3])) {
             $sql .= " WHERE id = :id";
             $stmt = $conn->prepare($sql);

@@ -24,6 +24,10 @@ const UserList = () => {
     getUsers();
   }, []);
 
+  useEffect(() => {
+    getUsers();
+  }, []);
+
   return (
     <>
       <h1>User List</h1>
