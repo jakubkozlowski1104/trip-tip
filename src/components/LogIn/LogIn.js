@@ -59,11 +59,15 @@ const LogIn = () => {
           </div>
           <div className='info'>
             <div className='error'>
-              <FontAwesomeIcon
-                className='error-icon'
-                icon={faCircleExclamation}
-              />
-              <p>entered data is invalid</p>
+              {isloginwrong && (
+                <>
+                  <FontAwesomeIcon
+                    className='error-icon'
+                    icon={faCircleExclamation}
+                  />
+                  <p>Entered data is incorrect</p>
+                </>
+              )}
             </div>
             <p className='forgot'>Forgot Password?</p>
           </div>
