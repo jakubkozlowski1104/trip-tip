@@ -39,11 +39,17 @@ const LogIn = () => {
       });
   };
 
+  const changePath = () => {
+    if (isLogIn) {
+      console.log('siema');
+      navigate('/user/home');
+    }
+  };
+
   return (
     <StyledCenter>
       <StyledLogin isloginwrong={isloginwrong ? 'true' : undefined}>
         <h1>Login</h1>
-        {isLogIn && <h1>Jesteś zalogowany</h1>}
         <StyledForm onSubmit={handleSubmit}>
           <div className='form-input'>
             <input
@@ -81,11 +87,11 @@ const LogIn = () => {
             </div>
             <p className='forgot'>Forgot Password?</p>
           </div>
-          <button>Login</button>
+          <button onClick={changePath()}>Login</button>
           <div className='register'>
             <p>
-              Don't have an accont?{' '}
-              <span onClick={() => navigate('user/signup')}>Register</span>
+              Don't have an accont?
+              <span onClick={() => navigate('/user/signup')}> Register</span>
             </p>
           </div>
         </StyledForm>

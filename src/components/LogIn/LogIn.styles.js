@@ -10,7 +10,8 @@ export const StyledLogin = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 330px;
+  width: 380px;
+  height: 400px;
   background-color: #232123;
   border-radius: 1%;
   color: #18c9ec;
@@ -29,10 +30,10 @@ export const StyledLogin = styled.div`
     height: 40px;
     background-color: #343334;
     padding: 0;
-    margin: 5px 0;
+    margin: 8px 0;
     border: ${(props) => props.isloginwrong && '1px solid red'};
     input {
-      padding: 0px 0px 0px 5px;
+      padding: 0px 0px 0px 8px;
       background-color: #343334;
       width: 85%;
       height: 100%;
@@ -96,7 +97,7 @@ export const StyledForm = styled.form`
       }
     }
     .forgot {
-      margin: 5px 0;
+      margin: 3px 0;
       color: #18c9ec;
       font-size: 0.75rem;
       cursor: pointer;
