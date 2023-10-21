@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
-import SignUp from './components/SignUp/SignUp';
-import LogIn from './components/LogIn/LogIn';
-import UserList from './components/UserList/UserList';
-import EditUser from './components/EditUser/EditUser';
-import HomePage from './views/HomePage/HomePage';
+import SignUp from '../../components/SignUp/SignUp';
+import LogIn from '../../components/LogIn/LogIn';
+import UserList from '../../components/UserList/UserList';
+import EditUser from '../../components/EditUser/EditUser';
+import HomePage from '../HomePage/HomePage';
 import { ThemeProvider } from 'styled-components';
-import { GlobalStyle } from './assets/styles/GlobalStyle';
-import { theme } from './assets/styles/Theme';
+import { GlobalStyle } from '../../assets/styles/GlobalStyle';
+import { theme } from '../../assets/styles/Theme';
 
 function App() {
   return (
