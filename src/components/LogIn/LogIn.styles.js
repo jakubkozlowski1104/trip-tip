@@ -23,21 +23,35 @@ export const StyledLogin = styled.div`
   }
 
   .form-input {
+    position: relative;
+    width: 270px;
+    margin: 10px;
+    height: 40px;
+    background-color: #343334;
+    padding: 0;
+    margin: 5px 0;
+    border: ${(props) => props.isloginwrong && '1px solid red'};
     input {
-      padding: 10px 10px;
-      width: 250px;
-      height: 20px;
-      border-radius: 3px;
+      padding: 0px 0px 0px 5px;
+      background-color: #343334;
+      width: 85%;
+      height: 100%;
       outline: none;
       border: none;
-      margin: 8px 0;
       background-color: #343334;
-      border: ${(props) => props.isloginwrong && '1px solid red'};
       color: white;
     }
     input:-webkit-autofill {
       transition: background-color 5000s;
       -webkit-text-fill-color: white;
+    }
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      right: 5%;
+      transform: translateY(-50%);
+      font-size: 0.9rem;
     }
   }
 `;

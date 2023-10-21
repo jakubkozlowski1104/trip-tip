@@ -3,7 +3,11 @@ import axios from 'axios';
 import { StyledLogin, StyledCenter, StyledForm } from '../LogIn/LogIn.styles';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons'; // Import the specific icon
+import {
+  faCircleExclamation,
+  faLock,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons'; // Import the specific icon
 
 const LogIn = () => {
   const [inputs, setInputs] = useState({});
@@ -48,6 +52,9 @@ const LogIn = () => {
               name='email'
               onChange={handleChange}
             />
+            <div className='icon'>
+              <FontAwesomeIcon icon={faUser} />
+            </div>
           </div>
           <div className='form-input'>
             <input
@@ -56,6 +63,9 @@ const LogIn = () => {
               name='password'
               onChange={handleChange}
             />
+            <div className='icon'>
+              <FontAwesomeIcon icon={faLock} />
+            </div>
           </div>
           <div className='info'>
             <div className='error'>
