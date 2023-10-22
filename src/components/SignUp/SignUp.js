@@ -7,6 +7,7 @@ import {
   faCircleExclamation,
   faLock,
   faUser,
+  faEnvelope,
 } from '@fortawesome/free-solid-svg-icons'; // Import the specific icon
 
 const SignUp = () => {
@@ -23,7 +24,6 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     axios.post('http://localhost/TripTipApi/index.php', {
       action: 'create',
       inputs,
@@ -41,8 +41,19 @@ const SignUp = () => {
   return (
     <StyledCenter>
       <StyledLogin isloginwrong={isloginwrong ? 'true' : undefined}>
-        <h1>Login</h1>
+        <h1>Sign up and start traveling!</h1>
         <StyledForm onSubmit={handleSubmit}>
+          <div className='form-input'>
+            <input
+              placeholder='Name'
+              type='text'
+              name='name'
+              onChange={handleChange}
+            />
+            <div className='icon'>
+              <FontAwesomeIcon icon={faUser} />
+            </div>
+          </div>
           <div className='form-input'>
             <input
               placeholder='Email'
@@ -51,7 +62,7 @@ const SignUp = () => {
               onChange={handleChange}
             />
             <div className='icon'>
-              <FontAwesomeIcon icon={faUser} />
+              <FontAwesomeIcon icon={faEnvelope} />
             </div>
           </div>
           <div className='form-input'>
@@ -65,25 +76,15 @@ const SignUp = () => {
               <FontAwesomeIcon icon={faLock} />
             </div>
           </div>
-          <div className='info'>
-            <div className='error'>
-              {isloginwrong && (
-                <>
-                  <FontAwesomeIcon
-                    className='error-icon'
-                    icon={faCircleExclamation}
-                  />
-                  <p>Entered data is incorrect</p>
-                </>
-              )}
-            </div>
-            <p className='forgot'>Forgot Password?</p>
+          <div className='passwordInfo'>
+            <div className='passwordPowerLine'>x</div>
+            <p className='passwordPowerInfo'>weak password</p>
           </div>
-          <button onClick={changePath()}>Login</button>
+          <button onClick={changePath()}>Sign up</button>
           <div className='register'>
             <p>
-              Don't have an accont?
-              <span onClick={() => navigate('/user/signup')}> Register</span>
+              Already have an account?
+              <span onClick={() => navigate('/user/login')}> Log in</span>
             </p>
           </div>
         </StyledForm>

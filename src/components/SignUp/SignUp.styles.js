@@ -19,6 +19,7 @@ export const StyledLogin = styled.div`
   padding: 0;
 
   h1 {
+    font-size: 1.4rem;
     margin: 0;
     padding: 10px 0;
   }
@@ -67,6 +68,7 @@ export const StyledForm = styled.form`
 
   button {
     cursor: pointer;
+    font-weight: bold;
     font-family: 'Montserrat', sans-serif;
     padding: 10px 10px;
     width: 270px;
@@ -79,29 +81,10 @@ export const StyledForm = styled.form`
     font-size: 1.1rem;
   }
 
-  .info {
+  .passwordInfo {
     width: 100%;
     display: flex;
     justify-content: space-between;
-    .error {
-      display: flex;
-      align-items: center;
-      .error-icon {
-        margin-right: 5px;
-        color: red;
-      }
-      p {
-        color: red;
-        font-size: 0.75rem;
-        margin: 2px 0px;
-      }
-    }
-    .forgot {
-      margin: 3px 0;
-      color: #18c9ec;
-      font-size: 0.75rem;
-      cursor: pointer;
-    }
   }
 
   .register p {
