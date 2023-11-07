@@ -1,14 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import axios from 'axios';
 import { StyledLogin, StyledCenter, StyledForm } from '../SignUp/SignUp.styles';
+import { StyledStrongPasswordFeature } from '../SignUp/StrongPasswordFeature.styles';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faCircleExclamation,
-  faLock,
-  faUser,
-  faEnvelope,
-} from '@fortawesome/free-solid-svg-icons'; // Import the specific icon
+import { faLock, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 
 const SignUp = () => {
   const [inputs, setInputs] = useState({});
@@ -89,7 +86,9 @@ const SignUp = () => {
             </div>
           </div>
           <div className='passwordInfo'>
-            <div className='passwordPowerLine'>x</div>
+            <StyledStrongPasswordFeature>
+              --- --- --- ---
+            </StyledStrongPasswordFeature>
             <p className='passwordPowerInfo'>
               {checkPassword(inputs.password.length)}
             </p>
@@ -99,7 +98,6 @@ const SignUp = () => {
             <p>
               Already have an account?
               <span onClick={() => navigate('/user/login')}>
-                {' '}
                 {() => checkPassword()}
               </span>
             </p>
