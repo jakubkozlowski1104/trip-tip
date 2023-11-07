@@ -37,7 +37,7 @@ const SignUp = () => {
 
   const checkPassword = (letters) => {
     if (letters <= 4) {
-      return 'Too weak';
+      return 'Too weak!';
     } else if (letters <= 6) {
       return 'Could be stronger';
     } else if (letters <= 8) {
@@ -85,14 +85,21 @@ const SignUp = () => {
               <FontAwesomeIcon icon={faLock} />
             </div>
           </div>
-          <div className='passwordInfo'>
-            <StyledStrongPasswordFeature>
-              --- --- --- ---
-            </StyledStrongPasswordFeature>
-            <p className='passwordPowerInfo'>
-              {checkPassword(inputs.password.length)}
-            </p>
-          </div>
+          <StyledStrongPasswordFeature
+            strongLevel={inputs.password && inputs.password.length}
+          >
+            <div className='feature'>
+              <div className='low'></div>
+              <div className='better'></div>
+              <div className='strong'></div>
+              <div className='very-strong'></div>
+            </div>
+            <div className='passwordPowerInfo'>
+              {inputs.password
+                ? checkPassword(inputs.password.length)
+                : 'Too week!'}
+            </div>
+          </StyledStrongPasswordFeature>
           <button onClick={changePath()}></button>
           <div className='register'>
             <p>
