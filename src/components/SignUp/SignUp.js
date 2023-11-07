@@ -38,6 +38,18 @@ const SignUp = () => {
     }
   };
 
+  const checkPassword = (letters) => {
+    if (letters <= 4) {
+      return 'Too weak';
+    } else if (letters <= 6) {
+      return 'Could be stronger';
+    } else if (letters <= 8) {
+      return 'Strong password';
+    } else {
+      return 'Very strong password';
+    }
+  };
+
   return (
     <StyledCenter>
       <StyledLogin isloginwrong={isloginwrong ? 'true' : undefined}>
@@ -78,13 +90,18 @@ const SignUp = () => {
           </div>
           <div className='passwordInfo'>
             <div className='passwordPowerLine'>x</div>
-            <p className='passwordPowerInfo'>weak password</p>
+            <p className='passwordPowerInfo'>
+              {checkPassword(inputs.password.length)}
+            </p>
           </div>
-          <button onClick={changePath()}>Sign up</button>
+          <button onClick={changePath()}></button>
           <div className='register'>
             <p>
               Already have an account?
-              <span onClick={() => navigate('/user/login')}> Log in</span>
+              <span onClick={() => navigate('/user/login')}>
+                {' '}
+                {() => checkPassword()}
+              </span>
             </p>
           </div>
         </StyledForm>
