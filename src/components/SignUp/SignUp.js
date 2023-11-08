@@ -6,12 +6,32 @@ import { StyledStrongPasswordFeature } from '../SignUp/StrongPasswordFeature.sty
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import PopupError from './PopupError/PopupError';
 
 const SignUp = () => {
   const [inputs, setInputs] = useState({});
   const [isLogIn, setIsLogIn] = useState(false);
   const [isloginwrong, setIsLoginWrong] = useState(false);
+  const [canSignUp, setCanSignUp] = useState({
+    isNameCorrect: false,
+    isEmailCorrect: false,
+    isPasswordCorrect: false,
+  });
   const navigate = useNavigate();
+
+  const handleValidation = () => {
+    if (inputs.name && inputs.name.length < 6) {
+      setCanSignUp((prevState) => ({
+        ...prevState,
+        isNameCorrect: false,
+      }));
+    } else {
+      setCanSignUp((prevState) => ({
+        ...prevState,
+        isNameCorrect: true,
+      }));
+    }
+  };
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -21,16 +41,21 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post('http://localhost/TripTipApi/index.php', {
-      action: 'create',
-      inputs,
-    });
-    navigate('/');
+    handleValidation();
+    console.log(canSignUp.isNameCorrect);
+    if (canSignUp.isNameCorrect) {
+      axios.post('http://localhost/TripTipApi/index.php', {
+        action: 'create',
+        inputs,
+      });
+      navigate('/');
+    } else {
+      return <PopupError />;
+    }
   };
 
   const changePath = () => {
     if (isLogIn) {
-      console.log('siema');
       navigate('/user/home');
     }
   };
@@ -100,13 +125,11 @@ const SignUp = () => {
                 : 'Too week!'}
             </div>
           </StyledStrongPasswordFeature>
-          <button onClick={changePath()}></button>
+          <button onClick={changePath()}>Register</button>
           <div className='register'>
             <p>
               Already have an account?
-              <span onClick={() => navigate('/user/login')}>
-                {() => checkPassword()}
-              </span>
+              <span onClick={() => navigate('/user/login')}> Login </span>
             </p>
           </div>
         </StyledForm>
