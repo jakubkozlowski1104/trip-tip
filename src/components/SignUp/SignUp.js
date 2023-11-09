@@ -55,7 +55,7 @@ const SignUp = () => {
     } else if (status === 1) {
       setIsDataExist('name already exist');
     } else {
-      setIsDataExist(''); 
+      setIsDataExist('');
     }
   };
 
@@ -114,10 +114,9 @@ const SignUp = () => {
       <StyledLogin isloginwrong={isloginwrong ? 'true' : undefined}>
         <h1>Sign up and start traveling!</h1>
         <StyledForm onSubmit={handleSubmit}>
-          {/* {isDataExist.length > 0 && (
+          {isDataExist.length > 0 && (
             <DataExistError>{isDataExist}</DataExistError>
-          )} */}
-          <DataExistError>{isDataExist}</DataExistError>
+          )}
           <div className='form-input'>
             <input
               placeholder='Name'
