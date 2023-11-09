@@ -47,12 +47,15 @@ const SignUp = () => {
   };
 
   const showTakenDate = (status) => {
+    console.log(status);
     if (status === 3) {
       setIsDataExist('email and name already exist');
     } else if (status === 2) {
       setIsDataExist('email already exist');
-    } else {
+    } else if (status === 1) {
       setIsDataExist('name already exist');
+    } else {
+      setIsDataExist(''); 
     }
   };
 
@@ -66,6 +69,7 @@ const SignUp = () => {
       })
       .then((response) => {
         let status = response.data.status;
+        console.log(response.data);
         if (status <= 3 && status >= 1) {
           showTakenDate(status);
         } else if (status === 0) {
@@ -110,9 +114,10 @@ const SignUp = () => {
       <StyledLogin isloginwrong={isloginwrong ? 'true' : undefined}>
         <h1>Sign up and start traveling!</h1>
         <StyledForm onSubmit={handleSubmit}>
-          {isDataExist.length > 0 && (
+          {/* {isDataExist.length > 0 && (
             <DataExistError>{isDataExist}</DataExistError>
-          )}
+          )} */}
+          <DataExistError>{isDataExist}</DataExistError>
           <div className='form-input'>
             <input
               placeholder='Name'

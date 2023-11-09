@@ -69,31 +69,39 @@ switch ($method) {
                 $response = ['status' => 0, 'message' => 'Login failed'];
             }
         } elseif ($actionType === 'trySignUp') {
-            $email = $requestData->inputs->email;
-            $name = $requestData->inputs->name;
+            $email = isset($requestData->inputs->email) ? $requestData->inputs->email : null;
+            $name = isset($requestData->inputs->name) ? $requestData->inputs->name : null;
         
-            $sql = "SELECT * FROM users WHERE email = :email";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':email', $email);
-            $stmt->execute();
-            $userByEmail = $stmt->fetch(PDO::FETCH_ASSOC);
+            $userByEmail = null;
+            $userByName = null;
         
-            $sql = "SELECT * FROM users WHERE name = :name";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':name', $name);
-            $stmt->execute();
-            $userByPassword = $stmt->fetch(PDO::FETCH_ASSOC);
+            if ($email) {
+                $sql = "SELECT * FROM users WHERE email = :email";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(':email', $email);
+                $stmt->execute();
+                $userByEmail = $stmt->fetch(PDO::FETCH_ASSOC);
+            }
         
-            if ($userByEmail && $userByPassword) {
+            if ($name) {
+                $sql = "SELECT * FROM users WHERE name = :name";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindParam(':name', $name);
+                $stmt->execute();
+                $userByName = $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+        
+            if ($userByEmail && $userByName) {
                 $response = ['status' => 3, 'message' => 'Both email and name already exist', 'user' => $userByEmail];
             } elseif ($userByEmail) {
-                $response = ['status' => 2, 'message' => 'Email already exist', 'user' => $userByEmail];
-            } elseif ($userByPassword) {
-                $response = ['status' => 1, 'message' => 'name already exist', 'user' => $userByPassword];
+                $response = ['status' => 2, 'message' => 'Email already exists', 'user' => $userByEmail];
+            } elseif ($userByName) {
+                $response = ['status' => 1, 'message' => 'Name already exists', 'user' => $userByName];
             } else {
                 $response = ['status' => 0, 'message' => 'good'];
             }
         }
+        
         echo json_encode($response);
         break;
     case "GET":
