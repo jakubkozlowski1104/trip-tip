@@ -110,7 +110,9 @@ const SignUp = () => {
       <StyledLogin isloginwrong={isloginwrong ? 'true' : undefined}>
         <h1>Sign up and start traveling!</h1>
         <StyledForm onSubmit={handleSubmit}>
-          <DataExistError>{isDataExist}</DataExistError>
+          {isDataExist.length > 0 && (
+            <DataExistError>{isDataExist}</DataExistError>
+          )}
           <div className='form-input'>
             <input
               placeholder='Name'
