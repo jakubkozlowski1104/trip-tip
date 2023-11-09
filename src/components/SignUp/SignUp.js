@@ -42,16 +42,31 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     handleValidation();
-    console.log(canSignUp.isNameCorrect);
-    if (canSignUp.isNameCorrect) {
-      axios.post('http://localhost/TripTipApi/index.php', {
-        action: 'create',
+
+    axios
+      .post('http://localhost/TripTipApi/index.php', {
+        action: 'trySignUp',
         inputs,
+      })
+      .then((response) => {
+        console.log(response);
+        console.log(response.data);
+        console.log(response.data.status);
+        // Tutaj możesz użyć response.data.status do odpowiedniego zarządzania danymi w zależności od statusu
+      })
+      .catch((error) => {
+        console.error('Błąd podczas żądania:', error);
       });
-      navigate('/');
-    } else {
-      return <PopupError />;
-    }
+
+    // if (canSignUp.isNameCorrect) {
+    //   axios.post('http://localhost/TripTipApi/index.php', {
+    //     action: 'create',
+    //     inputs,
+    //   });
+    //   navigate('/');
+    // } else {
+    //   return <PopupError />;
+    // }
   };
 
   const changePath = () => {
