@@ -13,11 +13,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import PopupError from './PopupError/PopupError';
 
+const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const PASS_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+
 const SignUp = () => {
   const [inputs, setInputs] = useState({});
   const [isLogIn, setIsLogIn] = useState(false);
   const [isloginwrong, setIsLoginWrong] = useState(false);
-  const [isDataExist, setIsDataExist] = useState('');
+  const [dataExistError, setIsDataExist] = useState('');
   const [canSignUp, setCanSignUp] = useState({
     isNameCorrect: false,
     isEmailCorrect: false,
@@ -69,7 +72,6 @@ const SignUp = () => {
       })
       .then((response) => {
         let status = response.data.status;
-        console.log(response.data);
         if (status <= 3 && status >= 1) {
           showTakenDate(status);
         } else if (status === 0) {
@@ -114,8 +116,8 @@ const SignUp = () => {
       <StyledLogin isloginwrong={isloginwrong ? 'true' : undefined}>
         <h1>Sign up and start traveling!</h1>
         <StyledForm onSubmit={handleSubmit}>
-          {isDataExist.length > 0 && (
-            <DataExistError>{isDataExist}</DataExistError>
+          {dataExistError.length > 0 && (
+            <DataExistError>{dataExistError}</DataExistError>
           )}
           <div className='form-input'>
             <input
