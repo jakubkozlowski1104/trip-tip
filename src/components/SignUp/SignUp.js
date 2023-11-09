@@ -1,7 +1,12 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import axios from 'axios';
-import { StyledLogin, StyledCenter, StyledForm } from '../SignUp/SignUp.styles';
+import {
+  StyledLogin,
+  StyledCenter,
+  StyledForm,
+  DataExistError,
+} from '../SignUp/SignUp.styles';
 import { StyledStrongPasswordFeature } from '../SignUp/StrongPasswordFeature.styles';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,11 +17,13 @@ const SignUp = () => {
   const [inputs, setInputs] = useState({});
   const [isLogIn, setIsLogIn] = useState(false);
   const [isloginwrong, setIsLoginWrong] = useState(false);
+  const [isDataExist, setIsDataExist] = useState('');
   const [canSignUp, setCanSignUp] = useState({
     isNameCorrect: false,
     isEmailCorrect: false,
     isPasswordCorrect: false,
   });
+
   const navigate = useNavigate();
 
   const handleValidation = () => {
@@ -39,34 +46,45 @@ const SignUp = () => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
+  const showTakenDate = (status) => {
+    if (status === 3) {
+      setIsDataExist('email and name already exist');
+    } else if (status === 2) {
+      setIsDataExist('email already exist');
+    } else {
+      setIsDataExist('name already exist');
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     handleValidation();
-
     axios
       .post('http://localhost/TripTipApi/index.php', {
         action: 'trySignUp',
         inputs,
       })
       .then((response) => {
-        console.log(response);
-        console.log(response.data);
-        console.log(response.data.status);
-        // Tutaj możesz użyć response.data.status do odpowiedniego zarządzania danymi w zależności od statusu
+        let status = response.data.status;
+        if (status <= 3 && status >= 1) {
+          showTakenDate(status);
+        } else if (status === 0) {
+          if (canSignUp.isNameCorrect) {
+            axios.post('http://localhost/TripTipApi/index.php', {
+              action: 'create',
+              inputs,
+            });
+            navigate('/');
+          } else {
+            return <PopupError />;
+          }
+        } else {
+          console.log('status error');
+        }
       })
       .catch((error) => {
         console.error('Błąd podczas żądania:', error);
       });
-
-    // if (canSignUp.isNameCorrect) {
-    //   axios.post('http://localhost/TripTipApi/index.php', {
-    //     action: 'create',
-    //     inputs,
-    //   });
-    //   navigate('/');
-    // } else {
-    //   return <PopupError />;
-    // }
   };
 
   const changePath = () => {
@@ -92,6 +110,7 @@ const SignUp = () => {
       <StyledLogin isloginwrong={isloginwrong ? 'true' : undefined}>
         <h1>Sign up and start traveling!</h1>
         <StyledForm onSubmit={handleSubmit}>
+          <DataExistError>{isDataExist}</DataExistError>
           <div className='form-input'>
             <input
               placeholder='Name'

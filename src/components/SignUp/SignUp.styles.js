@@ -103,3 +103,20 @@ export const StyledForm = styled.form`
     }
   }
 `;
+
+export const DataExistError = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 8px 0;
+  height: 40px;
+  padding: 0px 0px 0px 8px;
+  width: 100%;
+  outline: none;
+  border: none;
+  background-color: #dba29e;
+  color: black;
+  font-size: 0.8rem;
+  border: 2px solid red;
+  font-weight: bold;
+`;

@@ -93,9 +93,7 @@ switch ($method) {
             } else {
                 $response = ['status' => 0, 'message' => 'good'];
             }
-            echo json_encode($response);
         }
-        
         echo json_encode($response);
         break;
     case "GET":
