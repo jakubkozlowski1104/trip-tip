@@ -10,8 +10,8 @@ export const StyledLogin = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 380px;
-  height: 400px;
+  width: 480px;
+  height: 500px;
   background-color: #232123;
   border-radius: 1%;
   color: #18c9ec;
@@ -119,4 +119,33 @@ export const DataExistError = styled.div`
   font-size: 0.8rem;
   border: 2px solid red;
   font-weight: bold;
+`;
+
+export const HoverInfo = styled.div`
+  position: absolute;
+  width: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -9%;
+  transition: 1s;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 1;
+
+  &:hover::after {
+    content: '${(props) => props.content}';
+    transition: 1s;
+    width: 110px;
+    position: absolute;
+    font-size: 0.9rem;
+    bottom: 50%;
+    right: 40%;
+    transform: translateY(+50%);
+    padding: 5px;
+    background-color: #dba29e;
+    border: 2px solid red;
+    color: black;
+    z-index: 10;
+  }
 `;

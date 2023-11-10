@@ -6,13 +6,18 @@ import {
   StyledCenter,
   StyledForm,
   DataExistError,
+  HoverInfo,
 } from '../SignUp/SignUp.styles';
 import { StyledStrongPasswordFeature } from '../SignUp/StrongPasswordFeature.styles';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLock, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import {
+  faLock,
+  faUser,
+  faEnvelope,
+  faCircleInfo,
+} from '@fortawesome/free-solid-svg-icons';
 import PopupError from './PopupError/PopupError';
-
 const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PASS_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
@@ -120,6 +125,9 @@ const SignUp = () => {
             <DataExistError>{dataExistError}</DataExistError>
           )}
           <div className='form-input'>
+            <HoverInfo content='Name must contain between 6 and 24 charakters'>
+              <FontAwesomeIcon icon={faCircleInfo} />
+            </HoverInfo>
             <input
               placeholder='Name'
               type='text'
@@ -131,6 +139,9 @@ const SignUp = () => {
             </div>
           </div>
           <div className='form-input'>
+            <HoverInfo content='Email must contain @, and domain name'>
+              <FontAwesomeIcon icon={faCircleInfo} />
+            </HoverInfo>
             <input
               placeholder='Email'
               type='text'
