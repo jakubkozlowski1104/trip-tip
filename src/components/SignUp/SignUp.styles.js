@@ -32,7 +32,7 @@ export const StyledLogin = styled.div`
     background-color: #343334;
     padding: 0;
     margin: 8px 0;
-    border: ${(props) => props.isloginwrong && '1px solid red'};
+
     input {
       padding: 0px 0px 0px 8px;
       background-color: #343334;
@@ -43,6 +43,7 @@ export const StyledLogin = styled.div`
       background-color: #343334;
       color: white;
     }
+
     input:-webkit-autofill {
       transition: background-color 5000s;
       -webkit-text-fill-color: white;
@@ -56,6 +57,17 @@ export const StyledLogin = styled.div`
       font-size: 0.9rem;
     }
   }
+`;
+
+export const InputName = styled.div`
+  border: ${(props) => {
+    // console.log(props.canSignUp);
+    if (props.canSignUp === 'true') {
+      return '3px solid red';
+    } else {
+      return '3px solid blue';
+    }
+  }};
 `;
 
 export const StyledForm = styled.form`

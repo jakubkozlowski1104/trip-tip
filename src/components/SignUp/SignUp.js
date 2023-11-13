@@ -7,45 +7,70 @@ import {
   StyledForm,
   DataExistError,
   HoverInfo,
+  InputName,
 } from '../SignUp/SignUp.styles';
 import { StyledStrongPasswordFeature } from '../SignUp/StrongPasswordFeature.styles';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import PopupError from './PopupError/PopupError';
 import {
   faLock,
   faUser,
   faEnvelope,
   faCircleInfo,
 } from '@fortawesome/free-solid-svg-icons';
-import PopupError from './PopupError/PopupError';
+
 const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const PASS_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const PASS_REGEX = /^(?=.*[A-Z]).{6,}$/;
 
 const SignUp = () => {
   const [inputs, setInputs] = useState({});
   const [isLogIn, setIsLogIn] = useState(false);
-  const [isloginwrong, setIsLoginWrong] = useState(false);
   const [dataExistError, setIsDataExist] = useState('');
-  const [canSignUp, setCanSignUp] = useState({
-    isNameCorrect: false,
-    isEmailCorrect: false,
-    isPasswordCorrect: false,
+  const [isDataCorrect, setIsDataCorrect] = useState({
+    name: false,
+    email: false,
+    password: false,
   });
+  const [canSignUp, setCanSignUp] = useState('');
 
   const navigate = useNavigate();
 
   const handleValidation = () => {
-    if (inputs.name && inputs.name.length < 6) {
-      setCanSignUp((prevState) => ({
+    if (inputs.name && (inputs.name.length >= 6 || inputs.name.length <= 24)) {
+      setIsDataCorrect((prevState) => ({
         ...prevState,
-        isNameCorrect: false,
+        name: true,
       }));
     } else {
-      setCanSignUp((prevState) => ({
+      setIsDataCorrect((prevState) => ({
         ...prevState,
-        isNameCorrect: true,
+        name: false,
       }));
     }
+    if (EMAIL_REGEX.test(inputs.email)) {
+      setIsDataCorrect((prevState) => ({
+        ...prevState,
+        email: true,
+      }));
+    } else {
+      setIsDataCorrect((prevState) => ({
+        ...prevState,
+        email: false,
+      }));
+    }
+    if (PASS_REGEX.test(inputs.password)) {
+      setIsDataCorrect((prevState) => ({
+        ...prevState,
+        password: true,
+      }));
+    } else {
+      setIsDataCorrect((prevState) => ({
+        ...prevState,
+        password: false,
+      }));
+    }
+    console.log(isDataCorrect);
   };
 
   const handleChange = (e) => {
@@ -54,10 +79,15 @@ const SignUp = () => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const showTakenDate = (status) => {
+  const showTakenData = (status) => {
     console.log(status);
     if (status === 3) {
       setIsDataExist('email and name already exist');
+      setCanSignUp((prevState) => ({
+        ...prevState,
+        isEmailCorrect: false,
+        isNameCorrect: false,
+      }));
     } else if (status === 2) {
       setIsDataExist('email already exist');
     } else if (status === 1) {
@@ -70,6 +100,7 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     handleValidation();
+    //sprawdzic tu czy dane są poprawnie wprowadzone co nam da handle validaton
     axios
       .post('http://localhost/TripTipApi/index.php', {
         action: 'trySignUp',
@@ -78,9 +109,9 @@ const SignUp = () => {
       .then((response) => {
         let status = response.data.status;
         if (status <= 3 && status >= 1) {
-          showTakenDate(status);
+          showTakenData(status);
         } else if (status === 0) {
-          if (canSignUp.isNameCorrect) {
+          if (false) {
             axios.post('http://localhost/TripTipApi/index.php', {
               action: 'create',
               inputs,
@@ -118,14 +149,17 @@ const SignUp = () => {
 
   return (
     <StyledCenter>
-      <StyledLogin isloginwrong={isloginwrong ? 'true' : undefined}>
+      <StyledLogin>
         <h1>Sign up and start traveling!</h1>
         <StyledForm onSubmit={handleSubmit}>
           {dataExistError.length > 0 && (
             <DataExistError>{dataExistError}</DataExistError>
           )}
-          <div className='form-input'>
-            <HoverInfo content='Name must contain between 6 and 24 charakters'>
+          <InputName
+            className='form-input'
+            canSignUp={canSignUp === 'true' ? 'true' : 'false'}
+          >
+            <HoverInfo content='Between 6 and 24 charakters'>
               <FontAwesomeIcon icon={faCircleInfo} />
             </HoverInfo>
             <input
@@ -137,9 +171,9 @@ const SignUp = () => {
             <div className='icon'>
               <FontAwesomeIcon icon={faUser} />
             </div>
-          </div>
-          <div className='form-input'>
-            <HoverInfo content='Email must contain @, and domain name'>
+          </InputName>
+          <div className='form-input email'>
+            <HoverInfo content='One @, and domain name'>
               <FontAwesomeIcon icon={faCircleInfo} />
             </HoverInfo>
             <input
@@ -152,7 +186,10 @@ const SignUp = () => {
               <FontAwesomeIcon icon={faEnvelope} />
             </div>
           </div>
-          <div className='form-input'>
+          <div className='form-input password'>
+            <HoverInfo content='One big letter, at least 6 charakters'>
+              <FontAwesomeIcon icon={faCircleInfo} />
+            </HoverInfo>
             <input
               placeholder='Password'
               type='password'

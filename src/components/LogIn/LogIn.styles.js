@@ -31,7 +31,13 @@ export const StyledLogin = styled.div`
     background-color: #343334;
     padding: 0;
     margin: 8px 0;
-    border: ${(props) => props.isloginwrong && '1px solid red'};
+
+    border: ${(props) => {
+      console.log(props.isloginwrong);
+      console.log(typeof props.isloginwrong);
+      return props.isloginwrong === 'true' ? '1px solid red' : 'initial';
+    }};
+
     input {
       padding: 0px 0px 0px 8px;
       background-color: #343334;
