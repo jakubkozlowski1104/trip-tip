@@ -75,7 +75,6 @@ const SignUp = () => {
         }));
       }
     }
-    console.log(isDataCorrect);
   };
 
   const handleChange = (e) => {
@@ -102,7 +101,6 @@ const SignUp = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log('pirwszy');
     e.preventDefault();
     handleValidation();
     //sprawdzic tu czy dane są poprawnie wprowadzone co nam da handle validaton

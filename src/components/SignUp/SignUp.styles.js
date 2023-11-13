@@ -153,7 +153,6 @@ export const HoverInfo = styled.div`
 
 export const IconName = styled.div`
   color: ${(props) => {
-    // console.log('sordek name:', props.canSignUp);
     if (props.canSignUp === 'true' || props.canSignUp === 'none') {
       return '#03b8e9';
     } else {
