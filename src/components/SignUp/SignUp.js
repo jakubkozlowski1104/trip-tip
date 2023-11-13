@@ -7,7 +7,7 @@ import {
   StyledForm,
   DataExistError,
   HoverInfo,
-  InputName,
+  IconName,
 } from '../SignUp/SignUp.styles';
 import { StyledStrongPasswordFeature } from '../SignUp/StrongPasswordFeature.styles';
 import { useNavigate } from 'react-router-dom';
@@ -28,47 +28,52 @@ const SignUp = () => {
   const [isLogIn, setIsLogIn] = useState(false);
   const [dataExistError, setIsDataExist] = useState('');
   const [isDataCorrect, setIsDataCorrect] = useState({
-    name: false,
-    email: false,
-    password: false,
+    name: 'none',
+    email: 'none',
+    password: 'none',
   });
   const [canSignUp, setCanSignUp] = useState('');
 
   const navigate = useNavigate();
 
   const handleValidation = () => {
-    if (inputs.name && (inputs.name.length >= 6 || inputs.name.length <= 24)) {
+    if (inputs.name && inputs.name.length >= 6 && inputs.name.length <= 24) {
       setIsDataCorrect((prevState) => ({
         ...prevState,
-        name: true,
+        name: 'true',
       }));
     } else {
       setIsDataCorrect((prevState) => ({
         ...prevState,
-        name: false,
+        name: 'false',
       }));
     }
-    if (EMAIL_REGEX.test(inputs.email)) {
-      setIsDataCorrect((prevState) => ({
-        ...prevState,
-        email: true,
-      }));
-    } else {
-      setIsDataCorrect((prevState) => ({
-        ...prevState,
-        email: false,
-      }));
+    if (inputs.email && inputs.email.length > 0) {
+      if (EMAIL_REGEX.test(inputs.email)) {
+        setIsDataCorrect((prevState) => ({
+          ...prevState,
+          email: 'true',
+        }));
+      } else {
+        setIsDataCorrect((prevState) => ({
+          ...prevState,
+          email: 'false',
+        }));
+      }
     }
-    if (PASS_REGEX.test(inputs.password)) {
-      setIsDataCorrect((prevState) => ({
-        ...prevState,
-        password: true,
-      }));
-    } else {
-      setIsDataCorrect((prevState) => ({
-        ...prevState,
-        password: false,
-      }));
+
+    if (inputs.password && inputs.password.length > 0) {
+      if (PASS_REGEX.test(inputs.password)) {
+        setIsDataCorrect((prevState) => ({
+          ...prevState,
+          password: 'true',
+        }));
+      } else {
+        setIsDataCorrect((prevState) => ({
+          ...prevState,
+          password: 'false',
+        }));
+      }
     }
     console.log(isDataCorrect);
   };
@@ -80,7 +85,6 @@ const SignUp = () => {
   };
 
   const showTakenData = (status) => {
-    console.log(status);
     if (status === 3) {
       setIsDataExist('email and name already exist');
       setCanSignUp((prevState) => ({
@@ -98,6 +102,7 @@ const SignUp = () => {
   };
 
   const handleSubmit = async (e) => {
+    console.log('pirwszy');
     e.preventDefault();
     handleValidation();
     //sprawdzic tu czy dane są poprawnie wprowadzone co nam da handle validaton
@@ -155,12 +160,11 @@ const SignUp = () => {
           {dataExistError.length > 0 && (
             <DataExistError>{dataExistError}</DataExistError>
           )}
-          <InputName
-            className='form-input'
-            canSignUp={canSignUp === 'true' ? 'true' : 'false'}
-          >
+          <div className='form-input'>
             <HoverInfo content='Between 6 and 24 charakters'>
-              <FontAwesomeIcon icon={faCircleInfo} />
+              <IconName canSignUp={isDataCorrect.name}>
+                <FontAwesomeIcon icon={faCircleInfo} />
+              </IconName>
             </HoverInfo>
             <input
               placeholder='Name'
@@ -171,10 +175,12 @@ const SignUp = () => {
             <div className='icon'>
               <FontAwesomeIcon icon={faUser} />
             </div>
-          </InputName>
+          </div>
           <div className='form-input email'>
             <HoverInfo content='One @, and domain name'>
-              <FontAwesomeIcon icon={faCircleInfo} />
+              <IconName canSignUp={isDataCorrect.email}>
+                <FontAwesomeIcon icon={faCircleInfo} />
+              </IconName>
             </HoverInfo>
             <input
               placeholder='Email'
@@ -188,7 +194,9 @@ const SignUp = () => {
           </div>
           <div className='form-input password'>
             <HoverInfo content='One big letter, at least 6 charakters'>
-              <FontAwesomeIcon icon={faCircleInfo} />
+              <IconName canSignUp={isDataCorrect.password}>
+                <FontAwesomeIcon icon={faCircleInfo} />
+              </IconName>
             </HoverInfo>
             <input
               placeholder='Password'

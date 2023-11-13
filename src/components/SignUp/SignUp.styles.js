@@ -59,17 +59,6 @@ export const StyledLogin = styled.div`
   }
 `;
 
-export const InputName = styled.div`
-  border: ${(props) => {
-    // console.log(props.canSignUp);
-    if (props.canSignUp === 'true') {
-      return '3px solid red';
-    } else {
-      return '3px solid blue';
-    }
-  }};
-`;
-
 export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
@@ -160,4 +149,15 @@ export const HoverInfo = styled.div`
     color: black;
     z-index: 10;
   }
+`;
+
+export const IconName = styled.div`
+  color: ${(props) => {
+    // console.log('sordek name:', props.canSignUp);
+    if (props.canSignUp === 'true' || props.canSignUp === 'none') {
+      return '#03b8e9';
+    } else {
+      return 'red';
+    }
+  }};
 `;
