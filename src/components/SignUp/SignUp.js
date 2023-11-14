@@ -1,6 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { StyledStrongPasswordFeature } from '../SignUp/StrongPasswordFeature.styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   StyledLogin,
   StyledCenter,
@@ -9,9 +12,6 @@ import {
   HoverInfo,
   IconName,
 } from '../SignUp/SignUp.styles';
-import { StyledStrongPasswordFeature } from '../SignUp/StrongPasswordFeature.styles';
-import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faLock,
   faUser,
@@ -28,7 +28,6 @@ const SignUp = () => {
     email: '',
     password: '',
   });
-  const [isLogIn, setIsLogIn] = useState(false);
   const [dataExistError, setIsDataExist] = useState('');
   const [isDataCorrect, setIsDataCorrect] = useState({
     name: 'none',
@@ -40,7 +39,6 @@ const SignUp = () => {
   const navigate = useNavigate();
 
   const handleValidation = () => {
-    console.log('wchodzi');
     if (inputs.name && inputs.name.length >= 6 && inputs.name.length <= 24) {
       setIsDataCorrect((prevState) => ({
         ...prevState,
@@ -75,7 +73,19 @@ const SignUp = () => {
         password: 'false',
       }));
     }
-       };
+  };
+
+  useEffect(() => {
+    if (
+      isDataCorrect.name === 'true' &&
+      isDataCorrect.email === 'true' &&
+      isDataCorrect.password === 'true'
+    ) {
+      setCanSignUp(true);
+    } else {
+      setCanSignUp(false);
+    }
+  }, [isDataCorrect]);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -92,7 +102,6 @@ const SignUp = () => {
       setIsDataExist('name already exist');
     } else {
       setIsDataExist('');
-      setCanSignUp(true);
     }
   };
 
@@ -109,16 +118,13 @@ const SignUp = () => {
         if (status <= 3 && status >= 1) {
           showTakenData(status);
         } else if (status === 0) {
-          if (
-            isDataCorrect.name === 'true' &&
-            isDataCorrect.email === 'true' &&
-            isDataCorrect.password === 'true'
-          ) {
+          console.log(canSignUp);
+          if (canSignUp) {
             axios.post('http://localhost/TripTipApi/index.php', {
               action: 'create',
               inputs,
             });
-            navigate('/');
+            console.log('przekirowanie');
           }
         } else {
           console.log('status error');
@@ -127,12 +133,6 @@ const SignUp = () => {
       .catch((error) => {
         console.error('Błąd podczas żądania:', error);
       });
-  };
-
-  const changePath = () => {
-    if (isLogIn) {
-      navigate('/user/home');
-    }
   };
 
   const checkPassword = (letters) => {
@@ -147,6 +147,12 @@ const SignUp = () => {
     }
   };
 
+  const changePath = () => {
+    if (canSignUp) {
+      navigate('/user/home');
+    }
+  };
+
   return (
     <StyledCenter>
       <StyledLogin>
@@ -155,7 +161,6 @@ const SignUp = () => {
           {dataExistError.length > 0 && (
             <DataExistError>{dataExistError}</DataExistError>
           )}
-          {console.log(inputs.name.length)}
           <div className='form-input'>
             <HoverInfo content='Between 6 and 24 charakters'>
               <IconName canSignUp={isDataCorrect.name}>
@@ -219,7 +224,9 @@ const SignUp = () => {
                 : 'Too week!'}
             </div>
           </StyledStrongPasswordFeature>
-          <button onClick={changePath()}>Register</button>
+          <button type='submit' onClick={changePath()}>
+            Register
+          </button>
           <div className='register'>
             <p>
               Already have an account?
