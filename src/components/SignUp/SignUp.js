@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -94,9 +93,8 @@ const SignUp = () => {
             inputs,
           }
         );
-        changePath();
-
         if (responseSignUp.data.status) {
+          navigate('/user/home');
           console.log('New user Sign Up');
         } else {
           console.log('erro');
@@ -114,12 +112,6 @@ const SignUp = () => {
       return 'Strong password';
     } else {
       return 'Very strong password';
-    }
-  };
-
-  const changePath = () => {
-    if (canSignUp) {
-      navigate('/user/home');
     }
   };
 
