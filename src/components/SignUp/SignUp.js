@@ -12,7 +12,6 @@ import {
 import { StyledStrongPasswordFeature } from '../SignUp/StrongPasswordFeature.styles';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PopupError from './PopupError/PopupError';
 import {
   faLock,
   faUser,
@@ -24,7 +23,11 @@ const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PASS_REGEX = /^(?=.*[A-Z]).{6,}$/;
 
 const SignUp = () => {
-  const [inputs, setInputs] = useState({});
+  const [inputs, setInputs] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
   const [isLogIn, setIsLogIn] = useState(false);
   const [dataExistError, setIsDataExist] = useState('');
   const [isDataCorrect, setIsDataCorrect] = useState({
@@ -32,11 +35,12 @@ const SignUp = () => {
     email: 'none',
     password: 'none',
   });
-  const [canSignUp, setCanSignUp] = useState('');
+  const [canSignUp, setCanSignUp] = useState(false);
 
   const navigate = useNavigate();
 
   const handleValidation = () => {
+    console.log('wchodzi');
     if (inputs.name && inputs.name.length >= 6 && inputs.name.length <= 24) {
       setIsDataCorrect((prevState) => ({
         ...prevState,
@@ -48,34 +52,30 @@ const SignUp = () => {
         name: 'false',
       }));
     }
-    if (inputs.email && inputs.email.length > 0) {
-      if (EMAIL_REGEX.test(inputs.email)) {
-        setIsDataCorrect((prevState) => ({
-          ...prevState,
-          email: 'true',
-        }));
-      } else {
-        setIsDataCorrect((prevState) => ({
-          ...prevState,
-          email: 'false',
-        }));
-      }
+    if (EMAIL_REGEX.test(inputs.email)) {
+      setIsDataCorrect((prevState) => ({
+        ...prevState,
+        email: 'true',
+      }));
+    } else {
+      setIsDataCorrect((prevState) => ({
+        ...prevState,
+        email: 'false',
+      }));
     }
 
-    if (inputs.password && inputs.password.length > 0) {
-      if (PASS_REGEX.test(inputs.password)) {
-        setIsDataCorrect((prevState) => ({
-          ...prevState,
-          password: 'true',
-        }));
-      } else {
-        setIsDataCorrect((prevState) => ({
-          ...prevState,
-          password: 'false',
-        }));
-      }
+    if (PASS_REGEX.test(inputs.password)) {
+      setIsDataCorrect((prevState) => ({
+        ...prevState,
+        password: 'true',
+      }));
+    } else {
+      setIsDataCorrect((prevState) => ({
+        ...prevState,
+        password: 'false',
+      }));
     }
-  };
+       };
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -86,24 +86,19 @@ const SignUp = () => {
   const showTakenData = (status) => {
     if (status === 3) {
       setIsDataExist('email and name already exist');
-      setCanSignUp((prevState) => ({
-        ...prevState,
-        isEmailCorrect: false,
-        isNameCorrect: false,
-      }));
     } else if (status === 2) {
       setIsDataExist('email already exist');
     } else if (status === 1) {
       setIsDataExist('name already exist');
     } else {
       setIsDataExist('');
+      setCanSignUp(true);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     handleValidation();
-    //sprawdzic tu czy dane są poprawnie wprowadzone co nam da handle validaton
     axios
       .post('http://localhost/TripTipApi/index.php', {
         action: 'trySignUp',
@@ -114,14 +109,16 @@ const SignUp = () => {
         if (status <= 3 && status >= 1) {
           showTakenData(status);
         } else if (status === 0) {
-          if (false) {
+          if (
+            isDataCorrect.name === 'true' &&
+            isDataCorrect.email === 'true' &&
+            isDataCorrect.password === 'true'
+          ) {
             axios.post('http://localhost/TripTipApi/index.php', {
               action: 'create',
               inputs,
             });
             navigate('/');
-          } else {
-            return <PopupError />;
           }
         } else {
           console.log('status error');
@@ -158,6 +155,7 @@ const SignUp = () => {
           {dataExistError.length > 0 && (
             <DataExistError>{dataExistError}</DataExistError>
           )}
+          {console.log(inputs.name.length)}
           <div className='form-input'>
             <HoverInfo content='Between 6 and 24 charakters'>
               <IconName canSignUp={isDataCorrect.name}>
