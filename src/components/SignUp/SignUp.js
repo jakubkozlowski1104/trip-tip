@@ -38,54 +38,23 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
-  const handleValidation = () => {
-    if (inputs.name && inputs.name.length >= 6 && inputs.name.length <= 24) {
-      setIsDataCorrect((prevState) => ({
-        ...prevState,
-        name: 'true',
-      }));
-    } else {
-      setIsDataCorrect((prevState) => ({
-        ...prevState,
-        name: 'false',
-      }));
-    }
-    if (EMAIL_REGEX.test(inputs.email)) {
-      setIsDataCorrect((prevState) => ({
-        ...prevState,
-        email: 'true',
-      }));
-    } else {
-      setIsDataCorrect((prevState) => ({
-        ...prevState,
-        email: 'false',
-      }));
-    }
-
-    if (PASS_REGEX.test(inputs.password)) {
-      setIsDataCorrect((prevState) => ({
-        ...prevState,
-        password: 'true',
-      }));
-    } else {
-      setIsDataCorrect((prevState) => ({
-        ...prevState,
-        password: 'false',
-      }));
-    }
-  };
-
   useEffect(() => {
-    if (
-      isDataCorrect.name === 'true' &&
-      isDataCorrect.email === 'true' &&
-      isDataCorrect.password === 'true'
-    ) {
-      setCanSignUp(true);
-    } else {
-      setCanSignUp(false);
-    }
-  }, [isDataCorrect]);
+    const validateInputs = () => {
+      const isNameValid = inputs.name.length >= 6 && inputs.name.length <= 24;
+      const isEmailValid = EMAIL_REGEX.test(inputs.email);
+      const isPasswordValid = PASS_REGEX.test(inputs.password);
+
+      setIsDataCorrect({
+        name: isNameValid ? 'true' : 'false',
+        email: isEmailValid ? 'true' : 'false',
+        password: isPasswordValid ? 'true' : 'false',
+      });
+
+      setCanSignUp(isNameValid && isEmailValid && isPasswordValid);
+    };
+
+    validateInputs();
+  }, [inputs]);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -107,32 +76,33 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    handleValidation();
-    axios
-      .post('http://localhost/TripTipApi/index.php', {
-        action: 'trySignUp',
-        inputs,
-      })
-      .then((response) => {
-        let status = response.data.status;
-        if (status <= 3 && status >= 1) {
-          showTakenData(status);
-        } else if (status === 0) {
-          console.log(canSignUp);
-          if (canSignUp) {
-            axios.post('http://localhost/TripTipApi/index.php', {
-              action: 'create',
-              inputs,
-            });
-            console.log('przekirowanie');
+    const response = await axios.post('http://localhost/TripTipApi/index.php', {
+      action: 'trySignUp',
+      inputs,
+    });
+    let status = response.data.status;
+    if (status <= 3 && status >= 1) {
+      showTakenData(status);
+    } else if (status === 0) {
+      console.log(canSignUp);
+      if (canSignUp) {
+        console.log('wchodzi');
+        const responseSignUp = await axios.post(
+          'http://localhost/TripTipApi/index.php',
+          {
+            action: 'create',
+            inputs,
           }
+        );
+        changePath();
+
+        if (responseSignUp.data.status) {
+          console.log('New user Sign Up');
         } else {
-          console.log('status error');
+          console.log('erro');
         }
-      })
-      .catch((error) => {
-        console.error('Błąd podczas żądania:', error);
-      });
+      }
+    }
   };
 
   const checkPassword = (letters) => {
@@ -224,13 +194,19 @@ const SignUp = () => {
                 : 'Too week!'}
             </div>
           </StyledStrongPasswordFeature>
-          <button type='submit' onClick={changePath()}>
-            Register
-          </button>
+          <button type='submit'>Register</button>
+
           <div className='register'>
             <p>
               Already have an account?
-              <span onClick={() => navigate('/user/login')}> Login </span>
+              <span
+                onClick={() => {
+                  navigate('/user/login');
+                }}
+              >
+                {' '}
+                Login{' '}
+              </span>
             </p>
           </div>
         </StyledForm>
