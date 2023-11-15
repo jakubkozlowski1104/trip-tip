@@ -76,9 +76,7 @@ const SignUp = () => {
     if (status <= 3 && status >= 1) {
       showTakenData(status);
     } else if (status === 0) {
-      console.log(canSignUp);
       if (canSignUp) {
-        console.log('wchodzi');
         const responseSignUp = await axios.post(
           'http://localhost/TripTipApi/index.php',
           {
@@ -88,9 +86,8 @@ const SignUp = () => {
         );
         if (responseSignUp.data.status) {
           navigate('/user/home');
-          console.log('New user Sign Up');
         } else {
-          console.log('erro');
+          console.log('error');
         }
       }
     }
