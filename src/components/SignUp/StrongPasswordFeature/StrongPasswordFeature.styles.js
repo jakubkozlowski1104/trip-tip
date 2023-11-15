@@ -33,21 +33,21 @@ export const StyledStrongPasswordFeature = styled.div`
     }
     .better::after {
       ${(props) =>
-        props.strongLevel >= 5 &&
+        props.stronglevel >= 5 &&
         `
           width: 100%;
         `}
     }
     .strong::after {
       ${(props) =>
-        props.strongLevel >= 7 &&
+        props.stronglevel >= 7 &&
         `
           width: 100%;
         `}
     }
     .very-strong::after {
       ${(props) =>
-        props.strongLevel >= 9 &&
+        props.stronglevel >= 9 &&
         `
           width: 100%;
         `}

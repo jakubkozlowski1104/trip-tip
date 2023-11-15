@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const StyledInputField = styled.div`
+export const StyledInputField = styled.div.attrs((props) => ({
+  cansignup: props.cansignup,
+}))`
   position: relative;
   width: 270px;
   margin: 10px;
@@ -54,7 +56,7 @@ export const HoverInfo = styled.div`
     font-size: 0.9rem;
     bottom: 50%;
     right: 40%;
-    transform: translateY(+50%);
+    transform: translateY(50%);
     padding: 5px;
     background-color: #dba29e;
     border: 2px solid red;
@@ -65,7 +67,7 @@ export const HoverInfo = styled.div`
 
 export const IconName = styled.div`
   color: ${(props) => {
-    if (props.canSignUp === 'true' || props.canSignUp === 'none') {
+    if (props.cansignup === 'true' || props.cansignup === 'none') {
       return '#03b8e9';
     } else {
       return 'red';

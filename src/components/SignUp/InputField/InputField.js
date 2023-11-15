@@ -14,7 +14,7 @@ const InputField = ({
   return (
     <StyledInputField>
       <HoverInfo content={infoContent}>
-        <IconName canSignUp={canSignUp}>
+        <IconName cansignup={canSignUp}>
           <FontAwesomeIcon icon={icon} />
         </IconName>
       </HoverInfo>

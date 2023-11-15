@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { StyledStrongPasswordFeature } from '../SignUp/StrongPasswordFeature.styles';
 import {
   StyledLogin,
   StyledCenter,
@@ -10,6 +9,7 @@ import {
 } from '../SignUp/SignUp.styles';
 import { faLock, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import InputField from './InputField/InputField';
+import StrongPasswordFeature from './StrongPasswordFeature/StrongPasswordFeature';
 
 const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PASS_REGEX = /^(?=.*[A-Z]).{6,}$/;
@@ -68,40 +68,35 @@ const SignUp = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post('http://localhost/TripTipApi/index.php', {
-      action: 'trySignUp',
-      inputs,
-    });
-    let status = response.data.status;
-    if (status <= 3 && status >= 1) {
-      showTakenData(status);
-    } else if (status === 0) {
-      if (canSignUp) {
-        const responseSignUp = await axios.post(
-          'http://localhost/TripTipApi/index.php',
-          {
-            action: 'create',
-            inputs,
+    try {
+      const response = await axios.post(
+        'http://localhost/TripTipApi/index.php',
+        {
+          action: 'trySignUp',
+          inputs,
+        }
+      );
+      let status = response.data.status;
+      if (status <= 3 && status >= 1) {
+        showTakenData(status);
+      } else if (status === 0) {
+        if (canSignUp) {
+          const responseSignUp = await axios.post(
+            'http://localhost/TripTipApi/index.php',
+            {
+              action: 'create',
+              inputs,
+            }
+          );
+          if (responseSignUp.data.status) {
+            navigate('/user/home');
+          } else {
+            console.log('Error creating user');
           }
-        );
-        if (responseSignUp.data.status) {
-          navigate('/user/home');
-        } else {
-          console.log('error');
         }
       }
-    }
-  };
-
-  const checkPassword = (letters) => {
-    if (letters <= 4) {
-      return 'Too weak!';
-    } else if (letters <= 6) {
-      return 'Could be stronger';
-    } else if (letters <= 8) {
-      return 'Strong password';
-    } else {
-      return 'Very strong password';
+    } catch (error) {
+      console.error('An error occurred:', error);
     }
   };
 
@@ -140,23 +135,8 @@ const SignUp = () => {
             infoContent='One big letter, at least 6 characters'
             canSignUp={isDataCorrect.password}
           />
-          <StyledStrongPasswordFeature
-            strongLevel={inputs.password && inputs.password.length}
-          >
-            <div className='feature'>
-              <div className='low'></div>
-              <div className='better'></div>
-              <div className='strong'></div>
-              <div className='very-strong'></div>
-            </div>
-            <div className='passwordPowerInfo'>
-              {inputs.password
-                ? checkPassword(inputs.password.length)
-                : 'Too week!'}
-            </div>
-          </StyledStrongPasswordFeature>
+          <StrongPasswordFeature inputs={inputs} />
           <button type='submit'>Register</button>
-
           <div className='register'>
             <p>
               Already have an account?
