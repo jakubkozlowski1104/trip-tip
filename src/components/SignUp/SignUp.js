@@ -2,21 +2,14 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { StyledStrongPasswordFeature } from '../SignUp/StrongPasswordFeature.styles';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   StyledLogin,
   StyledCenter,
   StyledForm,
   DataExistError,
-  HoverInfo,
-  IconName,
 } from '../SignUp/SignUp.styles';
-import {
-  faLock,
-  faUser,
-  faEnvelope,
-  faCircleInfo,
-} from '@fortawesome/free-solid-svg-icons';
+import { faLock, faUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
+import InputField from './InputField/InputField';
 
 const EMAIL_REGEX = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const PASS_REGEX = /^(?=.*[A-Z]).{6,}$/;
@@ -123,54 +116,33 @@ const SignUp = () => {
           {dataExistError.length > 0 && (
             <DataExistError>{dataExistError}</DataExistError>
           )}
-          <div className='form-input'>
-            <HoverInfo content='Between 6 and 24 charakters'>
-              <IconName canSignUp={isDataCorrect.name}>
-                <FontAwesomeIcon icon={faCircleInfo} />
-              </IconName>
-            </HoverInfo>
-            <input
-              placeholder='Name'
-              type='text'
-              name='name'
-              onChange={handleChange}
-            />
-            <div className='icon'>
-              <FontAwesomeIcon icon={faUser} />
-            </div>
-          </div>
-          <div className='form-input email'>
-            <HoverInfo content='One @, and domain name'>
-              <IconName canSignUp={isDataCorrect.email}>
-                <FontAwesomeIcon icon={faCircleInfo} />
-              </IconName>
-            </HoverInfo>
-            <input
-              placeholder='Email'
-              type='text'
-              name='email'
-              onChange={handleChange}
-            />
-            <div className='icon'>
-              <FontAwesomeIcon icon={faEnvelope} />
-            </div>
-          </div>
-          <div className='form-input password'>
-            <HoverInfo content='One big letter, at least 6 charakters'>
-              <IconName canSignUp={isDataCorrect.password}>
-                <FontAwesomeIcon icon={faCircleInfo} />
-              </IconName>
-            </HoverInfo>
-            <input
-              placeholder='Password'
-              type='password'
-              name='password'
-              onChange={handleChange}
-            />
-            <div className='icon'>
-              <FontAwesomeIcon icon={faLock} />
-            </div>
-          </div>
+          <InputField
+            placeholder='Name'
+            type='text'
+            name='name'
+            onChange={handleChange}
+            icon={faUser}
+            infoContent='Between 6 and 24 characters'
+            canSignUp={isDataCorrect.name}
+          />
+          <InputField
+            placeholder='Email'
+            type='text'
+            name='email'
+            onChange={handleChange}
+            icon={faEnvelope}
+            infoContent='One @, and domain name'
+            canSignUp={isDataCorrect.email}
+          />
+          <InputField
+            placeholder='Password'
+            type='password'
+            name='password'
+            onChange={handleChange}
+            icon={faLock}
+            infoContent='One big letter, at least 6 characters'
+            canSignUp={isDataCorrect.password}
+          />
           <StyledStrongPasswordFeature
             strongLevel={inputs.password && inputs.password.length}
           >
