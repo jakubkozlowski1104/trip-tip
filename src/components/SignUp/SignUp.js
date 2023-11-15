@@ -20,12 +20,12 @@ const SignUp = () => {
     email: '',
     password: '',
   });
-  const [dataExistError, setIsDataExist] = useState('');
   const [isDataCorrect, setIsDataCorrect] = useState({
     name: 'none',
     email: 'none',
     password: 'none',
   });
+  const [dataExistError, setIsDataExist] = useState('');
   const [canSignUp, setCanSignUp] = useState(false);
 
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ const SignUp = () => {
     setInputs((values) => ({ ...values, [name]: value }));
   };
 
-  const showTakenData = (status) => {
+  const checkIfDataAlreadyExist = (status) => {
     if (status === 3) {
       setIsDataExist('email and name already exist');
     } else if (status === 2) {
@@ -78,7 +78,7 @@ const SignUp = () => {
       );
       let status = response.data.status;
       if (status <= 3 && status >= 1) {
-        showTakenData(status);
+        checkIfDataAlreadyExist(status);
       } else if (status === 0) {
         if (canSignUp) {
           const responseSignUp = await axios.post(
