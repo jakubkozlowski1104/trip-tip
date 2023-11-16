@@ -12,9 +12,13 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
 
+require_once 'vendor/autoload.php'; // Adjust the path according to your project structure
+use \Firebase\JWT\JWT;
+
 include 'DbConnect.php';
 $objDb = new DbConnect();
 $conn = $objDb->connect();
+
 
 $method = $_SERVER['REQUEST_METHOD'];
 switch ($method) {
@@ -36,7 +40,7 @@ switch ($method) {
             } else {
                 $response = ['status' => 0, 'message' => 'Failed to create record'];
             }
-         } elseif ($actionType === 'login') {
+         }  elseif ($actionType === 'login') {
             $email = $requestData->inputs->email;
             $password = $requestData->inputs->password;
     
@@ -48,22 +52,11 @@ switch ($method) {
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
     
             if ($user) {
-                $response = ['status' => 1, 'message' => 'Login successful', 'user' => $user];
-            } else {
-                $response = ['status' => 0, 'message' => 'Login failed'];
-            }
-        } elseif ($actionType === 'login') {
-            $email = $requestData->inputs->email;
-            $password = $requestData->inputs->password;
-    
-            $sql = "SELECT * FROM users WHERE email = :email AND password = :password";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':password', $password);
-            $stmt->execute();
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-            if ($user) {
+                $tokenPayload = array(
+                    "user_id" => $user['id'],
+                    "email" => $user['email']
+                );
+                $jwt = JWT::encode($tokenPayload, 'YourSecretKey', 'HS256'); // Change 'YourSecretKey' to your actual secret key
                 $response = ['status' => 1, 'message' => 'Login successful', 'user' => $user];
             } else {
                 $response = ['status' => 0, 'message' => 'Login failed'];
