@@ -57,7 +57,7 @@ switch ($method) {
                     "email" => $user['email']
                 );
                 $jwt = JWT::encode($tokenPayload, 'YourSecretKey', 'HS256'); // Change 'YourSecretKey' to your actual secret key
-                $response = ['status' => 1, 'message' => 'Login successful', 'user' => $user];
+                $response = ['status' => 1, 'message' => 'Login successful', 'user' => $user, 'token' => $jwt,];
             } else {
                 $response = ['status' => 0, 'message' => 'Login failed'];
             }

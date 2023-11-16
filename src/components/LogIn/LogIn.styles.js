@@ -33,8 +33,6 @@ export const StyledLogin = styled.div`
     margin: 8px 0;
 
     border: ${(props) => {
-      console.log(props.isloginwrong);
-      console.log(typeof props.isloginwrong);
       return props.isloginwrong === 'true' ? '1px solid red' : 'initial';
     }};
 

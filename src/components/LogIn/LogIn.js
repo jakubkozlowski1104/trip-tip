@@ -8,12 +8,24 @@ import {
   faLock,
   faUser,
 } from '@fortawesome/free-solid-svg-icons'; // Import the specific icon
+const { default: jwt_decode } = require('jwt-decode');
 
 const LogIn = () => {
   const [inputs, setInputs] = useState({});
   const [isLogIn, setIsLogIn] = useState(false);
   const [isloginwrong, setIsLoginWrong] = useState(false);
   const navigate = useNavigate();
+  const userToken = localStorage.getItem('token');
+
+  const helloUser = () => {
+    if (userToken) {
+      // Odkodowanie tokenu JWT, zakładając, że token zawiera informacje w postaci obiektu
+      const decodedToken = jwt_decode(userToken);
+
+      // Wyświetlenie powitania z nazwą zalogowanego użytkownika
+      console.log(`Hello, ${decodedToken.username}!`);
+    }
+  };
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -29,7 +41,8 @@ const LogIn = () => {
         inputs,
       })
       .then((response) => {
-        console.log(response.data.status);
+        localStorage.setItem('token', response.data.token);
+        helloUser();
         if (response.data.status === 1) {
           setIsLogIn(true);
           setIsLoginWrong(false);
