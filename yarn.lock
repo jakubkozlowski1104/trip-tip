@@ -7118,6 +7118,10 @@ performance-now@^2.1.0:
   resolved "https://registry.npmjs.org/performance-now/-/performance-now-2.1.0.tgz"
   integrity sha512-7EAHlyLHI56VEIdK57uwHdHKIaAGbnXPiw0yWbarQZOKaKpvUIgW0jWRVLiatnM+XXlSwsanIBH/hzGMJulMow==
 
+php-jwt@firebase/php-jwt:
+  version "0.0.0"
+  resolved "https://codeload.github.com/firebase/php-jwt/tar.gz/f03270e63eaccf3019ef0f32849c497385774e11"
+
 picocolors@^0.2.1:
   version "0.2.1"
   resolved "https://registry.npmjs.org/picocolors/-/picocolors-0.2.1.tgz"
