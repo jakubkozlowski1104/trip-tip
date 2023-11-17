@@ -35,8 +35,12 @@ const Navbar = () => {
           </div>
         </div>
         <div className='icons'>
-          <FontAwesomeIcon icon={faGlobe} />
-          <FontAwesomeIcon icon={faGear} />
+          <p>
+            <FontAwesomeIcon icon={faGlobe} />
+          </p>
+          <p>
+            <FontAwesomeIcon icon={faGear} />
+          </p>
         </div>
         <div className='buttons'>
           <NavLink to='user/login'>

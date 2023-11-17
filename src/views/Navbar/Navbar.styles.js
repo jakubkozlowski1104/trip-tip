@@ -29,9 +29,8 @@ export const StyledNav = styled.nav`
   }
 
   .search-bar {
-    width: 45%;
     position: relative;
-    flex-basis: 50%;
+    flex-basis: 46%;
     input {
       padding: 8px 60px 8px 35px;
       border-radius: 50px;
@@ -43,6 +42,23 @@ export const StyledNav = styled.nav`
       top: 50%;
       transform: translateY(-50%);
       left: 1.5%;
+    }
+  }
+
+  .icons {
+    margin: 10px;
+    font-size: 1.5rem;
+    color: gray;
+    display: flex;
+    justify-content: center;
+
+    p {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    p:hover {
+      color: #4ccac7;
     }
   }
 
