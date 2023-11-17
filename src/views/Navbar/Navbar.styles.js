@@ -2,34 +2,77 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const StyledNav = styled.nav`
-  height: 50px;
+  height: 80px;
   display: flex;
+  flex-direction: row;
+  align-items: center;
   border-bottom: 2px solid black;
+  width: 100vw;
 
   .logo {
-    width: 8%;
+    width: 10%;
     img {
-      max-width: 100%; /* Ustala maksymalną szerokość obrazka na 100% szerokości jego kontenera */
-      height: auto; /* Automatycznie dopasowuje wysokość obrazka zachowując proporcje */
-      padding: 5px;
+      max-width: 100%;
+      height: auto;
+      padding: 10px;
       cursor: pointer;
     }
   }
 
   ul {
+    margin-left: 20px;
+    flex-basis: 20%;
     display: flex;
     flex-direction: row;
+    align-items: center;
     list-style-type: none;
+  }
 
-    li {
-      padding: 5px;
-      background-color: yellow;
-      text-decoration: none;
+  .search-bar {
+    width: 45%;
+    position: relative;
+    flex-basis: 50%;
+    input {
+      padding: 8px 60px 8px 35px;
+      border-radius: 50px;
+      outline: none;
+      border: 1px solid gray;
+    }
+    .search-icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 1.5%;
+    }
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    flex-grow: 2;
+    margin-right: auto;
+
+    button {
+      border: 1px solid gray;
+      border-radius: 50px;
+      padding: 8px 25px;
+      margin: 0px 8px;
+      color: #4ccac7;
+      background-color: white;
+      border: 1px solid #4ccac7;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    button:hover {
+      background-color: #dcf5f4;
     }
   }
 `;
 
 export const StyledNavLink = styled(NavLink)`
+  font-weight: bold;
+  padding: 5px;
+  color: #b9c1c0;
   text-decoration: none;
-  color: black;
+  text-transform: uppercase;
 `;
