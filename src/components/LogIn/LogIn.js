@@ -8,22 +8,23 @@ import {
   faLock,
   faUser,
 } from '@fortawesome/free-solid-svg-icons'; // Import the specific icon
-const { default: jwt_decode } = require('jwt-decode');
+// const { default: jwt_decode } = require('jwt-decode');
+import { jwtDecode } from 'jwt-decode';
 
 const LogIn = () => {
   const [inputs, setInputs] = useState({});
   const [isLogIn, setIsLogIn] = useState(false);
   const [isloginwrong, setIsLoginWrong] = useState(false);
   const navigate = useNavigate();
-  const userToken = localStorage.getItem('token');
 
   const helloUser = () => {
+    console.log(localStorage);
+    const userToken = localStorage.getItem('token');
     if (userToken) {
-      // Odkodowanie tokenu JWT, zakładając, że token zawiera informacje w postaci obiektu
-      const decodedToken = jwt_decode(userToken);
+      console.log(userToken);
 
-      // Wyświetlenie powitania z nazwą zalogowanego użytkownika
-      console.log(`Hello, ${decodedToken.username}!`);
+      const decodedToken = jwtDecode(userToken);
+      console.log(decodedToken);
     }
   };
 
@@ -54,7 +55,6 @@ const LogIn = () => {
 
   const changePath = () => {
     if (isLogIn) {
-      console.log('siema');
       navigate('/user/home');
     }
   };
