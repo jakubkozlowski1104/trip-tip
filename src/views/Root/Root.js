@@ -3,6 +3,7 @@ import { GlobalStyle } from '../../assets/styles/GlobalStyle';
 import { theme } from '../../assets/styles/Theme';
 import Navbar from '../Navbar/Navbar';
 import AsideNav from '../../components/AsideNav/AsideNav';
+import CardInfo from '../../components/CardInfo/CardInfo';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <div className='App'>
         <Navbar />
         <AsideNav />
+        <CardInfo />
       </div>
     </ThemeProvider>
   );
