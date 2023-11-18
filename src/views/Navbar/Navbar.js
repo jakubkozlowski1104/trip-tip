@@ -19,7 +19,6 @@ import {
   faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 import Newest from '../../components/Newest/Newest';
-import { isCallExpression } from '@babel/types';
 
 const Navbar = () => {
   const [animationData, setAnimationData] = useState({
