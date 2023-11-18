@@ -15,7 +15,7 @@ export const StyledNav = styled.nav`
   top: 0;
   left: 0;
   background-color: white;
-  z-index: 2;
+  z-index: 10;
   transition: 0.3s;
 
   ${(props) =>
