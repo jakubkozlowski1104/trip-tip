@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SignUp from '../../components/SignUp/SignUp';
 import LogIn from '../../components/LogIn/LogIn';
 import SavedDestinations from '../../components/SavedDestinations/SavedDestinations';
@@ -19,6 +19,7 @@ import {
   faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 import Newest from '../../components/Newest/Newest';
+import { isCallExpression } from '@babel/types';
 
 const Navbar = () => {
   const [animationData, setAnimationData] = useState({
@@ -26,18 +27,35 @@ const Navbar = () => {
     width: '105px',
   });
   const [selectedIndicator, setSelectedIndicator] = useState('1');
+  const [isScrolled, setIsScrolled] = useState();
 
   const handleLinkClick = (left, width) => {
     setAnimationData({
       left,
       width,
     });
-    console.log(selectedIndicator);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const offset = window.scrollY;
+      if (offset > 5) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <BrowserRouter>
-      <StyledNav>
+      <StyledNav $isScrolled={isScrolled}>
         <div className='logo'>
           <StyledNavLink to='/'>
             <img

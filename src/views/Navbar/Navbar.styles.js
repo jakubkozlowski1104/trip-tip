@@ -2,12 +2,27 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
 export const StyledNav = styled.nav`
-  height: 80px;
+  overflow: hidden;
+  height: 90px;
+  padding: 0;
+  margin: 0;
   display: flex;
   flex-direction: row;
   align-items: center;
   border-bottom: 2px solid black;
   width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  z-index: 2;
+  transition: 0.3s;
+
+  ${(props) =>
+    props.$isScrolled &&
+    `
+      height: 60px;
+  `}
 
   .logo {
     width: 10%;

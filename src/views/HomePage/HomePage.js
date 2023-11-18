@@ -1,5 +1,11 @@
+import { StyledHomeWrapper } from './HomePage.styles';
+
 const HomePage = () => {
-  return <h1>HOME PAGE</h1>;
+  return (
+    <StyledHomeWrapper>
+      <p>HOME!</p>  
+    </StyledHomeWrapper>
+  );
 };
 
 export default HomePage;
