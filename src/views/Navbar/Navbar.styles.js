@@ -120,7 +120,7 @@ export const StyledNavLink = styled(NavLink)`
 `;
 
 export const AnimatedLine = styled.div`
-  transition: 1s;
+  transition: 0.5s;
   position: absolute;
   background-color: #fe5053;
   bottom: 0;
@@ -129,5 +129,6 @@ export const AnimatedLine = styled.div`
   padding: 0;
   margin: 0;
   width: 100px;
-  left: ${(props) => props.$animationData};
+  left: ${(props) => props.$animationData.left};
+  width: ${(props) => props.$animationData.width};
 `;

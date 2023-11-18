@@ -16,10 +16,16 @@ import {
 import Newest from '../../components/Newest/Newest';
 
 const Navbar = () => {
-  const [animationData, setAnimationData] = useState('0px');
+  const [animationData, setAnimationData] = useState({
+    left: '0px',
+    width: '105px',
+  });
 
-  const handleLinkClick = (left) => {
-    setAnimationData(left);
+  const handleLinkClick = (left, width) => {
+    setAnimationData({
+      left,
+      width,
+    });
   };
 
   return (
@@ -27,43 +33,43 @@ const Navbar = () => {
       <StyledNav>
         <div className='logo'>
           <StyledNavLink to='/'>
-            <img src={logo} alt='TripTip Logo' />
+            <img
+              src={logo}
+              alt='TripTip Logo'
+              onClick={() => handleLinkClick('0px', '105px')}
+            />
           </StyledNavLink>
         </div>
         <ul>
           <NavLink
             to='/'
             className='link'
-            onClick={() => handleLinkClick('0px')}
+            onClick={() => handleLinkClick('0px', '105px')}
           >
             Discover
           </NavLink>
           <NavLink
             to='/user/newest'
             className='link'
-            onClick={() => handleLinkClick('105px')}
+            onClick={() => handleLinkClick('105px', '86px')}
           >
             Newest
           </NavLink>
           <NavLink
             to='/user/saved'
             className='link'
-            onClick={() => handleLinkClick('191px')}
+            onClick={() => handleLinkClick('191px', '72px')}
           >
             Saved
           </NavLink>
           <NavLink
             to='/user/visited'
             className='link'
-            onClick={() => handleLinkClick('263px')}
+            onClick={() => handleLinkClick('263px', '80px')}
           >
             Visited
           </NavLink>
-          <AnimatedLine
-            $animationData={
-              typeof animationData === 'string' ? animationData : '0px'
-            }
-          ></AnimatedLine>
+          <AnimatedLine $animationData={animationData}></AnimatedLine>
         </ul>
         <div className='search-bar'>
           <input type='text' placeholder='Search' />
