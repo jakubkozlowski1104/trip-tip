@@ -1,10 +1,11 @@
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
 import SignUp from '../../components/SignUp/SignUp';
 import LogIn from '../../components/LogIn/LogIn';
 import SavedDestinations from '../../components/SavedDestinations/SavedDestinations';
 import VisitedDestinations from '../../components/VisitedDestinations/VisitedDestinations';
 import HomePage from '../HomePage/HomePage';
-import { StyledNav, StyledNavLink } from './Navbar.styles';
+import { StyledNav, StyledNavLink, AnimatedLine } from './Navbar.styles';
 import logo from '../../assets/images/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -14,6 +15,12 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
+  const [animationData, setAnimationData] = useState('0px');
+
+  const handleLinkClick = (left) => {
+    setAnimationData(left);
+  };
+
   return (
     <BrowserRouter>
       <StyledNav>
@@ -23,10 +30,39 @@ const Navbar = () => {
           </StyledNavLink>
         </div>
         <ul>
-          <StyledNavLink to='/'>Discover</StyledNavLink>
-          <StyledNavLink to='/newest'>Newest</StyledNavLink>
-          <StyledNavLink to='/user/saved'>Saved</StyledNavLink>
-          <StyledNavLink to='/user/visited'>Visited</StyledNavLink>
+          <NavLink
+            to='/'
+            className='link'
+            onClick={() => handleLinkClick('0px')}
+          >
+            Discover
+          </NavLink>
+          <NavLink
+            to='/newest'
+            className='link'
+            onClick={() => handleLinkClick('105px')}
+          >
+            Newest
+          </NavLink>
+          <NavLink
+            to='/user/saved'
+            className='link'
+            onClick={() => handleLinkClick('191px')}
+          >
+            Saved
+          </NavLink>
+          <NavLink
+            to='/user/visited'
+            className='link'
+            onClick={() => handleLinkClick('263px')}
+          >
+            Visited
+          </NavLink>
+          <AnimatedLine
+            $animationData={
+              typeof animationData === 'string' ? animationData : '0px'
+            }
+          ></AnimatedLine>
         </ul>
         <div className='search-bar'>
           <input type='text' placeholder='Search' />
