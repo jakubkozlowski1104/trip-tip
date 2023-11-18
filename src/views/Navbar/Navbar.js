@@ -5,7 +5,12 @@ import LogIn from '../../components/LogIn/LogIn';
 import SavedDestinations from '../../components/SavedDestinations/SavedDestinations';
 import VisitedDestinations from '../../components/VisitedDestinations/VisitedDestinations';
 import HomePage from '../HomePage/HomePage';
-import { StyledNav, StyledNavLink, AnimatedLine } from './Navbar.styles';
+import {
+  StyledNav,
+  StyledNavLink,
+  AnimatedLine,
+  StyledUl,
+} from './Navbar.styles';
 import logo from '../../assets/images/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -20,12 +25,14 @@ const Navbar = () => {
     left: '0px',
     width: '105px',
   });
+  const [selectedIndicator, setSelectedIndicator] = useState('1');
 
   const handleLinkClick = (left, width) => {
     setAnimationData({
       left,
       width,
     });
+    console.log(selectedIndicator);
   };
 
   return (
@@ -36,41 +43,56 @@ const Navbar = () => {
             <img
               src={logo}
               alt='TripTip Logo'
-              onClick={() => handleLinkClick('0px', '105px')}
+              onClick={() => {
+                handleLinkClick('0px', '105px');
+                setSelectedIndicator('1');
+              }}
             />
           </StyledNavLink>
         </div>
-        <ul>
+        <StyledUl $selectedIndicator={selectedIndicator}>
           <NavLink
             to='/'
             className='link'
-            onClick={() => handleLinkClick('0px', '105px')}
+            onClick={() => {
+              handleLinkClick('0px', '105px');
+              setSelectedIndicator('1');
+            }}
           >
             Discover
           </NavLink>
           <NavLink
             to='/user/newest'
             className='link'
-            onClick={() => handleLinkClick('105px', '86px')}
+            onClick={() => {
+              handleLinkClick('105px', '86px');
+              setSelectedIndicator('2');
+            }}
           >
             Newest
           </NavLink>
           <NavLink
             to='/user/saved'
             className='link'
-            onClick={() => handleLinkClick('191px', '72px')}
+            onClick={() => {
+              handleLinkClick('191px', '72px');
+              setSelectedIndicator('3');
+            }}
           >
             Saved
           </NavLink>
           <NavLink
             to='/user/visited'
             className='link'
-            onClick={() => handleLinkClick('263px', '80px')}
+            onClick={() => {
+              handleLinkClick('263px', '80px');
+              setSelectedIndicator('4');
+            }}
           >
             Visited
           </NavLink>
           <AnimatedLine $animationData={animationData}></AnimatedLine>
-        </ul>
+        </StyledUl>
         <div className='search-bar'>
           <input type='text' placeholder='Search' />
           <div className='search-icon'>

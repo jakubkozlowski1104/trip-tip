@@ -19,41 +19,6 @@ export const StyledNav = styled.nav`
     }
   }
 
-  ul {
-    position: relative;
-    margin-left: 20px;
-    flex-basis: 20%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    list-style-type: none;
-    transition: 1s;
-
-    .link {
-      font-weight: bold;
-      padding: 9px;
-      color: #b9c1c0;
-      text-decoration: none;
-      text-transform: uppercase;
-      z-index: 1;
-      display: inline-block;
-      overflow: hidden;
-    }
-
-    .link:nth-child(1) {
-      width: 105px;
-    }
-    .link:nth-child(2) {
-      width: 86px;
-    }
-    .link:nth-child(3) {
-      width: 72px;
-    }
-    .link:nth-child(4) {
-      width: 80px;
-    }
-  }
-
   .search-bar {
     position: relative;
     flex-basis: 46%;
@@ -117,6 +82,62 @@ export const StyledNavLink = styled(NavLink)`
   color: #b9c1c0;
   text-decoration: none;
   text-transform: uppercase;
+`;
+
+export const StyledUl = styled.ul`
+  position: relative;
+  margin-left: 20px;
+  flex-basis: 20%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  list-style-type: none;
+  transition: 1s;
+
+  .link {
+    font-weight: bold;
+    padding: 9px;
+    color: #b9c1c0;
+    text-decoration: none;
+    text-transform: uppercase;
+    z-index: 1;
+    display: inline-block;
+    overflow: hidden;
+    transition: 0.3s;
+  }
+
+  .link:nth-child(1) {
+    ${(props) =>
+      props.$selectedIndicator === '1' &&
+      `
+          color: black;
+      `}
+    width: 105px;
+  }
+  .link:nth-child(2) {
+    ${(props) =>
+      props.$selectedIndicator === '2' &&
+      `
+          color: black;
+      `}
+    width: 86px;
+  }
+  .link:nth-child(3) {
+    ${(props) =>
+      props.$selectedIndicator === '3' &&
+      `
+          color: black;
+      `}
+    width: 72px;
+  }
+  .link:nth-child(4) {
+    ${(props) =>
+      props.$selectedIndicator === '4' &&
+      `
+          color: black;
+      `}
+    width: 80px;
+  }
 `;
 
 export const AnimatedLine = styled.div`
