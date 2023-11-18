@@ -5,7 +5,7 @@ export const CardIndoWrapper = styled.div`
   top: 60px;
   right: 0;
   background-color: gray;
-  width: 350px;
+  width: 19%;
   height: 200vh;
   z-index: 9;
 `;
