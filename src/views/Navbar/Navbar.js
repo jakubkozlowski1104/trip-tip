@@ -13,6 +13,7 @@ import {
   faGear,
   faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
+import Newest from '../../components/Newest/Newest';
 
 const Navbar = () => {
   const [animationData, setAnimationData] = useState('0px');
@@ -38,7 +39,7 @@ const Navbar = () => {
             Discover
           </NavLink>
           <NavLink
-            to='/newest'
+            to='/user/newest'
             className='link'
             onClick={() => handleLinkClick('105px')}
           >
@@ -90,6 +91,7 @@ const Navbar = () => {
 
       <Routes>
         <Route index element={<HomePage />} />
+        <Route path='user/newest' element={<Newest />} />
         <Route path='user/saved' element={<SavedDestinations />} />
         <Route path='user/visited' element={<VisitedDestinations />} />
         <Route path='user/signup' element={<SignUp />} />
