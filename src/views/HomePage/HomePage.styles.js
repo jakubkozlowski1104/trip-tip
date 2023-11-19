@@ -9,34 +9,51 @@ export const StyledHomeWrapper = styled.div`
   font-weight: bold;
   color: #b9c1c0;
   text-decoration: none;
-  text-transform: uppercase;
   height: 200vh;
   overflow: hidden;
   background-color: #f4f6f5;
   margin-top: 60px;
   display: flex;
   flex-direction: column;
+  padding: 10px 50px 0 50px;
 
-  .info {
+  .headers {
     margin-top: 50px;
     display: flex;
+    flex-grow: 1;
     justify-content: space-between;
+
+    * {
+      display: flex;
+      align-items: center;
+    }
+
     .category {
-      height: 100px;
-      width: 100px;
+      color: black;
+      flex-grow: 1;
       background-color: blueviolet;
+      font-size: 1.4rem;
+      font-weight: normal;
     }
 
     .sort-by {
-      height: 100px;
-      width: 100px;
+      justify-content: flex-end;
+      flex-grow: 1;
       background-color: red;
+      color: #fe4f51;
     }
   }
 
   .cards {
+    flex-grow: 25;
     height: 100px;
-    width: 100px;
+    width: 100%;
     background-color: green;
+    display: flex;
+    flex-wrap: wrap;
+
+    .card {
+      flex-basis: 33%;
+    }
   }
 `;
