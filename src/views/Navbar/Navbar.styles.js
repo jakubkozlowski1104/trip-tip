@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 export const StyledNav = styled.nav`
   overflow: hidden;
-  height: 90px;
+  height: 100px;
   padding: 0;
   margin: 0;
   display: flex;
