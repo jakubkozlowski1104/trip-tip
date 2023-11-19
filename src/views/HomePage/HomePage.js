@@ -1,5 +1,7 @@
 import { StyledHomeWrapper } from './HomePage.styles';
 import card1 from '../../assets/images/cards/card1.jpg';
+import flagArm from '../../assets/images/flags/armenia.jpg';
+import flagPhi from '../../assets/images/flags/philippines.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
@@ -20,7 +22,9 @@ const HomePage = () => {
               <p>Armenia</p>
               <div className='hover-text'></div>
             </div>
-            <div className='flag'>FLAG</div>
+          </div>
+          <div className='flag'>
+            <img src={flagArm} alt='' />
           </div>
           <div className='title'>The Symbol of Armenia - Ararat</div>
           <div className='description'>
@@ -46,7 +50,9 @@ const HomePage = () => {
             <img src='' alt='' />
           </div>
           <div className='country'>Armenia</div>
-          <div className='flag'>FLAG</div>
+          <div className='flag'>
+            <img src={flagPhi} alt='' />
+          </div>
           <div className='title'>The Symbol of Armenia - Ararat</div>
           <div className='description'>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta,

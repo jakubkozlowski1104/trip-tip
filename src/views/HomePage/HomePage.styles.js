@@ -57,6 +57,7 @@ export const StyledHomeWrapper = styled.div`
 
     .card {
       box-sizing: border-box;
+      position: relative;
       flex-basis: 30%;
       height: 430px;
       background-color: white;
@@ -123,6 +124,23 @@ export const StyledHomeWrapper = styled.div`
             z-index: 10; /* Ustawia warstwę trójkąta pod treścią p */
             transform: rotate(270deg); /* Rotates the triangle */
           }
+        }
+      }
+      .flag {
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        top: 5%;
+        right: 6%;
+        z-index: 30;
+        display: flex;
+        width: 50px;
+        justify-content: center;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Styl cienia */
+
+        img {
+          width: 100%;
         }
       }
     }
