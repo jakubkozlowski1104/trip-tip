@@ -77,11 +77,11 @@ export const StyledHomeWrapper = styled.div`
           width: 100%;
         }
         .cover-img {
-          top: 159px;
+          top: 169px;
           position: absolute;
-          border-left: 450px solid transparent;
+          border-left: 480px solid transparent;
           border-right: 1px solid transparent;
-          border-bottom: 30px solid white;
+          border-bottom: 20px solid white;
         }
         .country {
           position: absolute;
