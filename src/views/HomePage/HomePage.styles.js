@@ -143,6 +143,71 @@ export const StyledHomeWrapper = styled.div`
           width: 100%;
         }
       }
+
+      .down-section {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 10px 40px 20px 40px;
+
+        .title {
+          display: flex;
+          align-items: center;
+          flex-grow: 1;
+
+          h2 {
+            font-size: 1.3rem;
+            color: black;
+          }
+        }
+
+        .description {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-grow: 0.7;
+
+          p {
+            line-height: 23px;
+            font-size: 0.9rem;
+            font-weight: normal;
+            color: black;
+          }
+        }
+
+        .info {
+          flex-grow: 1;
+          display: flex;
+          align-items: center;
+
+          .date {
+            flex-grow: 1;
+            p {
+              font-size: 0.9rem;
+              font-weight: normal;
+              color: lightblue;
+            }
+          }
+
+          .icons {
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-around;
+            .icon {
+              transition: 0.3s;
+              font-size: 1.2rem;
+              cursor: pointer;
+            }
+            .likes:hover {
+              color: blue;
+            }
+
+            .saved:hover {
+              color: blue;
+            }
+          }
+        }
+      }
     }
   }
 `;

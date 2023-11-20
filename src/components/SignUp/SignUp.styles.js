@@ -36,7 +36,6 @@ export const StyledForm = styled.form`
   button {
     cursor: pointer;
     font-weight: bold;
-    font-family: 'Montserrat', sans-serif;
     padding: 10px 10px;
     width: 270px;
     height: 40px;
@@ -87,6 +86,3 @@ export const DataExistError = styled.div`
   border: 2px solid red;
   font-weight: bold;
 `;
-
-
-
