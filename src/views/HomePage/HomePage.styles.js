@@ -46,6 +46,7 @@ export const StyledHomeWrapper = styled.div`
   }
 
   .cards {
+    position: relative;
     box-sizing: border-box;
     padding: 10px;
     flex-grow: 25;
@@ -75,7 +76,10 @@ export const StyledHomeWrapper = styled.div`
 
         img {
           width: 100%;
+          transition: 0.5s;
+          cursor: pointer;
         }
+
         .cover-img {
           top: 169px;
           position: absolute;
@@ -107,24 +111,67 @@ export const StyledHomeWrapper = styled.div`
             position: absolute;
             bottom: 0;
             right: -20px;
-            border-left: 10px solid transparent; /* Lewa krawędź trójkąta */
-            border-right: 13px solid #f55153; /* Prawa krawędź trójkąta */
-            border-bottom: 20px solid transparent; /* Dolna krawędź trójkąta */
-            z-index: 10; /* Ustawia warstwę trójkąta pod treścią p */
-            transform: rotate(180deg); /* Rotates the triangle */
+            border-left: 10px solid transparent;
+            border-right: 13px solid #f55153;
+            border-bottom: 20px solid transparent;
+            z-index: 10;
+            transform: rotate(180deg);
           }
           p::before {
             content: '';
             position: absolute;
             top: 9px;
-            right: -20px; /* Reguluje pozycję trójkąta */
-            border-left: 10px solid transparent; /* Lewa krawędź trójkąta */
-            border-right: 21px solid #f55153; /* Prawa krawędź trójkąta */
-            border-bottom: 13px solid transparent; /* Dolna krawędź trójkąta */
-            z-index: 10; /* Ustawia warstwę trójkąta pod treścią p */
-            transform: rotate(270deg); /* Rotates the triangle */
+            right: -20px;
+            border-left: 10px solid transparent;
+            border-right: 21px solid #f55153;
+            border-bottom: 13px solid transparent;
+            z-index: 10;
+            transform: rotate(270deg);
           }
         }
+      }
+
+      .img:hover img {
+        filter: brightness(70%);
+      }
+
+      .img::after {
+        content: 'SEE ON MAPS';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        font-size: 1.2rem;
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .img:hover::after {
+        opacity: 1;
+      }
+
+      .read-more {
+        position: absolute;
+        bottom: 55%;
+        right: 7%;
+        border: 1px solid gray;
+        border-radius: 50px;
+        padding: 7px 20px;
+        color: #f55153;
+        background-color: white;
+        border: 1px solid #f55153;
+        cursor: pointer;
+        font-size: 0.8rem;
+        transition: 0.2s;
+        font-family: 'montserrat', sans-serif;
+        font-weight: 600;
+      }
+
+      .read-more:hover {
+        background-color: #f55153;
+        color: white;
       }
       .flag {
         padding: 0;
@@ -157,7 +204,8 @@ export const StyledHomeWrapper = styled.div`
 
           h2 {
             font-size: 1.3rem;
-            color: black;
+            color: #4f4f4f;
+            font-weight: 500;
           }
         }
 
@@ -171,7 +219,7 @@ export const StyledHomeWrapper = styled.div`
             line-height: 23px;
             font-size: 0.9rem;
             font-weight: normal;
-            color: black;
+            color: #4f4f4f;
           }
         }
 

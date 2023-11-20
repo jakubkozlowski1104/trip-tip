@@ -26,6 +26,7 @@ const HomePage = () => {
                 <div className='hover-text'></div>
               </div>
             </div>
+            <div className='button read-more'>Read More!</div>
             <div className='flag'>
               <img src={flagArm} alt='' />
             </div>
@@ -37,7 +38,7 @@ const HomePage = () => {
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                   Soluta, sequi hic repudiandae quos aspernatur eveniet a
-                  corporis officiis id...
+                  corporis officiis...
                 </p>
               </div>
               <div className='info'>
