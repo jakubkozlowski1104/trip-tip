@@ -98,21 +98,13 @@ switch ($method) {
         echo json_encode($response);
         break;
     case "GET":
-        $sql = "SELECT * FROM users";
-        $path = explode('/', $_SERVER['REQUEST_URI']);
-        if (isset($path[3]) && is_numeric($path[3])) {
-            $sql .= " WHERE id = :id";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(':id', $path[3]);
-            $stmt->execute();
-            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            $stmt = $conn->prepare($sql);
-            $stmt->execute();
-            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
+        $sql = "SELECT * FROM destinations";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $destinations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
         header('Content-Type: application/json');
-        echo json_encode($users);
+        echo json_encode($destinations);
         break;
     case "PUT":
         $user = json_decode(file_get_contents('php://input'));
@@ -141,9 +133,7 @@ switch ($method) {
         }
         echo json_encode($response);
         break;
-        
     }
-    
 ?>
 
 
