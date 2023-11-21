@@ -1,7 +1,7 @@
 <?php 
 	class DbConnect {
 		private $server = 'localhost';
-		private $dbname = 'tip-tip';
+		private $dbname = 'trip-tip';
 		private $user = 'root';
 		private $pass = '';
 
