@@ -200,7 +200,9 @@ export const StyledHomeWrapper = styled.div`
         .title {
           display: flex;
           align-items: center;
-          flex-grow: 1;
+          flex-grow: 0.9;
+          margin-top: 10px;
+          margin-bottom: 0;
 
           h2 {
             font-size: 1.3rem;
@@ -233,7 +235,7 @@ export const StyledHomeWrapper = styled.div`
             p {
               font-size: 0.9rem;
               font-weight: normal;
-              color: lightblue;
+              color: #0abfbc;
             }
           }
 

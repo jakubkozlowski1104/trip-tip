@@ -1,0 +1,27 @@
+-- Africa
+INSERT INTO countries (name, continent) VALUES ('Egypt', 1);
+INSERT INTO countries (name, continent) VALUES ('South Africa', 1);
+
+-- Asia
+INSERT INTO countries (name, continent) VALUES ('India', 3);
+INSERT INTO countries (name, continent) VALUES ('Japan', 3);
+INSERT INTO countries (name, continent) VALUES ('South Korea', 3);
+
+-- Australia (Oceania)
+INSERT INTO countries (name, continent) VALUES ('Australia', 4);
+INSERT INTO countries (name, continent) VALUES ('New Zealand', 4);
+
+-- Europe
+INSERT INTO countries (name, continent) VALUES ('France', 5);
+INSERT INTO countries (name, continent) VALUES ('Germany', 5);
+INSERT INTO countries (name, continent) VALUES ('Spain', 5);
+
+-- North America
+INSERT INTO countries (name, continent) VALUES ('United States', 6);
+INSERT INTO countries (name, continent) VALUES ('Mexico', 6);
+INSERT INTO countries (name, continent) VALUES ('Canada', 6);
+
+-- South America
+INSERT INTO countries (name, continent) VALUES ('Argentina', 7);
+INSERT INTO countries (name, continent) VALUES ('Colombia', 7);
+INSERT INTO countries (name, continent) VALUES ('Peru', 7);

@@ -1,0 +1,10 @@
+INSERT INTO destination_categories (name) VALUES ('Beaches');
+INSERT INTO destination_categories (name) VALUES ('Mountains');
+INSERT INTO destination_categories (name) VALUES ('Cities');
+INSERT INTO destination_categories (name) VALUES ('Historical Sites');
+INSERT INTO destination_categories (name) VALUES ('Adventure');
+INSERT INTO destination_categories (name) VALUES ('Wildlife');
+INSERT INTO destination_categories (name) VALUES ('Islands');
+INSERT INTO destination_categories (name) VALUES ('Countryside');
+INSERT INTO destination_categories (name) VALUES ('Ski Resorts');
+INSERT INTO destination_categories (name) VALUES ('National Parks');

@@ -1,0 +1,5 @@
+INSERT INTO review_types (name) VALUES ('very bad');
+INSERT INTO review_types (name) VALUES ('bad');
+INSERT INTO review_types (name) VALUES ('normal');
+INSERT INTO review_types (name) VALUES ('good');
+INSERT INTO review_types (name) VALUES ('very good');

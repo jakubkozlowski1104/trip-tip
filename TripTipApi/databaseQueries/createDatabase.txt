@@ -1,0 +1,81 @@
+-- Tworzenie tabeli review_types
+CREATE TABLE review_types (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255)
+);
+
+-- Tworzenie tabeli destination_categories
+CREATE TABLE destination_categories (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255)
+);
+
+-- Tworzenie tabeli continents
+CREATE TABLE continents (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255)
+);
+
+-- Tworzenie tabeli users
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255),
+    email VARCHAR(255),
+    password VARCHAR(255)
+);
+
+-- Tworzenie tabeli reviews
+CREATE TABLE reviews (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    content VARCHAR(255),
+    publish_date DATE,
+    likes INT,
+    review_type INT,
+    user_id INT,
+    FOREIGN KEY (review_type) REFERENCES review_types(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Tworzenie tabeli countries
+CREATE TABLE countries (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) UNIQUE,
+    continent INT,
+    FOREIGN KEY (continent) REFERENCES continents(id)
+);
+
+-- Tworzenie tabeli destinations
+CREATE TABLE destinations (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255),
+    title VARCHAR(255),
+    country INT,
+    publish_date VARCHAR(50),
+    description VARCHAR(255),
+    likes INT,
+    saves INT,
+    image BLOB,
+    review INT,
+    category_id INT,
+    FOREIGN KEY (country) REFERENCES countries(id),
+    FOREIGN KEY (review) REFERENCES reviews(id),
+    FOREIGN KEY (category_id) REFERENCES destination_categories(id)
+);
+
+-- Tworzenie tabeli user_likes
+CREATE TABLE user_likes (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    destination_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (destination_id) REFERENCES destinations(id)
+);
+
+-- Tworzenie tabeli user_saves
+CREATE TABLE user_saves (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    user_id INT,
+    destination_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    FOREIGN KEY (destination_id) REFERENCES destinations(id)
+);
