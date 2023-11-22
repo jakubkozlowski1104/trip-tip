@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { StyledHomeWrapper } from './HomePage.styles';
-import flagArm from '../../assets/images/flags/armenia.jpg';
-import flagPhi from '../../assets/images/flags/philippines.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { GlobalStyle } from '../../assets/styles/GlobalStyle';
-import img from '../../assets/images/cards/garni.jpg';
-
-const IMG_URL = '../../assets';
 
 const HomePage = () => {
   const [destinations, setDestinations] = useState([]);
@@ -48,7 +43,7 @@ const HomePage = () => {
         <div className='cards'>
           <div className='card'>
             <div className='img'>
-              <img src={img} alt='' />
+              {/* <img src={} alt='' /> */}
               <div className='cover-img'></div>
               <div className='country'>
                 <p>Armenia</p>
@@ -92,19 +87,29 @@ const HomePage = () => {
           </div>
 
           {destinations.map(
-            ({ title, description, publish_date, id, image_path }, idx) => (
-              <div key={id} className='card'>
+            (
+              {
+                title,
+                description,
+                publish_date,
+                destination_image_path,
+                flag_path,
+                country_name,
+              },
+              idx
+            ) => (
+              <div key={idx} className='card'>
                 <div className='img'>
-                  <img src={image_path} alt='' />
+                  <img src={destination_image_path} alt='' />
                   <div className='cover-img'></div>
                   <div className='country'>
-                    <p>Armenia</p>
+                    <p>{country_name}</p>
                     <div className='hover-text'></div>
                   </div>
                 </div>
                 <div className='button read-more'>Read More!</div>
                 <div className='flag'>
-                  <img src={image_path} alt='' />
+                  <img src={flag_path} alt='' />
                 </div>
                 <div className='down-section'>
                   <div className='title'>
