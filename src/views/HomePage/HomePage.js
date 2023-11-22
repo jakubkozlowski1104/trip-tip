@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { StyledHomeWrapper } from './HomePage.styles';
 import card1 from '../../assets/images/cards/card1.jpg';
 import flagArm from '../../assets/images/flags/armenia.jpg';
@@ -8,6 +10,30 @@ import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { GlobalStyle } from '../../assets/styles/GlobalStyle';
 
 const HomePage = () => {
+  const [destinations, setDestinations] = useState([]);
+
+  useEffect(() => {
+    const getDestinations = async () => {
+      try {
+        const response = await axios.get(
+          'http://localhost/TripTipApi/destinations/'
+        );
+        console.log(response);
+        console.log(response.data);
+
+        if (response.data && response.data.length > 0) {
+          setDestinations(response.data);
+        } 
+        console.log(destinations);
+      } catch (error) {
+        // Obsługa błędu żądania
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    getDestinations();
+  }, []);
+
   return (
     <>
       <GlobalStyle />
