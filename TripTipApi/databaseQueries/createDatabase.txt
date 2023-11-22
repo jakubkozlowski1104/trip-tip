@@ -41,6 +41,7 @@ CREATE TABLE countries (
     id INT PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(255) UNIQUE,
     continent INT,
+    flag_path VARCHAR(255),
     FOREIGN KEY (continent) REFERENCES continents(id)
 );
 
@@ -53,7 +54,7 @@ CREATE TABLE destinations (
     description VARCHAR(255),
     likes INT,
     saves INT,
-    image BLOB,
+    image_path VARCHAR(255),
     review INT,
     category_id INT,
     FOREIGN KEY (country) REFERENCES countries(id),
