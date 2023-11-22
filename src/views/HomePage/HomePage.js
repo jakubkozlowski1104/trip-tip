@@ -19,18 +19,13 @@ const HomePage = () => {
           setDestinations(response.data);
         }
       } catch (error) {
-        // Obsługa błędu żądania
         console.error('Error fetching data:', error);
       }
     };
 
     getDestinations();
     console.log(destinations);
-  }, []);
-
-  const showDestinations = () => {
-    console.log(destinations);
-  };
+  }, [destinations]);
 
   return (
     <>
@@ -41,51 +36,6 @@ const HomePage = () => {
           <div className='sort-by'>Past 24 hours</div>
         </div>
         <div className='cards'>
-          <div className='card'>
-            <div className='img'>
-              {/* <img src={} alt='' /> */}
-              <div className='cover-img'></div>
-              <div className='country'>
-                <p>Armenia</p>
-                <div className='hover-text'></div>
-              </div>
-            </div>
-            <div className='button read-more' onClick={showDestinations}>
-              Read More!
-            </div>
-            <div className='flag'>
-              <img src='' alt='' />
-            </div>
-            <div className='down-section'>
-              <div className='title'>
-                <h2>Oldest country in the world?</h2>
-              </div>
-              <div className='description'>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Soluta, sequi hic repudiandae quos aspernatur eveniet a
-                  corporis officiis...
-                </p>
-              </div>
-              <div className='info'>
-                <div className='date'>
-                  <p>November 02, 2023</p>
-                </div>
-                <div className='icons'>
-                  <div className='icon share'>
-                    <FontAwesomeIcon icon={faShareAlt} />
-                  </div>
-                  <div className='icon saved'>
-                    <FontAwesomeIcon icon={faBookmark} />
-                  </div>
-                  <div className='icon likes'>
-                    <FontAwesomeIcon icon={faHeart} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {destinations.map(
             (
               {
