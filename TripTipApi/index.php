@@ -98,7 +98,21 @@ switch ($method) {
         echo json_encode($response);
         break;
     case "GET":
-        $sql = "SELECT * FROM destinations";
+        $sql = "SELECT 
+        destinations.id AS destination_id,
+        destinations.title,
+        destinations.publish_date,
+        destinations.description,
+        destinations.likes,
+        destinations.saves,
+        destinations.image_path AS destination_image_path,
+        countries.name AS country_name,
+        countries.flag_path
+    FROM 
+        destinations
+    JOIN 
+        countries ON destinations.country = countries.id;
+    ";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $destinations = $stmt->fetchAll(PDO::FETCH_ASSOC);
