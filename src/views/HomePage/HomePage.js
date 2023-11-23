@@ -48,44 +48,160 @@ const HomePage = () => {
               },
               idx
             ) => (
-              <div key={idx} className='card'>
-                <div className='img'>
-                  <img src={destination_image_path} alt='' />
-                  <div className='cover-img'></div>
-                  <div className='country'>
-                    <p>{country_name}</p>
-                    <div className='hover-text'></div>
-                  </div>
-                </div>
-                <div className='button read-more'>Read More!</div>
-                <div className='flag'>
-                  <img src={flag_path} alt='' />
-                </div>
-                <div className='down-section'>
-                  <div className='title'>
-                    <h2>{title}</h2>
-                  </div>
-                  <div className='description'>
-                    <p>{description}</p>
-                  </div>
-                  <div className='info'>
-                    <div className='date'>
-                      <p>{publish_date}</p>
-                    </div>
-                    <div className='icons'>
-                      <div className='icon share'>
-                        <FontAwesomeIcon icon={faShareAlt} />
-                      </div>
-                      <div className='icon saved'>
-                        <FontAwesomeIcon icon={faBookmark} />
-                      </div>
-                      <div className='icon likes'>
-                        <FontAwesomeIcon icon={faHeart} />
-                      </div>
+              <>
+                <div key={idx} className='card'>
+                  <div className='img'>
+                    <img src={destination_image_path} alt='' />
+                    <div className='cover-img'></div>
+                    <div className='country'>
+                      <p>{country_name}</p>
+                      <div className='hover-text'></div>
                     </div>
                   </div>
+                  <div className='button read-more'>Read More!</div>
+                  <div className='flag'>
+                    <img src={flag_path} alt='' />
+                  </div>
+                  <div className='down-section'>
+                    <div className='title'>
+                      <h2>{title}</h2>
+                    </div>
+                    <div className='description'>
+                      <p>{description}</p>
+                    </div>
+                    <div className='info'>
+                      <div className='date'>
+                        <p>{publish_date}</p>
+                      </div>
+                      <div className='icons'>
+                        <div className='icon share'>
+                          <FontAwesomeIcon icon={faShareAlt} />
+                        </div>
+                        <div className='icon saved'>
+                          <FontAwesomeIcon icon={faBookmark} />
+                        </div>
+                        <div className='icon likes'>
+                          <FontAwesomeIcon icon={faHeart} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+                <div key={idx} className='card'>
+                  <div className='img'>
+                    <img src={destination_image_path} alt='' />
+                    <div className='cover-img'></div>
+                    <div className='country'>
+                      <p>{country_name}</p>
+                      <div className='hover-text'></div>
+                    </div>
+                  </div>
+                  <div className='button read-more'>Read More!</div>
+                  <div className='flag'>
+                    <img src={flag_path} alt='' />
+                  </div>
+                  <div className='down-section'>
+                    <div className='title'>
+                      <h2>{title}</h2>
+                    </div>
+                    <div className='description'>
+                      <p>{description}</p>
+                    </div>
+                    <div className='info'>
+                      <div className='date'>
+                        <p>{publish_date}</p>
+                      </div>
+                      <div className='icons'>
+                        <div className='icon share'>
+                          <FontAwesomeIcon icon={faShareAlt} />
+                        </div>
+                        <div className='icon saved'>
+                          <FontAwesomeIcon icon={faBookmark} />
+                        </div>
+                        <div className='icon likes'>
+                          <FontAwesomeIcon icon={faHeart} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div key={idx} className='card'>
+                  <div className='img'>
+                    <img src={destination_image_path} alt='' />
+                    <div className='cover-img'></div>
+                    <div className='country'>
+                      <p>{country_name}</p>
+                      <div className='hover-text'></div>
+                    </div>
+                  </div>
+                  <div className='button read-more'>Read More!</div>
+                  <div className='flag'>
+                    <img src={flag_path} alt='' />
+                  </div>
+                  <div className='down-section'>
+                    <div className='title'>
+                      <h2>{title}</h2>
+                    </div>
+                    <div className='description'>
+                      <p>{description}</p>
+                    </div>
+                    <div className='info'>
+                      <div className='date'>
+                        <p>{publish_date}</p>
+                      </div>
+                      <div className='icons'>
+                        <div className='icon share'>
+                          <FontAwesomeIcon icon={faShareAlt} />
+                        </div>
+                        <div className='icon saved'>
+                          <FontAwesomeIcon icon={faBookmark} />
+                        </div>
+                        <div className='icon likes'>
+                          <FontAwesomeIcon icon={faHeart} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div key={idx} className='card'>
+                  <div className='img'>
+                    <img src={destination_image_path} alt='' />
+                    <div className='cover-img'></div>
+                    <div className='country'>
+                      <p>{country_name}</p>
+                      <div className='hover-text'></div>
+                    </div>
+                  </div>
+                  <div className='button read-more'>Read More!</div>
+                  <div className='flag'>
+                    <img src={flag_path} alt='' />
+                  </div>
+                  <div className='down-section'>
+                    <div className='title'>
+                      <h2>{title}</h2>
+                    </div>
+                    <div className='description'>
+                      <p>{description}</p>
+                    </div>
+                    <div className='info'>
+                      <div className='date'>
+                        <p>{publish_date}</p>
+                      </div>
+                      <div className='icons'>
+                        <div className='icon share'>
+                          <FontAwesomeIcon icon={faShareAlt} />
+                        </div>
+                        <div className='icon saved'>
+                          <FontAwesomeIcon icon={faBookmark} />
+                        </div>
+                        <div className='icon likes'>
+                          <FontAwesomeIcon icon={faHeart} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </>
             )
           )}
         </div>

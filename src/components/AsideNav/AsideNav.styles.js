@@ -6,6 +6,6 @@ export const AsideNavWrapper = styled.div`
   left: 0;
   background-color: blue;
   width: 10%;
-  height: 200vh;
+  height: 100vh;
   z-index: 9;
 `;

@@ -10,18 +10,17 @@ export const StyledHomeWrapper = styled.div`
   font-weight: bold;
   color: #b9c1c0;
   text-decoration: none;
-  height: 200vh;
-  overflow: hidden;
   background-color: #f4f6f5;
   margin-top: 60px;
   display: flex;
   flex-direction: column;
   padding: 10px 50px 0 50px;
+  height: 100%;
 
   .headers {
     margin-top: 50px;
     display: flex;
-    flex-grow: 1;
+    padding: 20px 0;
     justify-content: space-between;
 
     * {
@@ -32,7 +31,6 @@ export const StyledHomeWrapper = styled.div`
     .category {
       color: black;
       flex-grow: 1;
-      background-color: blueviolet;
       font-size: 1.4rem;
       font-weight: normal;
     }
@@ -40,7 +38,6 @@ export const StyledHomeWrapper = styled.div`
     .sort-by {
       justify-content: flex-end;
       flex-grow: 1;
-      background-color: red;
       color: #fe4f51;
     }
   }
@@ -48,13 +45,15 @@ export const StyledHomeWrapper = styled.div`
   .cards {
     position: relative;
     box-sizing: border-box;
-    padding: 10px;
     flex-grow: 25;
-    height: 100px;
+    height: 100%;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    max-height: 80vh; /* Ustaw maksymalną wysokość sekcji cards */
+    overflow: auto; /* Dodaj pasek przewijania, gdy zawartość przekroczy maksymalną wysokość */
+    /* Reszta stylów */
 
     .card {
       box-sizing: border-box;
@@ -67,6 +66,7 @@ export const StyledHomeWrapper = styled.div`
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Styl cienia */
       display: flex;
       flex-direction: column;
+      margin-bottom: 35px;
 
       .img {
         flex-basis: 44%;
@@ -259,5 +259,33 @@ export const StyledHomeWrapper = styled.div`
         }
       }
     }
+  }
+  .cards::-webkit-scrollbar {
+    margin-left: 10px;
+    width: 12px;
+  }
+
+  .cards::-webkit-scrollbar-track {
+    background-color: blue;
+  }
+
+  .cards::-webkit-scrollbar-thumb {
+    background-color: red;
+    border-radius: 6px;
+    border: 3px solid red;
+  }
+
+  .cards::-moz-scrollbar {
+    width: 12px;
+  }
+
+  .cards::-moz-scrollbar-track {
+    background-color: blue;
+  }
+
+  .cards::-moz-scrollbar-thumb {
+    background-color: red;
+    border-radius: 6px;
+    border: 3px solid red;
   }
 `;
