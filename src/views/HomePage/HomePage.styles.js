@@ -14,13 +14,13 @@ export const StyledHomeWrapper = styled.div`
   margin-top: 60px;
   display: flex;
   flex-direction: column;
-  padding: 10px 50px 0 50px;
-  height: 100%;
+  padding: 10px 30px 0 50px;
+  height: calc(100vh - 60px);
 
   .headers {
     margin-top: 50px;
     display: flex;
-    padding: 20px 0;
+    padding: 20px 36px 20px 0px;
     justify-content: space-between;
 
     * {
@@ -43,41 +43,38 @@ export const StyledHomeWrapper = styled.div`
   }
 
   .card-container-scroll {
-    max-height: 80vh;
+    max-height: 76vh;
     overflow-y: auto;
-    padding-right: 20px; /* Dodatkowy odstęp po prawej stronie */
+    padding-right: 20px;
   }
 
   .cards {
     position: relative;
     box-sizing: border-box;
     flex-grow: 25;
-    height: 100%;
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    overflow: auto; /* Dodaj pasek przewijania, gdy zawartość przekroczy maksymalną wysokość */
-    /* Reszta stylów */
+    gap: 40px;
+    row-gap: 40px;
 
     .card {
       box-sizing: border-box;
       position: relative;
-      flex-basis: 30%;
+      flex-basis: 31%;
       height: 430px;
       background-color: white;
       margin-top: 10px;
       border-radius: 4px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Styl cienia */
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Styl cienia */
       display: flex;
       flex-direction: column;
-      margin-bottom: 35px;
 
       .img {
         flex-basis: 44%;
         position: relative;
         overflow: hidden;
-        border-radius: 4px 4px 0px 0px;
+        border-radius: 4px 4px 4px 0px;
 
         img {
           width: 100%;
@@ -105,11 +102,10 @@ export const StyledHomeWrapper = styled.div`
             text-transform: uppercase;
             color: white;
             background-color: #f55153;
-
             width: 110%;
             font-size: 0.85rem;
             text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Styl cienia */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
           }
           p::after {
             content: '';
@@ -265,32 +261,16 @@ export const StyledHomeWrapper = styled.div`
       }
     }
   }
-  .cards::-webkit-scrollbar {
-    margin-left: 10px;
-    width: 12px;
+  .card-container-scroll::-webkit-scrollbar {
+    width: 8px;
   }
 
-  .cards::-webkit-scrollbar-track {
-    background-color: blue;
+  .card-container-scroll::-webkit-scrollbar-track {
+    background-color: #e1e3e2;
   }
 
-  .cards::-webkit-scrollbar-thumb {
-    background-color: red;
-    border-radius: 6px;
-    border: 3px solid red;
-  }
-
-  .cards::-moz-scrollbar {
-    width: 12px;
-  }
-
-  .cards::-moz-scrollbar-track {
-    background-color: blue;
-  }
-
-  .cards::-moz-scrollbar-thumb {
-    background-color: red;
-    border-radius: 6px;
-    border: 3px solid red;
+  .card-container-scroll::-webkit-scrollbar-thumb {
+    background-color: #fe4f51;
+    border-radius: 40px;
   }
 `;
