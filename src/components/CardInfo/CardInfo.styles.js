@@ -6,6 +6,6 @@ export const CardIndoWrapper = styled.div`
   right: 0;
   background-color: gray;
   width: 19%;
-  height: 100vh;
+  height: calc(100vh - 60px);
   z-index: 9;
 `;

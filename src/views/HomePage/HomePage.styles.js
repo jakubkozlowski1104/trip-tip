@@ -42,6 +42,12 @@ export const StyledHomeWrapper = styled.div`
     }
   }
 
+  .card-container-scroll {
+    max-height: 80vh;
+    overflow-y: auto;
+    padding-right: 20px; /* Dodatkowy odstęp po prawej stronie */
+  }
+
   .cards {
     position: relative;
     box-sizing: border-box;
@@ -51,7 +57,6 @@ export const StyledHomeWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    max-height: 80vh; /* Ustaw maksymalną wysokość sekcji cards */
     overflow: auto; /* Dodaj pasek przewijania, gdy zawartość przekroczy maksymalną wysokość */
     /* Reszta stylów */
 
