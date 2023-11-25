@@ -6,8 +6,30 @@ import { faBookmark, faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { GlobalStyle } from '../../assets/styles/GlobalStyle';
 
-const HomePage = ({ data }) => {
+const HomePage = ({ setIsScrolled }) => {
   const [destinations, setDestinations] = useState([]);
+
+  useEffect(() => {
+    const homeWrapper = document.querySelector('.card-container-scroll');
+    const handleScroll = () => {
+      const offset = homeWrapper.scrollTop;
+      if (offset > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    if (homeWrapper) {
+      homeWrapper.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (homeWrapper) {
+        homeWrapper.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     const getDestinations = async () => {
@@ -30,11 +52,11 @@ const HomePage = ({ data }) => {
     <>
       <GlobalStyle />
       <StyledHomeWrapper>
-        <div className='headers'>
-          <div className='category'>Discover destinations</div>
-          <div className='sort-by'>Past 24 hours</div>
-        </div>
         <div className='card-container-scroll'>
+          <div className='headers'>
+            <div className='category'>Discover destinations</div>
+            <div className='sort-by'>Past 24 hours</div>
+          </div>
           <div className='cards'>
             {destinations.map(
               (
@@ -57,7 +79,7 @@ const HomePage = ({ data }) => {
                       <div className='hover-text'></div>
                     </div>
                   </div>
-                  <div className='button read-more'>Read More!</div>
+                  <button className='button read-more'>Read More!</button>
                   <div className='flag'>
                     <img src={flag_path} alt='' />
                   </div>

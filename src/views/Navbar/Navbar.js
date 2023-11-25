@@ -27,7 +27,6 @@ const Navbar = () => {
   });
   const [selectedIndicator, setSelectedIndicator] = useState('1');
   const [isScrolled, setIsScrolled] = useState();
-  const [data, setData] = useState('siema');
 
   const handleLinkClick = (left, width) => {
     setAnimationData({
@@ -136,7 +135,7 @@ const Navbar = () => {
       </StyledNav>
 
       <Routes>
-        <Route index element={<HomePage data={data} />} />
+        <Route index element={<HomePage setIsScrolled={setIsScrolled} isScrolled={isScrolled}/>} />
         <Route path='user/newest' element={<Newest />} />
         <Route path='user/saved' element={<SavedDestinations />} />
         <Route path='user/visited' element={<VisitedDestinations />} />
