@@ -29,6 +29,7 @@ const HomePage = ({ setIsScrolled }) => {
         homeWrapper.removeEventListener('scroll', handleScroll);
       }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
