@@ -19,6 +19,7 @@ import {
   faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
 import Newest from '../../components/Newest/Newest';
+import SearchBar from '../../components/Atoms/SearchBar';
 
 const Navbar = () => {
   const [animationData, setAnimationData] = useState({
@@ -27,6 +28,7 @@ const Navbar = () => {
   });
   const [selectedIndicator, setSelectedIndicator] = useState('1');
   const [isScrolled, setIsScrolled] = useState();
+  const [showSearchbar, setShowSearchbar] = useState();
 
   const handleLinkClick = (left, width) => {
     setAnimationData({
@@ -111,10 +113,7 @@ const Navbar = () => {
           <AnimatedLine $animationData={animationData}></AnimatedLine>
         </StyledUl>
         <div className='search-bar'>
-          <input type='text' placeholder='Search' />
-          <div className='search-icon'>
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </div>
+          <SearchBar />
         </div>
         <div className='icons'>
           <p>
@@ -135,7 +134,12 @@ const Navbar = () => {
       </StyledNav>
 
       <Routes>
-        <Route index element={<HomePage setIsScrolled={setIsScrolled} isScrolled={isScrolled}/>} />
+        <Route
+          index
+          element={
+            <HomePage setIsScrolled={setIsScrolled} isScrolled={isScrolled} />
+          }
+        />
         <Route path='user/newest' element={<Newest />} />
         <Route path='user/saved' element={<SavedDestinations />} />
         <Route path='user/visited' element={<VisitedDestinations />} />

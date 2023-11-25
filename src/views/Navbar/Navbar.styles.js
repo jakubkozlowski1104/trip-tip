@@ -37,18 +37,6 @@ export const StyledNav = styled.nav`
   .search-bar {
     position: relative;
     flex-basis: 46%;
-    input {
-      padding: 8px 60px 8px 35px;
-      border-radius: 50px;
-      outline: none;
-      border: 1px solid gray;
-    }
-    .search-icon {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      left: 1.5%;
-    }
   }
 
   .icons {
@@ -102,7 +90,7 @@ export const StyledNavLink = styled(NavLink)`
 export const StyledUl = styled.ul`
   position: relative;
   margin-left: 20px;
-  flex-basis: 20%;
+  flex-basis: 28.5%;
   display: flex;
   flex-direction: row;
   align-items: center;

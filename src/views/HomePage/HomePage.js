@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { GlobalStyle } from '../../assets/styles/GlobalStyle';
+import SearchBar from '../../components/Atoms/SearchBar';
 
 const HomePage = ({ setIsScrolled }) => {
   const [destinations, setDestinations] = useState([]);
@@ -29,7 +30,7 @@ const HomePage = ({ setIsScrolled }) => {
         homeWrapper.removeEventListener('scroll', handleScroll);
       }
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -56,6 +57,9 @@ const HomePage = ({ setIsScrolled }) => {
         <div className='card-container-scroll'>
           <div className='headers'>
             <div className='category'>Discover destinations</div>
+            <div className='search-bar'>
+              <SearchBar />
+            </div>
             <div className='sort-by'>Past 24 hours</div>
           </div>
           <div className='cards'>

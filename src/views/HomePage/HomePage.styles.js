@@ -42,6 +42,10 @@ export const StyledHomeWrapper = styled.div`
         font-weight: normal;
       }
 
+      .search-bar {
+        position: relative;
+      }
+
       .sort-by {
         justify-content: flex-end;
         flex-grow: 1;
