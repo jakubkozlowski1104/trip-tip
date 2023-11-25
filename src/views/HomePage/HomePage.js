@@ -31,7 +31,6 @@ const HomePage = ({ data }) => {
       <GlobalStyle />
       <StyledHomeWrapper>
         <div className='headers'>
-          {console.log(data)}
           <div className='category'>Discover destinations</div>
           <div className='sort-by'>Past 24 hours</div>
         </div>
