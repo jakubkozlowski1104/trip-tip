@@ -12,6 +12,6 @@ export const StyledSearchBar = styled.div`
     top: 50%;
     transform: translateY(-50%);
     left: 10px;
-    color: black;
+    color: #fe4f51;
   }
 `;

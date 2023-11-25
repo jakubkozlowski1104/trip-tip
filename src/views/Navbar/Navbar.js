@@ -13,11 +13,7 @@ import {
 } from './Navbar.styles';
 import logo from '../../assets/images/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faGlobe,
-  faGear,
-  faMagnifyingGlass,
-} from '@fortawesome/free-solid-svg-icons';
+import { faGlobe, faGear } from '@fortawesome/free-solid-svg-icons';
 import Newest from '../../components/Newest/Newest';
 import SearchBar from '../../components/Atoms/SearchBar';
 
@@ -112,9 +108,7 @@ const Navbar = () => {
           </NavLink>
           <AnimatedLine $animationData={animationData}></AnimatedLine>
         </StyledUl>
-        <div className='search-bar'>
-          <SearchBar />
-        </div>
+        <div className='search-bar'>{showSearchbar && <SearchBar />}</div>
         <div className='icons'>
           <p>
             <FontAwesomeIcon icon={faGlobe} />
@@ -137,7 +131,12 @@ const Navbar = () => {
         <Route
           index
           element={
-            <HomePage setIsScrolled={setIsScrolled} isScrolled={isScrolled} />
+            <HomePage
+              setIsScrolled={setIsScrolled}
+              isScrolled={isScrolled}
+              showSearchbar={showSearchbar}
+              setShowSearchbar={setShowSearchbar}
+            />
           }
         />
         <Route path='user/newest' element={<Newest />} />

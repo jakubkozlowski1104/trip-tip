@@ -9,7 +9,7 @@ export const StyledNav = styled.nav`
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-bottom: 2px solid black;
+  border-bottom: 1px solid #c4c4c2;
   width: 100vw;
   position: fixed;
   top: 0;
@@ -36,12 +36,13 @@ export const StyledNav = styled.nav`
 
   .search-bar {
     position: relative;
-    flex-basis: 46%;
+    flex-basis: 37.5%;
   }
 
   .icons {
     margin: 10px;
     font-size: 1.5rem;
+    flex-basis: 5%;
     color: gray;
     display: flex;
     justify-content: center;
@@ -59,7 +60,7 @@ export const StyledNav = styled.nav`
   .buttons {
     display: flex;
     justify-content: center;
-    flex-grow: 2;
+    flex-basis: 20%;
     margin-right: auto;
 
     button {

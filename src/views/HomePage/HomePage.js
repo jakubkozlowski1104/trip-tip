@@ -7,7 +7,7 @@ import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { GlobalStyle } from '../../assets/styles/GlobalStyle';
 import SearchBar from '../../components/Atoms/SearchBar';
 
-const HomePage = ({ setIsScrolled }) => {
+const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
   const [destinations, setDestinations] = useState([]);
 
   useEffect(() => {
@@ -18,6 +18,13 @@ const HomePage = ({ setIsScrolled }) => {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
+      }
+
+      console.log(offset);
+      if (offset > 110) {
+        setShowSearchbar(true);
+      } else {
+        setShowSearchbar(false);
       }
     };
 
@@ -57,9 +64,7 @@ const HomePage = ({ setIsScrolled }) => {
         <div className='card-container-scroll'>
           <div className='headers'>
             <div className='category'>Discover destinations</div>
-            <div className='search-bar'>
-              <SearchBar />
-            </div>
+            <div className='search-bar'>{!showSearchbar && <SearchBar />}</div>
             <div className='sort-by'>Past 24 hours</div>
           </div>
           <div className='cards'>

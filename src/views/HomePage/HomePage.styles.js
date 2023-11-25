@@ -72,7 +72,7 @@ export const StyledHomeWrapper = styled.div`
         height: 430px;
         background-color: white;
         border-radius: 4px;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Styl cienia */
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         display: flex;
         flex-direction: column;
 
