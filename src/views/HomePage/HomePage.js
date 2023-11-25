@@ -6,6 +6,7 @@ import { faBookmark, faHeart } from '@fortawesome/free-regular-svg-icons';
 import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { GlobalStyle } from '../../assets/styles/GlobalStyle';
 import SearchBar from '../../components/Atoms/SearchBar';
+import CardInfo from '../../components/CardInfo/CardInfo';
 
 const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
   const [destinations, setDestinations] = useState([]);
@@ -60,6 +61,7 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
   return (
     <>
       <GlobalStyle />
+      <CardInfo destinations={destinations} />
       <StyledHomeWrapper>
         <div className='card-container-scroll'>
           <div className='headers'>
