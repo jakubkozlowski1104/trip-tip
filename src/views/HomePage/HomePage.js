@@ -10,6 +10,8 @@ import CardInfo from '../../components/CardInfo/CardInfo';
 
 const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
   const [destinations, setDestinations] = useState([]);
+  const [activeDestination, setActiveDestination] = useState();
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
     const homeWrapper = document.querySelector('.card-container-scroll');
@@ -21,7 +23,6 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
         setIsScrolled(false);
       }
 
-      console.log(offset);
       if (offset > 110) {
         setShowSearchbar(true);
       } else {
@@ -61,7 +62,7 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
   return (
     <>
       <GlobalStyle />
-      <CardInfo destinations={destinations} />
+      {isActive && <CardInfo destination={activeDestination} />}
       <StyledHomeWrapper>
         <div className='card-container-scroll'>
           <div className='headers'>
@@ -73,6 +74,7 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
             {destinations.map(
               (
                 {
+                  destination_id,
                   title,
                   description,
                   publish_date,
@@ -83,7 +85,13 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
                 idx
               ) => (
                 <div key={idx} className='card'>
-                  <div className='img'>
+                  <div
+                    className='img'
+                    onClick={() => {
+                      setActiveDestination(destinations[idx]);
+                      setIsActive(true);
+                    }}
+                  >
                     <img src={destination_image_path} alt='' />
                     <div className='cover-img'></div>
                     <div className='country'>
