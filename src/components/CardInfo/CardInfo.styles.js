@@ -33,11 +33,28 @@ export const CardIndoWrapper = styled.div`
       justify-content: center;
       transform-style: preserve-3d;
       perspective-origin: center;
+      cursor: pointer;
 
       img {
+        position: relative;
         width: 100%;
         transform: rotateY(-10deg);
         transition: transform 0.5s ease;
+      }
+    }
+    .img:hover {
+      animation: rotateImage 0.5s forwards;
+    }
+
+    @keyframes rotateImage {
+      0% {
+        transform: rotateY(-10deg);
+      }
+      50% {
+        transform: rotateY(10deg);
+      }
+      100% {
+        transform: rotateY(-10deg);
       }
     }
 
@@ -57,6 +74,25 @@ export const CardIndoWrapper = styled.div`
           font-size: 1.2rem;
         }
       }
+    }
+
+    .read-more {
+      border: 1px solid gray;
+      border-radius: 50px;
+      padding: 7px 20px;
+      color: #f55153;
+      background-color: white;
+      border: 1px solid #f55153;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: 0.2s;
+      font-family: 'montserrat', sans-serif;
+      font-weight: 600;
+    }
+
+    .read-more:hover {
+      background-color: #f55153;
+      color: white;
     }
   }
 `;

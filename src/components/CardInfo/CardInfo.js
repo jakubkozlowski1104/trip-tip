@@ -4,14 +4,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faHeart } from '@fortawesome/free-solid-svg-icons';
 
 const CardInfo = ({ destination }) => {
+  const mapLink = destination.map_link;
+
+  const navigateToMaps = () => {
+    window.open(mapLink, '_blank');
+  };
+
   return (
     <CardIndoWrapper>
       <div className='padding-top'>
         <div className='name'>
           <p>{destination.title}</p>
         </div>
-        <div className='img'>
-          <img src={destination.map_img} alt='' />
+        <div className='img' onClick={() => navigateToMaps()}>
+          <img src={destination.map_img} alt='map' />
         </div>
         <div className='likes-saves'>
           <div className='saves'>
@@ -33,6 +39,7 @@ const CardInfo = ({ destination }) => {
           <div className='user-name'>{destination.user_name}</div>
           <div className='content'>{destination.review_content}</div>
         </div>
+        <button className='btn read-more'>Read more</button>
       </div>
     </CardIndoWrapper>
   );
