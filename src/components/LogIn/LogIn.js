@@ -38,8 +38,8 @@ const LogIn = () => {
     e.preventDefault();
     axios
       .post('http://localhost/TripTipApi/backend/login.php', {
-        action: 'login',
-        inputs,
+        email: inputs.email,
+        password: inputs.password,
       })
       .then((response) => {
         localStorage.setItem('token', response.data.token);
