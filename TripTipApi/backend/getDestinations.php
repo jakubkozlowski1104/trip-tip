@@ -17,7 +17,7 @@
         countries.flag_path,
         reviews.content AS review_content,
         users.name AS user_name,
-        destination_categories.name AS category_name
+        categories.name AS category_name
     FROM 
         destinations
     JOIN 

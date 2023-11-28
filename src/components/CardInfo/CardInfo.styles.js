@@ -15,7 +15,7 @@ export const CardIndoWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
+    gap: 25px;
     padding: 20px;
     padding-top: 60px;
 
@@ -40,6 +40,35 @@ export const CardIndoWrapper = styled.div`
         width: 100%;
         transform: rotateY(-10deg);
         transition: transform 0.5s ease;
+      }
+      .plus {
+        position: absolute;
+        bottom: -15px;
+        left: 35px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50px;
+        background-color: #47cbc4;
+        z-index: 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .circle {
+          position: absolute;
+          width: 23px;
+          height: 23px;
+          border-radius: 50px;
+          background-color: white;
+          z-index: 3;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          i {
+            color: #47cbc4;
+          }
+        }
       }
     }
     .img:hover {

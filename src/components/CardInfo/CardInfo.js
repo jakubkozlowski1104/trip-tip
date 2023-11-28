@@ -1,7 +1,7 @@
 import React from 'react';
 import { CardIndoWrapper } from './CardInfo.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faHeart, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const CardInfo = ({ destination }) => {
   const mapLink = destination.map_link;
@@ -18,6 +18,13 @@ const CardInfo = ({ destination }) => {
         </div>
         <div className='img' onClick={() => navigateToMaps()}>
           <img src={destination.map_img} alt='map' />
+          <div className='plus'>
+            <div className='circle'>
+              <i>
+                <FontAwesomeIcon icon={faPlus} />
+              </i>
+            </div>
+          </div>
         </div>
         <div className='likes-saves'>
           <div className='saves'>
@@ -33,7 +40,14 @@ const CardInfo = ({ destination }) => {
             <div className='amout'>{destination.likes}</div>
           </div>
         </div>
-        <div className='typed'>Categories: {destination.category_name}</div>
+        <div className='categories'>
+          <div className='name'>
+            <p>Categories:</p>
+          </div>
+          <ul className='titles'>
+            <li>{destination.category_name}</li>
+          </ul>
+        </div>
         <div className='description'>{destination.description}</div>
         <div className='review'>
           <div className='user-name'>{destination.user_name}</div>
