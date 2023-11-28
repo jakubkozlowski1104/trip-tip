@@ -7,9 +7,11 @@ $conn = (new DbConnect())->connect();
 $requestData = json_decode(file_get_contents('php://input'));
 $destinationId = $requestData->destinationId;
 
-$sql = "SELECT c.* FROM categories c
-        INNER JOIN destinations d ON c.id = d.category_id
-        WHERE d.id = :destinationId";
+$sql = "SELECT name
+        FROM categories
+        INNER JOIN destination_category ON categories.id = destination_category.category_id
+        WHERE destination_category.destination_id = :destinationId";
+
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':destinationId', $destinationId);
 $stmt->execute();
