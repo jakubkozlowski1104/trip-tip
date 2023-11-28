@@ -7,6 +7,7 @@ const CardInfo = ({ destination }) => {
   const mapLink = destination.map_link;
 
   const navigateToMaps = () => {
+    console.log(destination);
     window.open(mapLink, '_blank');
   };
 

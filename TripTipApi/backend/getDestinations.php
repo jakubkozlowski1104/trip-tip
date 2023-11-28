@@ -27,7 +27,7 @@
     LEFT JOIN 
         users ON reviews.user_id = users.id
     LEFT JOIN 
-        destination_categories ON destinations.category_id = destination_categories.id";
+        categories ON destinations.category_id = categories.id";
 
     $stmt = $conn->prepare($sql);
     $stmt->execute();
