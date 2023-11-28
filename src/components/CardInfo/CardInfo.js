@@ -6,25 +6,33 @@ import { faBookmark, faHeart } from '@fortawesome/free-solid-svg-icons';
 const CardInfo = ({ destination }) => {
   return (
     <CardIndoWrapper>
-      <div className='img'>
-        <img src={destination.map_img} alt='' />
-      </div>
-      <div className='name'>{destination.title}</div>
-      <div className='typed'>Categories: {destination.category_name}</div>
-      <div className='likes-saves'>
-        <div className='saves'>
-          <FontAwesomeIcon icon={faBookmark} />
-          <div className='amout'>{destination.saves}</div>
+      <div className='padding-top'>
+        <div className='name'>
+          <p>{destination.title}</p>
         </div>
-        <div className='likes'>
-          <FontAwesomeIcon icon={faHeart} />
-          <div className='amout'>{destination.likes}</div>
+        <div className='img'>
+          <img src={destination.map_img} alt='' />
         </div>
-      </div>
-      <div className='description'>{destination.description}</div>
-      <div className='review'>
-        <div className='user-name'>{destination.user_name}</div>
-        <div className='content'>{destination.review_content}</div>
+        <div className='likes-saves'>
+          <div className='saves'>
+            <i>
+              <FontAwesomeIcon icon={faBookmark} />
+            </i>
+            <div className='amout'>{destination.saves}</div>
+          </div>
+          <div className='likes'>
+            <i>
+              <FontAwesomeIcon icon={faHeart} />
+            </i>
+            <div className='amout'>{destination.likes}</div>
+          </div>
+        </div>
+        <div className='typed'>Categories: {destination.category_name}</div>
+        <div className='description'>{destination.description}</div>
+        <div className='review'>
+          <div className='user-name'>{destination.user_name}</div>
+          <div className='content'>{destination.review_content}</div>
+        </div>
       </div>
     </CardIndoWrapper>
   );

@@ -8,6 +8,7 @@ export const StyledAsideNavWrapper = styled.div`
   width: 10%;
   height: calc(100vh - 60px);
   z-index: 9;
+  border-right: 1px solid #dbdbdb;
 
   .pick-category {
     display: flex;
