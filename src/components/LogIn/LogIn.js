@@ -37,7 +37,7 @@ const LogIn = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post('http://localhost/TripTipApi/index.php', {
+      .post('http://localhost/TripTipApi/backend/login.php', {
         action: 'login',
         inputs,
       })

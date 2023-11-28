@@ -70,7 +70,7 @@ const SignUp = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        'http://localhost/TripTipApi/index.php',
+        'http://localhost/TripTipApi/backend/signUp.php',
         {
           action: 'trySignUp',
           inputs,
@@ -82,7 +82,7 @@ const SignUp = () => {
       } else if (status === 0) {
         if (canSignUp) {
           const responseSignUp = await axios.post(
-            'http://localhost/TripTipApi/index.php',
+            'http://localhost/TripTipApi/backend/signUp.php',
             {
               action: 'create',
               inputs,

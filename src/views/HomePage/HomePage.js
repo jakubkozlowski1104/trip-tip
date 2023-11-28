@@ -46,7 +46,7 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
     const getDestinations = async () => {
       try {
         const response = await axios.get(
-          'http://localhost/TripTipApi/destinations/'
+          'http://localhost/TripTipApi/backend/getDestinations.php/destinations/'
         );
         if (response.data && response.data.length > 0) {
           setDestinations(response.data);
