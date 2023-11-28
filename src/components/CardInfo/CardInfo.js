@@ -5,12 +5,11 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 const CardInfo = ({ destination }) => {
-  const mapLink = destination.map_link;
   const [categories, setCategories] = useState([]);
 
   const navigateToMaps = () => {
     console.log(destination);
-    window.open(mapLink, '_blank');
+    window.open(destination.map_link, '_blank');
   };
 
   useEffect(() => {
@@ -21,10 +20,7 @@ const CardInfo = ({ destination }) => {
           destinationId,
         })
         .then((response) => {
-          console.log(response);
-          const categories = response.data;
-          setCategories(categories);
-          console.log('Kategorie dla destynacji:', categories);
+          setCategories(response.data.categories);
         })
         .catch((error) => {
           console.error('Błąd pobierania kategorii:', error);
@@ -69,7 +65,13 @@ const CardInfo = ({ destination }) => {
             <p>Categories:</p>
           </div>
           <ul className='titles'>
-            <li>{destination.category_name}</li>
+            {categories ? (
+              categories.map((category, index) => (
+                <li key={index}>{category.name}</li>
+              ))
+            ) : (
+              <li>No categories</li>
+            )}
           </ul>
         </div>
         <div className='description'>{destination.description}</div>
