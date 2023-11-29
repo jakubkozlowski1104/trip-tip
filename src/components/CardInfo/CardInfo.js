@@ -76,6 +76,9 @@ const CardInfo = ({ destination }) => {
 
   return (
     <CardIndoWrapper>
+      <div className='hidden-info'>
+        <p>click map to see on the maps</p>
+      </div>
       <div className='padding-top'>
         <div className='name'>
           <p>{destination.title}</p>

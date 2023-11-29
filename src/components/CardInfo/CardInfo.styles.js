@@ -10,6 +10,17 @@ export const CardIndoWrapper = styled.div`
   z-index: 9;
   border-left: 1px solid #dbdbdb;
 
+  .hidden-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 4.7%;
+    border-bottom: 1px solid #dbdbdb;
+  }
+
   .padding-top {
     perspective: 1500px;
     display: flex;
