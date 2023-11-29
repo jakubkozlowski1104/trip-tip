@@ -1,15 +1,35 @@
 import { CardIndoWrapper } from './CardInfo.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark, faHeart, faPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBookmark,
+  faHeart,
+  faPlus,
+  faArrowRightLong,
+} from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 const CardInfo = ({ destination }) => {
   const [categories, setCategories] = useState([]);
+  const [reviewStars, setReviewStars] = useState(3);
 
   const navigateToMaps = () => {
     console.log(destination);
     window.open(destination.map_link, '_blank');
+  };
+
+  const renderRate = () => {
+    const dots = [];
+
+    for (let i = 1; i <= 5; i++) {
+      if (i <= reviewStars) {
+        dots.push(<div key={i} className='dot fill'></div>);
+      } else {
+        dots.push(<div key={i} className='dot'></div>);
+      }
+    }
+
+    return dots;
   };
 
   useEffect(() => {
@@ -46,37 +66,56 @@ const CardInfo = ({ destination }) => {
             </div>
           </div>
         </div>
-        <div className='likes-saves'>
-          <div className='saves'>
-            <i>
-              <FontAwesomeIcon icon={faBookmark} />
-            </i>
-            <div className='amout'>{destination.saves}</div>
+        <div className='likes-saves-section'>
+          <div className='saves sav-lik'>
+            <div className='title'>Saves:</div>
+            <div className='info'>
+              <i>
+                <FontAwesomeIcon icon={faBookmark} />
+              </i>
+              <div className='amout'>{destination.saves}</div>
+            </div>
           </div>
-          <div className='likes'>
-            <i>
-              <FontAwesomeIcon icon={faHeart} />
-            </i>
-            <div className='amout'>{destination.likes}</div>
+
+          <div className='likes sav-lik'>
+            <div className='title'>Likes:</div>
+            <div className='info'>
+              <i>
+                <FontAwesomeIcon icon={faHeart} />
+              </i>
+              <div className='amout'>{destination.likes}</div>
+            </div>
           </div>
         </div>
         <div className='categories'>
-          <div className='name'>
-            <p>Categories:</p>
-          </div>
+          <div className='title'>Categories:</div>
           <ul className='titles'>
             {categories ? (
               categories.map((category, index) => (
-                <li key={index}>{category.name}</li>
+                <div className='single-title'>
+                  <i>
+                    <FontAwesomeIcon icon={faArrowRightLong} />
+                  </i>
+                  <li key={index}>{category.name}</li>
+                </div>
               ))
             ) : (
               <li>No categories</li>
             )}
           </ul>
         </div>
-        <div className='description'>{destination.description}</div>
+        <div className='description'>
+          <div className='title'>Short description</div>
+          <p>{destination.description}</p>
+        </div>
         <div className='review'>
-          <div className='user-name'>{destination.user_name}</div>
+          <div className='title'>Newest rewiev</div>
+          <div className='header-review'>
+            <div className='user-name'>
+              <p>{destination.user_name}</p>
+              <div className='rating'>{renderRate()}</div>
+            </div>
+          </div>
           <div className='content'>{destination.review_content}</div>
         </div>
         <button className='btn read-more'>Read more</button>

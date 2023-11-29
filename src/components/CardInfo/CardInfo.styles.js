@@ -15,16 +15,18 @@ export const CardIndoWrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 25px;
-    padding: 20px;
+    gap: 20px;
+    padding: 25px;
     padding-top: 60px;
+    height: 100%;
 
     .name {
       display: flex;
       justify-content: center;
       p {
         font-weight: 600;
-        font-size: 1.3rem;
+        font-size: 1.2rem;
+        color: #f55153;
       }
     }
 
@@ -87,11 +89,24 @@ export const CardIndoWrapper = styled.div`
       }
     }
 
-    .likes-saves {
+    .likes-saves-section {
+      padding-top: 10px;
       display: flex;
       justify-content: space-around;
+      gap: 5px;
 
-      .saves {
+      .sav-lik {
+        .title {
+          color: #f55153;
+          font-weight: bold;
+          padding-bottom: 3px;
+        }
+        .info {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+        }
         i {
           color: green;
           font-size: 1.2rem;
@@ -102,6 +117,88 @@ export const CardIndoWrapper = styled.div`
           color: red;
           font-size: 1.2rem;
         }
+      }
+    }
+
+    .categories {
+      align-self: flex-start;
+      .title {
+        color: #f55153;
+        font-weight: bold;
+        padding-bottom: 3px;
+      }
+      .titles {
+        display: flex;
+        flex-direction: column;
+
+        .single-title {
+          display: flex;
+          align-items: center;
+          i {
+            color: #f55153;
+          }
+          li {
+            margin-left: 5px;
+            list-style-type: none;
+            font-size: 0.9rem;
+            font-weight: normal;
+            color: #4f4f4f;
+          }
+        }
+      }
+    }
+
+    .description {
+      .title {
+        padding-bottom: 3px;
+
+        color: #f55153;
+        font-weight: bold;
+      }
+      p {
+        font-size: 0.9rem;
+        font-weight: normal;
+        color: #4f4f4f;
+      }
+    }
+
+    .review {
+      flex-grow: 5;
+      .title {
+        padding-bottom: 3px;
+        color: #f55153;
+        font-weight: bold;
+      }
+
+      .header-review {
+        .user-name {
+          position: relative;
+          color: #0abfbc;
+          .rating {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 20px;
+            display: flex;
+            gap: 3px;
+
+            .dot {
+              width: 15px;
+              height: 15px;
+              border: 1px solid #0abfbc;
+              border-radius: 50px;
+            }
+
+            .dot.fill {
+              background-color: #0abfbc;
+            }
+          }
+        }
+      }
+      .content {
+        font-size: 0.9rem;
+        font-weight: normal;
+        color: #4f4f4f;
       }
     }
 
