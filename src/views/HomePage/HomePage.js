@@ -23,6 +23,7 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
   const [activeDestination, setActiveDestination] = useState();
   const [isActive, setIsActive] = useState(false);
   const [userSaves, setUserSaves] = useState([0]);
+  const [userLikes, setUserLikes] = useState([0]);
 
   const getUserIdFromToken = () => {
     const userToken = localStorage.getItem('token');
@@ -93,8 +94,23 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
       });
   };
 
+  const fetchUserLikes = () => {
+    const userId = getUserIdFromToken();
+    axios
+      .post('http://localhost/TripTipApi/backend/getLiked.php', {
+        userId,
+      })
+      .then((response) => {
+        setUserLikes(response.data.destinations);
+      })
+      .catch((error) => {
+        console.error('Błąd pobierania kategorii użytkownika:', error);
+      });
+  };
+
   useEffect(() => {
     fetchUserSaves();
+    fetchUserLikes();
   }, []);
 
   const handleSaved = (
@@ -194,9 +210,22 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
                           </div>
                         )}
 
-                        <div className='icon likes'>
-                          <FontAwesomeIcon icon={regularHeart} />
-                        </div>
+                        {userLikes?.length > 0 &&
+                        userLikes.includes(destination_id) ? (
+                          <div
+                            className='icon liked fill'
+                            // onClick={() => handleSaved(destination_id, true)}
+                          >
+                            <FontAwesomeIcon icon={solidHeart} />
+                          </div>
+                        ) : (
+                          <div
+                            className='icon liked'
+                            // onClick={() => handleSaved(destination_id, false)}
+                          >
+                            <FontAwesomeIcon icon={regularHeart} />
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>

@@ -256,17 +256,22 @@ export const StyledHomeWrapper = styled.div`
               .saved.fill:hover {
                 color: lightgreen;
               }
+              .saved:hover {
+                color: green;
+              }
+              .liked.fill {
+                color: red;
+              }
+              .liked.fill:hover {
+                color: #fc7c84;
+              }
+              .liked:hover {
+                color: red;
+              }
               .icon {
                 transition: 0.3s;
                 font-size: 1.2rem;
                 cursor: pointer;
-              }
-              .likes:hover {
-                color: red;
-              }
-
-              .saved:hover {
-                color: green;
               }
             }
           }
