@@ -134,6 +134,27 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
       });
   };
 
+  const handleLiked = (
+    destination_id,
+    isLiked,
+    userId = getUserIdFromToken()
+  ) => {
+    console.log(userId, destination_id, isLiked);
+    axios
+      .post('http://localhost/TripTipApi/backend/likesInsertOrDelete.php', {
+        userId: userId,
+        destinationId: destination_id,
+        isLiked: isLiked,
+      })
+      .then((response) => {
+        console.log(response.data);
+        fetchUserLikes();
+      })
+      .catch((error) => {
+        console.error('Błąd zapytania:', error);
+      });
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -214,14 +235,14 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
                         userLikes.includes(destination_id) ? (
                           <div
                             className='icon liked fill'
-                            // onClick={() => handleSaved(destination_id, true)}
+                            onClick={() => handleLiked(destination_id, true)}
                           >
                             <FontAwesomeIcon icon={solidHeart} />
                           </div>
                         ) : (
                           <div
                             className='icon liked'
-                            // onClick={() => handleSaved(destination_id, false)}
+                            onClick={() => handleLiked(destination_id, false)}
                           >
                             <FontAwesomeIcon icon={regularHeart} />
                           </div>
