@@ -7,11 +7,18 @@ import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { GlobalStyle } from '../../assets/styles/GlobalStyle';
 import SearchBar from '../../components/Atoms/SearchBar';
 import CardInfo from '../../components/CardInfo/CardInfo';
+import { jwtDecode } from 'jwt-decode';
 
 const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
   const [destinations, setDestinations] = useState([]);
   const [activeDestination, setActiveDestination] = useState();
   const [isActive, setIsActive] = useState(false);
+  const [userSaves, setUserSaves] = useState([3, 5, 9]);
+  const [isSaved, setIsSaved] = useState(false);
+
+  const checkIsDestinationSaved = (destination_id) => {
+    const isNumberIncluded = userSaves.includes(destination_id);
+  };
 
   useEffect(() => {
     const homeWrapper = document.querySelector('.card-container-scroll');
@@ -50,6 +57,9 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
         );
         if (response.data && response.data.length > 0) {
           setDestinations(response.data);
+          response.data.forEach((destination) => {
+            checkIsDestinationSaved(destination.destination_id);
+          });
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -58,6 +68,15 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
 
     getDestinations();
   }, []);
+
+  const helloUser = (destination_id) => {
+    const userToken = localStorage.getItem('token');
+    if (userToken) {
+      const decodedToken = jwtDecode(userToken);
+      console.log(decodedToken);
+      console.log(destination_id);
+    }
+  };
 
   return (
     <>
@@ -74,6 +93,7 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
             {destinations.map(
               (
                 {
+                  destination_id,
                   title,
                   description,
                   publish_date,
@@ -117,7 +137,10 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
                         <div className='icon share'>
                           <FontAwesomeIcon icon={faShareAlt} />
                         </div>
-                        <div className='icon saved'>
+                        <div
+                          className='icon saved'
+                          onClick={() => helloUser(destination_id)}
+                        >
                           <FontAwesomeIcon icon={faBookmark} />
                         </div>
                         <div className='icon likes'>

@@ -7,8 +7,7 @@ import {
   faCircleExclamation,
   faLock,
   faUser,
-} from '@fortawesome/free-solid-svg-icons'; // Import the specific icon
-// const { default: jwt_decode } = require('jwt-decode');
+} from '@fortawesome/free-solid-svg-icons';
 import { jwtDecode } from 'jwt-decode';
 
 const LogIn = () => {
@@ -55,7 +54,7 @@ const LogIn = () => {
 
   const changePath = () => {
     if (isLogIn) {
-      navigate('/user/home');
+      navigate('/');
     }
   };
 
