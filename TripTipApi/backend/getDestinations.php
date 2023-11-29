@@ -14,20 +14,11 @@
         destinations.map_img,
         destinations.map_link,
         countries.name AS country_name,
-        countries.flag_path,
-        reviews.content AS review_content,
-        users.name AS user_name,
-        categories.name AS category_name
+        countries.flag_path
     FROM 
         destinations
     JOIN 
-        countries ON destinations.country = countries.id
-    LEFT JOIN 
-        reviews ON destinations.review = reviews.id
-    LEFT JOIN 
-        users ON reviews.user_id = users.id
-    LEFT JOIN 
-        categories ON destinations.category_id = categories.id";
+        countries ON destinations.country = countries.id";
 
     $stmt = $conn->prepare($sql);
     $stmt->execute();
