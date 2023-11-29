@@ -9,14 +9,49 @@ import {
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
-const CardInfo = ({ destination }) => {
+const CardInfo = ({ destination, userSaves }) => {
   const [categories, setCategories] = useState([]);
   const [review, setReview] = useState([]);
   const [reviewStars, setReviewStars] = useState(2);
+  const [savesCountPerDestination, setSavesCountPerDestination] = useState();
 
   const navigateToMaps = () => {
     window.open(destination.map_link, '_blank');
   };
+
+  const getSavesCountForDestination = (destinationId) => {
+    const result = savesCountPerDestination.find(
+      (item) => item.destination_id === destinationId
+    );
+    if (result) {
+      return result.saves_count;
+    }
+    return 0;
+  };
+
+  const fetchSaved = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost/TripTipApi/backend/countSaved.php'
+      );
+      if (response.data && response.data.length > 0) {
+        setSavesCountPerDestination(response.data);
+      }
+    } catch (error) {
+      console.error('Błąd pobierania danych:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSaved();
+  }, [userSaves]);
+
+  useEffect(() => {
+    fetchSaved();
+    if (savesCountPerDestination && savesCountPerDestination.length > 0) {
+      getSavesCountForDestination(destination.destination_id);
+    }
+  }, [destination]);
 
   const renderRate = () => {
     const dots = [];
@@ -39,7 +74,6 @@ const CardInfo = ({ destination }) => {
   }, [review]);
 
   useEffect(() => {
-    console.log(destination.destination_id);
     const getReview = (destinationId) => {
       axios
         .post('http://localhost/TripTipApi/backend/getOneReview.php', {
@@ -57,7 +91,6 @@ const CardInfo = ({ destination }) => {
   }, [destination.destination_id]);
 
   useEffect(() => {
-    console.log(destination.destination_id);
     const fetchCategories = (destinationId) => {
       axios
         .post('http://localhost/TripTipApi/backend/getCategories.php', {
@@ -69,6 +102,7 @@ const CardInfo = ({ destination }) => {
         .catch((error) => {
           console.error('Błąd pobierania kategorii:', error);
         });
+      fetchSaved(destinationId);
     };
 
     fetchCategories(destination.destination_id);
@@ -100,7 +134,11 @@ const CardInfo = ({ destination }) => {
               <i>
                 <FontAwesomeIcon icon={faBookmark} />
               </i>
-              <div className='amout'>{destination.saves}</div>
+              <div className='amout'>
+                {savesCountPerDestination && savesCountPerDestination.length > 0
+                  ? getSavesCountForDestination(destination.destination_id)
+                  : 0}
+              </div>
             </div>
           </div>
 
