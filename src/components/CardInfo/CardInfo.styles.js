@@ -196,9 +196,11 @@ export const CardIndoWrapper = styled.div`
         }
       }
       .content {
-        font-size: 0.9rem;
-        font-weight: normal;
-        color: #4f4f4f;
+        p {
+          font-size: 0.9rem;
+          font-weight: normal;
+          color: #4f4f4f;
+        }
       }
     }
 

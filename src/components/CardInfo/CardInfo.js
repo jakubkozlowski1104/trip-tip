@@ -12,10 +12,9 @@ import React, { useState, useEffect } from 'react';
 const CardInfo = ({ destination }) => {
   const [categories, setCategories] = useState([]);
   const [review, setReview] = useState([]);
-  const [reviewStars, setReviewStars] = useState(3);
+  const [reviewStars, setReviewStars] = useState(2);
 
   const navigateToMaps = () => {
-    console.log(destination);
     window.open(destination.map_link, '_blank');
   };
 
@@ -34,6 +33,12 @@ const CardInfo = ({ destination }) => {
   };
 
   useEffect(() => {
+    if (review.length > 0) {
+      setReviewStars(review[0].review_type);
+    }
+  }, [review]);
+
+  useEffect(() => {
     console.log(destination.destination_id);
     const getReview = (destinationId) => {
       axios
@@ -41,8 +46,7 @@ const CardInfo = ({ destination }) => {
           destinationId,
         })
         .then((response) => {
-          console.log(response.data.categories);
-          setReview(response.data.categories);
+          setReview(response.data.review);
         })
         .catch((error) => {
           console.error('Błąd pobierania kategorii:', error);
@@ -132,11 +136,23 @@ const CardInfo = ({ destination }) => {
           <div className='title'>Newest rewiev</div>
           <div className='header-review'>
             <div className='user-name'>
-              <p>{destination.user_name}</p>
+              <p>
+                {review[0] ? (
+                  <p>{review[0].user_name}</p>
+                ) : (
+                  <p>No reviews for this destination</p>
+                )}
+              </p>
               <div className='rating'>{renderRate()}</div>
             </div>
           </div>
-          <div className='content'>{destination.review_content}</div>
+          <div className='content'>
+            {review.length > 0 && review[0].review_content ? (
+              <p>{review[0].review_content}</p>
+            ) : (
+              <p>No reviews for this destination</p>
+            )}
+          </div>
         </div>
         <button className='btn read-more'>Read more</button>
       </div>
