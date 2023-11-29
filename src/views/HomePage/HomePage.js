@@ -69,14 +69,28 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
     getDestinations();
   }, []);
 
-  const helloUser = (destination_id) => {
-    const userToken = localStorage.getItem('token');
-    if (userToken) {
-      const decodedToken = jwtDecode(userToken);
-      console.log(decodedToken);
-      console.log(destination_id);
-    }
-  };
+  useEffect(() => {
+    const fetchUserSaves = () => {
+      const userToken = localStorage.getItem('token');
+      if (userToken) {
+        const decodedToken = jwtDecode(userToken);
+        const userId = decodedToken.user_id;
+        console.log(userId);
+        axios
+          .post('http://localhost/TripTipApi/backend/getSaved.php', {
+            userId,
+          })
+          .then((response) => {
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.error('Błąd pobierania kategorii użytkownika:', error);
+          });
+      }
+    };
+
+    fetchUserSaves();
+  }, []);
 
   return (
     <>
@@ -137,10 +151,7 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
                         <div className='icon share'>
                           <FontAwesomeIcon icon={faShareAlt} />
                         </div>
-                        <div
-                          className='icon saved'
-                          onClick={() => helloUser(destination_id)}
-                        >
+                        <div className='icon saved'>
                           <FontAwesomeIcon icon={faBookmark} />
                         </div>
                         <div className='icon likes'>
