@@ -74,7 +74,6 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
             {destinations.map(
               (
                 {
-                  destination_id,
                   title,
                   description,
                   publish_date,
