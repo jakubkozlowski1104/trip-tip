@@ -159,7 +159,7 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
     <>
       <GlobalStyle />
       {isActive && (
-        <CardInfo destination={activeDestination} userSaves={userSaves} />
+        <CardInfo destination={activeDestination} userSaves={userSaves} userLikes={userLikes}/>
       )}
       <StyledHomeWrapper>
         <div className='card-container-scroll'>

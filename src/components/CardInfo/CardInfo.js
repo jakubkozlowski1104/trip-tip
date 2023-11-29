@@ -9,11 +9,12 @@ import {
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
-const CardInfo = ({ destination, userSaves }) => {
+const CardInfo = ({ destination, userSaves, userLikes }) => {
   const [categories, setCategories] = useState([]);
   const [review, setReview] = useState([]);
   const [reviewStars, setReviewStars] = useState(2);
   const [savesCountPerDestination, setSavesCountPerDestination] = useState();
+  const [likesCountPerDestination, setLikesCountPerDestination] = useState();
 
   const navigateToMaps = () => {
     window.open(destination.map_link, '_blank');
@@ -25,6 +26,16 @@ const CardInfo = ({ destination, userSaves }) => {
     );
     if (result) {
       return result.saves_count;
+    }
+    return 0;
+  };
+
+  const getLikesCountForDestination = (destinationId) => {
+    const result = likesCountPerDestination.find(
+      (item) => item.destination_id === destinationId
+    );
+    if (result) {
+      return result.likes_count;
     }
     return 0;
   };
@@ -42,16 +53,26 @@ const CardInfo = ({ destination, userSaves }) => {
     }
   };
 
+  const fetchLiked = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost/TripTipApi/backend/countLiked.php'
+      );
+      if (response.data && response.data.length > 0) {
+        setLikesCountPerDestination(response.data);
+      }
+    } catch (error) {
+      console.error('Błąd pobierania danych:', error);
+    }
+  };
+
   useEffect(() => {
     fetchSaved();
   }, [userSaves]);
 
   useEffect(() => {
-    fetchSaved();
-    if (savesCountPerDestination && savesCountPerDestination.length > 0) {
-      getSavesCountForDestination(destination.destination_id);
-    }
-  }, [destination]);
+    fetchLiked();
+  }, [userLikes]);
 
   const renderRate = () => {
     const dots = [];
@@ -102,7 +123,6 @@ const CardInfo = ({ destination, userSaves }) => {
         .catch((error) => {
           console.error('Błąd pobierania kategorii:', error);
         });
-      fetchSaved(destinationId);
     };
 
     fetchCategories(destination.destination_id);
@@ -148,7 +168,11 @@ const CardInfo = ({ destination, userSaves }) => {
               <i>
                 <FontAwesomeIcon icon={faHeart} />
               </i>
-              <div className='amout'>{destination.likes}</div>
+              <div className='amout'>
+                {likesCountPerDestination && likesCountPerDestination.length > 0
+                  ? getLikesCountForDestination(destination.destination_id)
+                  : 0}
+              </div>
             </div>
           </div>
         </div>
