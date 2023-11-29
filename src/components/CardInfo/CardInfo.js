@@ -11,6 +11,7 @@ import React, { useState, useEffect } from 'react';
 
 const CardInfo = ({ destination }) => {
   const [categories, setCategories] = useState([]);
+  const [review, setReview] = useState([]);
   const [reviewStars, setReviewStars] = useState(3);
 
   const navigateToMaps = () => {
@@ -31,6 +32,25 @@ const CardInfo = ({ destination }) => {
 
     return dots;
   };
+
+  useEffect(() => {
+    console.log(destination.destination_id);
+    const getReview = (destinationId) => {
+      axios
+        .post('http://localhost/TripTipApi/backend/getOneReview.php', {
+          destinationId,
+        })
+        .then((response) => {
+          console.log(response.data.categories);
+          setReview(response.data.categories);
+        })
+        .catch((error) => {
+          console.error('Błąd pobierania kategorii:', error);
+        });
+    };
+
+    getReview(destination.destination_id);
+  }, [destination.destination_id]);
 
   useEffect(() => {
     console.log(destination.destination_id);
