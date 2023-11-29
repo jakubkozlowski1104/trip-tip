@@ -250,6 +250,9 @@ export const StyledHomeWrapper = styled.div`
               flex-grow: 1;
               display: flex;
               justify-content: space-around;
+              .saved.fill {
+                color: green;
+              }
               .icon {
                 transition: 0.3s;
                 font-size: 1.2rem;
