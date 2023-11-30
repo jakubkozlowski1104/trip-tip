@@ -52,7 +52,7 @@ const HomePage = ({
         }
       );
       console.log('API Response:', response.data);
-      if (response.data && response.data.length > 0) {
+      if (response.data) {
         setDestinations(response.data);
       }
     } catch (error) {
@@ -165,7 +165,7 @@ const HomePage = ({
 
   useEffect(() => {
     fetchDestinations();
-  }, [activeCategory]);
+  }, [activeCategory, userLikes, userSaves]);
 
   return (
     <>
@@ -185,90 +185,96 @@ const HomePage = ({
             <div className='sort-by'>Past 24 hours</div>
           </div>
           <div className='cards'>
-            {destinations.map(
-              (
-                {
-                  destination_id,
-                  title,
-                  description,
-                  publish_date,
-                  destination_image_path,
-                  flag_path,
-                  country_name,
-                },
-                idx
-              ) => (
-                <div key={idx} className='card'>
-                  <div
-                    className='img'
-                    onClick={() => {
-                      setActiveDestination(destinations[idx]);
-                      setIsActive(true);
-                    }}
-                  >
-                    <img src={destination_image_path} alt='' />
-                    <div className='cover-img'></div>
-                    <div className='country'>
-                      <p>{country_name}</p>
-                      <div className='hover-text'></div>
-                    </div>
-                  </div>
-                  <button className='button read-more'>Read More!</button>
-                  <div className='flag'>
-                    <img src={flag_path} alt='' />
-                  </div>
-                  <div className='down-section'>
-                    <div className='title'>
-                      <h2>{title}</h2>
-                    </div>
-                    <div className='description'>
-                      <p>{description}</p>
-                    </div>
-                    <div className='info'>
-                      <div className='date'>
-                        <p>{publish_date}</p>
+            {console.log(destinations)}
+            {console.log(destinations.length)}
+            {destinations.length <= 0 ? (
+              <h1>Brak destynacji</h1>
+            ) : (
+              destinations.map(
+                (
+                  {
+                    destination_id,
+                    title,
+                    description,
+                    publish_date,
+                    destination_image_path,
+                    flag_path,
+                    country_name,
+                  },
+                  idx
+                ) => (
+                  <div key={idx} className='card'>
+                    <div
+                      className='img'
+                      onClick={() => {
+                        setActiveDestination(destinations[idx]);
+                        setIsActive(true);
+                      }}
+                    >
+                      <img src={destination_image_path} alt='' />
+                      <div className='cover-img'></div>
+                      <div className='country'>
+                        <p>{country_name}</p>
+                        <div className='hover-text'></div>
                       </div>
-                      <div className='icons'>
-                        <div className='icon share'>
-                          <FontAwesomeIcon icon={faShareAlt} />
+                    </div>
+                    <button className='button read-more'>Read More!</button>
+                    <div className='flag'>
+                      <img src={flag_path} alt='' />
+                    </div>
+                    <div className='down-section'>
+                      <div className='title'>
+                        <h2>{title}</h2>
+                      </div>
+                      <div className='description'>
+                        <p>{description}</p>
+                      </div>
+                      <div className='info'>
+                        <div className='date'>
+                          <p>{publish_date}</p>
                         </div>
-                        {userSaves?.length > 0 &&
-                        userSaves.includes(destination_id) ? (
-                          <div
-                            className='icon saved fill'
-                            onClick={() => handleSaved(destination_id, true)}
-                          >
-                            <FontAwesomeIcon icon={solidBookmark} />
+                        <div className='icons'>
+                          <div className='icon share'>
+                            <FontAwesomeIcon icon={faShareAlt} />
                           </div>
-                        ) : (
-                          <div
-                            className='icon saved'
-                            onClick={() => handleSaved(destination_id, false)}
-                          >
-                            <FontAwesomeIcon icon={regularBookmark} />
-                          </div>
-                        )}
+                          {userSaves?.length > 0 &&
+                          userSaves.includes(destination_id) ? (
+                            <div
+                              className='icon saved fill'
+                              onClick={() => handleSaved(destination_id, true)}
+                            >
+                              <FontAwesomeIcon icon={solidBookmark} />
+                            </div>
+                          ) : (
+                            <div
+                              className='icon saved'
+                              onClick={() => handleSaved(destination_id, false)}
+                            >
+                              <FontAwesomeIcon icon={regularBookmark} />
+                            </div>
+                          )}
 
-                        {userLikes?.length > 0 &&
-                        userLikes.includes(destination_id) ? (
-                          <div
-                            className='icon liked fill'
-                            onClick={() => handleLiked(destination_id, true)}
-                          >
-                            <FontAwesomeIcon icon={solidHeart} />
-                          </div>
-                        ) : (
-                          <div
-                            className='icon liked'
-                            onClick={() => handleLiked(destination_id, false)}
-                          >
-                            <FontAwesomeIcon icon={regularHeart} />
-                          </div>
-                        )}
+                          {userLikes?.length > 0 &&
+                          userLikes.includes(destination_id) ? (
+                            <div
+                              className='icon liked fill'
+                              onClick={() => handleLiked(destination_id, true)}
+                            >
+                              <FontAwesomeIcon icon={solidHeart} />
+                            </div>
+                          ) : (
+                            <div
+                              className='icon liked'
+                              onClick={() => handleLiked(destination_id, false)}
+                            >
+                              <FontAwesomeIcon icon={regularHeart} />
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                )
               )
             )}
           </div>

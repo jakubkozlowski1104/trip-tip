@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import SignUp from '../../components/SignUp/SignUp';
 import LogIn from '../../components/LogIn/LogIn';
 import SavedDestinations from '../../components/SavedDestinations/SavedDestinations';
-import VisitedDestinations from '../../components/VisitedDestinations/VisitedDestinations';
+import LikedDestinations from '../../components/LikedDestinations/LikedDestinations';
 import HomePage from '../HomePage/HomePage';
 import {
   StyledNav,
@@ -97,14 +97,14 @@ const Navbar = ({ activeCategory }) => {
             Saved
           </NavLink>
           <NavLink
-            to='/user/visited'
+            to='/user/liked'
             className='link'
             onClick={() => {
               handleLinkClick('263px', '80px');
               setSelectedIndicator('4');
             }}
           >
-            Visited
+            Liked
           </NavLink>
           <AnimatedLine $animationData={animationData}></AnimatedLine>
         </StyledUl>
@@ -142,9 +142,9 @@ const Navbar = ({ activeCategory }) => {
         <Route path='user/newest' element={<Newest />} />
         <Route path='user/saved' element={<SavedDestinations />} />
         <Route
-          path='user/visited'
+          path='user/liked'
           element={
-            <VisitedDestinations
+            <LikedDestinations
               setIsScrolled={setIsScrolled}
               showSearchbar={showSearchbar}
               setShowSearchbar={setShowSearchbar}
