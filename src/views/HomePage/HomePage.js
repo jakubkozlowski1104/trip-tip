@@ -67,18 +67,39 @@ const HomePage = ({
     };
   }, []);
 
-  const getDestinations = async () => {
-    try {
-      const response = await axios.get(
-        'http://localhost/TripTipApi/backend/getDestinations.php/destinations/'
-      );
-      if (response.data && response.data.length > 0) {
-        setDestinations(response.data);
+  // const getDestinations = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       'http://localhost/TripTipApi/backend/getDestinations.php/destinations/'
+  //     );
+  //     if (response.data && response.data.length > 0) {
+  //       setDestinations(response.data);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   }
+  // };
+
+  useEffect(() => {
+    const getDestinations = async () => {
+      try {
+        const response = await axios.post(
+          'http://localhost/TripTipApi/backend/getDestByCategories.php',
+          {
+            category: activeCategory,
+          }
+        );
+        console.log('API Response:', response.data);
+        if (response.data && response.data.length > 0) {
+          setDestinations(response.data);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
       }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+    };
+
+    getDestinations();
+  }, [activeCategory]);
 
   const fetchUserSaves = () => {
     const userId = getUserIdFromToken();
@@ -151,7 +172,7 @@ const HomePage = ({
   };
 
   useEffect(() => {
-    getDestinations();
+    // getDestinations();
     fetchUserSaves();
     fetchUserLikes();
   }, []);
