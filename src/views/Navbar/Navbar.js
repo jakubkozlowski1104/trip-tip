@@ -17,7 +17,7 @@ import { faGlobe, faGear } from '@fortawesome/free-solid-svg-icons';
 import Newest from '../../components/Newest/Newest';
 import SearchBar from '../../components/Atoms/SearchBar';
 
-const Navbar = () => {
+const Navbar = ({ activeCategory }) => {
   const [animationData, setAnimationData] = useState({
     left: '0px',
     width: '105px',
@@ -136,6 +136,7 @@ const Navbar = () => {
               isScrolled={isScrolled}
               showSearchbar={showSearchbar}
               setShowSearchbar={setShowSearchbar}
+              activeCategory={activeCategory}
             />
           }
         />

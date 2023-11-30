@@ -18,7 +18,12 @@ import SearchBar from '../../components/Atoms/SearchBar';
 import CardInfo from '../../components/CardInfo/CardInfo';
 import { jwtDecode } from 'jwt-decode';
 
-const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
+const HomePage = ({
+  setIsScrolled,
+  showSearchbar,
+  setShowSearchbar,
+  activeCategory,
+}) => {
   const [destinations, setDestinations] = useState([]);
   const [activeDestination, setActiveDestination] = useState();
   const [isActive, setIsActive] = useState(false);
@@ -60,25 +65,20 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
         homeWrapper.removeEventListener('scroll', handleScroll);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    const getDestinations = async () => {
-      try {
-        const response = await axios.get(
-          'http://localhost/TripTipApi/backend/getDestinations.php/destinations/'
-        );
-        if (response.data && response.data.length > 0) {
-          setDestinations(response.data);
-        }
-      } catch (error) {
-        console.error('Error fetching data:', error);
+  const getDestinations = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost/TripTipApi/backend/getDestinations.php/destinations/'
+      );
+      if (response.data && response.data.length > 0) {
+        setDestinations(response.data);
       }
-    };
-
-    getDestinations();
-  }, []);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   const fetchUserSaves = () => {
     const userId = getUserIdFromToken();
@@ -107,11 +107,6 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
         console.error('Błąd pobierania kategorii użytkownika:', error);
       });
   };
-
-  useEffect(() => {
-    fetchUserSaves();
-    fetchUserLikes();
-  }, []);
 
   const handleSaved = (
     destination_id,
@@ -155,11 +150,21 @@ const HomePage = ({ setIsScrolled, showSearchbar, setShowSearchbar }) => {
       });
   };
 
+  useEffect(() => {
+    getDestinations();
+    fetchUserSaves();
+    fetchUserLikes();
+  }, []);
+
   return (
     <>
       <GlobalStyle />
       {isActive && (
-        <CardInfo destination={activeDestination} userSaves={userSaves} userLikes={userLikes}/>
+        <CardInfo
+          destination={activeDestination}
+          userSaves={userSaves}
+          userLikes={userLikes}
+        />
       )}
       <StyledHomeWrapper>
         <div className='card-container-scroll'>
