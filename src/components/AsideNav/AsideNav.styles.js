@@ -49,16 +49,35 @@ export const StyledAsideNavWrapper = styled.div`
         color: #b9c1c0;
         font-size: 1.6rem;
       }
+
+      .icon.cities {
+        color: ${({ $activeCategory }) =>
+          $activeCategory === 'cities' ? '#f55153' : '#b9c1c0'};
+      }
+      .icon.active {
+        color: ${({ $activeCategory }) =>
+          $activeCategory === 'active' ? '#f55153' : '#b9c1c0'};
+      }
+      .icon.nature {
+        color: ${({ $activeCategory }) =>
+          $activeCategory === 'nature' ? '#f55153' : '#b9c1c0'};
+      }
+      .icon.relax {
+        color: ${({ $activeCategory }) =>
+          $activeCategory === 'relax' ? '#f55153' : '#b9c1c0'};
+      }
+      .icon.adventure {
+        color: ${({ $activeCategory }) =>
+          $activeCategory === 'adventure' ? '#f55153' : '#b9c1c0'};
+      }
+      .icon.historical {
+        color: ${({ $activeCategory }) =>
+          $activeCategory === 'historical' ? '#f55153' : '#b9c1c0'};
+      }
     }
 
     .option:hover {
       cursor: pointer;
-      .icon {
-        color: red;
-      }
-    }
-
-    .option:nth-child(1) {
     }
   }
 `;
