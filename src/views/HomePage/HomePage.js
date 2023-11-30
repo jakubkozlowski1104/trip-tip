@@ -17,6 +17,7 @@ import { GlobalStyle } from '../../assets/styles/GlobalStyle';
 import SearchBar from '../../components/Atoms/SearchBar';
 import CardInfo from '../../components/CardInfo/CardInfo';
 import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
 const HomePage = ({
   activeUserPick = 'all',
@@ -30,6 +31,11 @@ const HomePage = ({
   const [isActive, setIsActive] = useState(false);
   const [userSaves, setUserSaves] = useState([0]);
   const [userLikes, setUserLikes] = useState([0]);
+  const navigate = useNavigate();
+
+  const handleReadMoreClick = (clickedDestination) => {
+    navigate('/user/card', { state: { destination: clickedDestination } });
+  };
 
   const getUserIdFromToken = () => {
     const userToken = localStorage.getItem('token');
@@ -218,7 +224,12 @@ const HomePage = ({
                         <div className='hover-text'></div>
                       </div>
                     </div>
-                    <button className='button read-more'>Read More!</button>
+                    <button
+                      className='button read-more'
+                      onClick={() => handleReadMoreClick(destinations[idx])}
+                    >
+                      Read More!
+                    </button>
                     <div className='flag'>
                       <img src={flag_path} alt='' />
                     </div>

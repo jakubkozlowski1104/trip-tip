@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe, faGear } from '@fortawesome/free-solid-svg-icons';
 import Newest from '../../components/Newest/Newest';
 import SearchBar from '../../components/Atoms/SearchBar';
+import BrowseCard from '../../components/BrowseCard/BrowseCard';
 
 const Navbar = ({ activeCategory }) => {
   const [animationData, setAnimationData] = useState({
@@ -140,7 +141,17 @@ const Navbar = ({ activeCategory }) => {
           }
         />
         <Route path='user/newest' element={<Newest />} />
-        <Route path='user/saved' element={<SavedDestinations />} />
+        <Route
+          path='user/saved'
+          element={
+            <SavedDestinations
+              setIsScrolled={setIsScrolled}
+              showSearchbar={showSearchbar}
+              setShowSearchbar={setShowSearchbar}
+              activeCategory={activeCategory}
+            />
+          }
+        />
         <Route
           path='user/liked'
           element={
@@ -154,6 +165,7 @@ const Navbar = ({ activeCategory }) => {
         />
         <Route path='user/signup' element={<SignUp />} />
         <Route path='user/login' element={<LogIn />} />
+        <Route path='user/card' element={<BrowseCard />} />
       </Routes>
     </BrowserRouter>
   );
