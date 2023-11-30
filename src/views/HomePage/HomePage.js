@@ -19,6 +19,7 @@ import CardInfo from '../../components/CardInfo/CardInfo';
 import { jwtDecode } from 'jwt-decode';
 
 const HomePage = ({
+  activeUserPick = 'all',
   setIsScrolled,
   showSearchbar,
   setShowSearchbar,
@@ -40,11 +41,14 @@ const HomePage = ({
   };
 
   const fetchDestinations = async () => {
+    console.log(activeCategory, getUserIdFromToken(), activeUserPick);
     try {
       const response = await axios.post(
-        'http://localhost/TripTipApi/backend/getDestByCategories.php',
+        'http://localhost/TripTipApi/backend/getDestinations.php',
         {
           category: activeCategory,
+          userId: getUserIdFromToken(),
+          interactionType: activeUserPick,
         }
       );
       console.log('API Response:', response.data);
