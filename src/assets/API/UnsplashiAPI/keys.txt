@@ -1,0 +1,3 @@
+Application ID=535089
+Access Key = DMQfY4g6AfILvkA0_KpbvGdd_AKGCDEtTF6RCx6KsTk
+Secret key = tl78mGiZGXXd-fg6yJP24CLF1gNENNNWb4D8qYhnXsI
