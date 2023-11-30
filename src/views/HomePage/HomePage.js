@@ -39,67 +39,22 @@ const HomePage = ({
     return null;
   };
 
-  useEffect(() => {
-    const homeWrapper = document.querySelector('.card-container-scroll');
-    const handleScroll = () => {
-      const offset = homeWrapper.scrollTop;
-      if (offset > 20) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-
-      if (offset > 110) {
-        setShowSearchbar(true);
-      } else {
-        setShowSearchbar(false);
-      }
-    };
-
-    if (homeWrapper) {
-      homeWrapper.addEventListener('scroll', handleScroll);
-    }
-
-    return () => {
-      if (homeWrapper) {
-        homeWrapper.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, []);
-
-  // const getDestinations = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       'http://localhost/TripTipApi/backend/getDestinations.php/destinations/'
-  //     );
-  //     if (response.data && response.data.length > 0) {
-  //       setDestinations(response.data);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
-  // };
-
-  useEffect(() => {
-    const getDestinations = async () => {
-      try {
-        const response = await axios.post(
-          'http://localhost/TripTipApi/backend/getDestByCategories.php',
-          {
-            category: activeCategory,
-          }
-        );
-        console.log('API Response:', response.data);
-        if (response.data && response.data.length > 0) {
-          setDestinations(response.data);
+  const fetchDestinations = async () => {
+    try {
+      const response = await axios.post(
+        'http://localhost/TripTipApi/backend/getDestByCategories.php',
+        {
+          category: activeCategory,
         }
-      } catch (error) {
-        console.error('Error fetching data:', error);
+      );
+      console.log('API Response:', response.data);
+      if (response.data && response.data.length > 0) {
+        setDestinations(response.data);
       }
-    };
-
-    getDestinations();
-  }, [activeCategory]);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
   const fetchUserSaves = () => {
     const userId = getUserIdFromToken();
@@ -172,10 +127,41 @@ const HomePage = ({
   };
 
   useEffect(() => {
-    // getDestinations();
+    const homeWrapper = document.querySelector('.card-container-scroll');
+    const handleScroll = () => {
+      const offset = homeWrapper.scrollTop;
+      if (offset > 20) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+
+      if (offset > 110) {
+        setShowSearchbar(true);
+      } else {
+        setShowSearchbar(false);
+      }
+    };
+
+    if (homeWrapper) {
+      homeWrapper.addEventListener('scroll', handleScroll);
+    }
+
+    return () => {
+      if (homeWrapper) {
+        homeWrapper.removeEventListener('scroll', handleScroll);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     fetchUserSaves();
     fetchUserLikes();
   }, []);
+
+  useEffect(() => {
+    fetchDestinations();
+  }, [activeCategory]);
 
   return (
     <>
