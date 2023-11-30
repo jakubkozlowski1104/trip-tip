@@ -133,7 +133,6 @@ const Navbar = ({ activeCategory }) => {
           element={
             <HomePage
               setIsScrolled={setIsScrolled}
-              isScrolled={isScrolled}
               showSearchbar={showSearchbar}
               setShowSearchbar={setShowSearchbar}
               activeCategory={activeCategory}
@@ -142,7 +141,17 @@ const Navbar = ({ activeCategory }) => {
         />
         <Route path='user/newest' element={<Newest />} />
         <Route path='user/saved' element={<SavedDestinations />} />
-        <Route path='user/visited' element={<VisitedDestinations />} />
+        <Route
+          path='user/visited'
+          element={
+            <VisitedDestinations
+              setIsScrolled={setIsScrolled}
+              showSearchbar={showSearchbar}
+              setShowSearchbar={setShowSearchbar}
+              activeCategory={activeCategory}
+            />
+          }
+        />
         <Route path='user/signup' element={<SignUp />} />
         <Route path='user/login' element={<LogIn />} />
       </Routes>

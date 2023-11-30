@@ -1,7 +1,20 @@
 import React from 'react';
+import HomePage from '../../views/HomePage/HomePage';
 
-const VisitedDestinations = () => {
-  return <div>Visited Destinations</div>;
+const VisitedDestinations = ({
+  setIsScrolled,
+  showSearchbar,
+  setShowSearchbar,
+  activeCategory,
+}) => {
+  return (
+    <HomePage
+      setIsScrolled={setIsScrolled}
+      showSearchbar={showSearchbar}
+      setShowSearchbar={setShowSearchbar}
+      activeCategory={activeCategory}
+    />
+  );
 };
 
 export default VisitedDestinations;
