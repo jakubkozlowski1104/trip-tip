@@ -10,79 +10,35 @@ if ($requestData && property_exists($requestData, 'category') && property_exists
     $userId = $requestData->userId;
     $interactionType = $requestData->interactionType;
 
+    // $category = 'none';
+    // $userId = 3;
+    // $interactionType = 'liked';
+
+    
     $sql = "";
 
     if ($interactionType === 'liked') {
-        $sql = "SELECT 
-        destinations.id AS destination_id,
-        destinations.title,
-        destinations.publish_date,
-        destinations.description,
-        destinations.likes,
-        destinations.saves,
-        destinations.image_path AS destination_image_path,
-        destinations.map_img,
-        destinations.map_link,
-        countries.name AS country_name,
-        countries.flag_path
-    FROM 
-        destinations
-    JOIN 
-        countries ON destinations.country = countries.id
-    JOIN
-        destination_category ON destinations.id = destination_category.destination_id
-    JOIN
-        categories ON destination_category.category_id = categories.id
-    JOIN
-        user_likes ON destinations.id = user_likes.destination_id
-    WHERE 
-        user_likes.user_id = :userId
-        AND categories.name = :category";
-    } elseif ($interactionType === 'saved') {
-        $sql = "SELECT 
-        destinations.id AS destination_id,
-        destinations.title,
-        destinations.publish_date,
-        destinations.description,
-        destinations.likes,
-        destinations.saves,
-        destinations.image_path AS destination_image_path,
-        destinations.map_img,
-        destinations.map_link,
-        countries.name AS country_name,
-        countries.flag_path
-    FROM 
-        destinations
-    JOIN 
-        countries ON destinations.country = countries.id
-    JOIN
-        destination_category ON destinations.id = destination_category.destination_id
-    JOIN
-        categories ON destination_category.category_id = categories.id
-    JOIN
-        user_saves ON destinations.id = user_saves.destination_id
-    WHERE 
-        user_saves.user_id = :userId
-        AND categories.name = :category
-    ";
-    } elseif ($interactionType === 'all') {
         if ($category === 'none') {
             $sql = "SELECT 
-                destinations.id AS destination_id,
-                destinations.title,
-                destinations.publish_date,
-                destinations.description,
-                destinations.likes,
-                destinations.saves,
-                destinations.image_path AS destination_image_path,
-                destinations.map_img,
-                destinations.map_link,
-                countries.name AS country_name,
-                countries.flag_path
-            FROM 
-                destinations
-            JOIN 
-                countries ON destinations.country = countries.id";
+            destinations.id AS destination_id,
+            destinations.title,
+            destinations.publish_date,
+            destinations.description,
+            destinations.likes,
+            destinations.saves,
+            destinations.image_path AS destination_image_path,
+            destinations.map_img,
+            destinations.map_link,
+            countries.name AS country_name,
+            countries.flag_path
+        FROM 
+            destinations
+        JOIN 
+            countries ON destinations.country = countries.id
+        JOIN
+            user_likes ON destinations.id = user_likes.destination_id
+        WHERE 
+            user_likes.user_id = :userId";
         } else {
             $sql = "SELECT 
             destinations.id AS destination_id,
@@ -104,8 +60,103 @@ if ($requestData && property_exists($requestData, 'category') && property_exists
             destination_category ON destinations.id = destination_category.destination_id
         JOIN
             categories ON destination_category.category_id = categories.id
+        JOIN
+            user_likes ON destinations.id = user_likes.destination_id
         WHERE 
-            categories.name = :category";
+            user_likes.user_id = :userId
+            AND categories.name = '$category'";
+        } 
+    } elseif ($interactionType === 'saved') {
+        if ($category === 'none') {
+            $sql = "SELECT 
+            destinations.id AS destination_id,
+            destinations.title,
+            destinations.publish_date,
+            destinations.description,
+            destinations.likes,
+            destinations.saves,
+            destinations.image_path AS destination_image_path,
+            destinations.map_img,
+            destinations.map_link,
+            countries.name AS country_name,
+            countries.flag_path
+        FROM 
+            destinations
+        JOIN 
+            countries ON destinations.country = countries.id
+        JOIN
+            user_saves ON destinations.id = user_saves.destination_id
+        WHERE 
+            user_saves.user_id = :userId";
+        } else {
+        $sql = "SELECT 
+            destinations.id AS destination_id,
+            destinations.title,
+            destinations.publish_date,
+            destinations.description,
+            destinations.likes,
+            destinations.saves,
+            destinations.image_path AS destination_image_path,
+            destinations.map_img,
+            destinations.map_link,
+            countries.name AS country_name,
+            countries.flag_path
+        FROM 
+            destinations
+        JOIN 
+            countries ON destinations.country = countries.id
+        JOIN
+            destination_category ON destinations.id = destination_category.destination_id
+        JOIN
+            categories ON destination_category.category_id = categories.id
+        JOIN
+            user_saves ON destinations.id = user_saves.destination_id
+        WHERE 
+            user_saves.user_id = :userId
+            AND categories.name = '$category'
+        ";
+        } 
+    } elseif ($interactionType === 'all') {
+        if ($category === 'none') {
+            $sql = "SELECT 
+                destinations.id AS destination_id,
+                destinations.title,
+                destinations.publish_date,
+                destinations.description,
+                destinations.likes,
+                destinations.saves,
+                destinations.image_path AS destination_image_path,
+                destinations.map_img,
+                destinations.map_link,
+                countries.name AS country_name,
+                countries.flag_path
+            FROM 
+                destinations
+            JOIN 
+                countries ON destinations.country = countries.id";
+        } else {
+            $sql = "SELECT 
+    destinations.id AS destination_id,
+    destinations.title,
+    destinations.publish_date,
+    destinations.description,
+    destinations.likes,
+    destinations.saves,
+    destinations.image_path AS destination_image_path,
+    destinations.map_img,
+    destinations.map_link,
+    countries.name AS country_name,
+    countries.flag_path
+FROM 
+    destinations
+JOIN 
+    countries ON destinations.country = countries.id
+JOIN
+    destination_category ON destinations.id = destination_category.destination_id
+JOIN
+    categories ON destination_category.category_id = categories.id
+WHERE 
+    categories.name = '$category'";
         }
     }
 
@@ -117,6 +168,7 @@ if ($requestData && property_exists($requestData, 'category') && property_exists
         if ($interactionType !== 'all' && $interactionType !== 'liked' && $interactionType !== 'saved') {
             $stmt->bindParam(':category', $category, PDO::PARAM_STR);
         }
+        
         $stmt->execute();
         $destinations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 

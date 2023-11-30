@@ -6,7 +6,6 @@ $requestData = json_decode(file_get_contents('php://input'));
 
 if ($requestData && property_exists($requestData, 'category')) {
     $category = $requestData->category;
-
     $sql = "SELECT 
         destinations.id AS destination_id,
         destinations.title,
