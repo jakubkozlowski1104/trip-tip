@@ -33,20 +33,33 @@ const HomePage = ({
   const [userLikes, setUserLikes] = useState([0]);
   const navigate = useNavigate();
 
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {
+    if (!token || token === 'undefined' || token === 'undefined') {
+      navigate('/user/login'); // Przekierowanie do komponentu logowania
+    }
+  }, [token, navigate]);
+
   const handleReadMoreClick = (clickedDestination) => {
     navigate('/user/card', { state: { destination: clickedDestination } });
   };
 
   const getUserIdFromToken = () => {
     const userToken = localStorage.getItem('token');
-    if (userToken) {
-      const decodedToken = jwtDecode(userToken);
-      return decodedToken.user_id;
+    if (!userToken || userToken === 'undefined' || userToken === 'undefined') {
+      navigate('/user/login'); // Przekierowanie do komponentu logowania
+    } else {
+      if (userToken) {
+        const decodedToken = jwtDecode(userToken);
+        return decodedToken.user_id;
+      }
+      return null;
     }
-    return null;
   };
 
   const fetchDestinations = async () => {
+    console.log(getUserIdFromToken());
     console.log(activeCategory, getUserIdFromToken(), activeUserPick);
     try {
       const response = await axios.post(
