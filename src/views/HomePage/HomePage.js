@@ -36,7 +36,6 @@ const HomePage = ({
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    
     if (!token || token === 'undefined' || token === null) {
       navigate('/user/login'); // Przekierowanie do komponentu logowania
     }
@@ -60,8 +59,6 @@ const HomePage = ({
   };
 
   const fetchDestinations = async () => {
-    console.log(getUserIdFromToken());
-    console.log(activeCategory, getUserIdFromToken(), activeUserPick);
     try {
       const response = await axios.post(
         'http://localhost/TripTipApi/backend/getDestinations.php',
@@ -71,7 +68,6 @@ const HomePage = ({
           interactionType: activeUserPick,
         }
       );
-      console.log('API Response:', response.data);
       if (response.data) {
         setDestinations(response.data);
       }
@@ -113,7 +109,6 @@ const HomePage = ({
     isSaved,
     userId = getUserIdFromToken()
   ) => {
-    console.log(userId, destination_id, isSaved);
     axios
       .post('http://localhost/TripTipApi/backend/savesInsertOrDelete.php', {
         userId: userId,
@@ -121,7 +116,6 @@ const HomePage = ({
         isSaved: isSaved,
       })
       .then((response) => {
-        console.log(response.data);
         fetchUserSaves();
       })
       .catch((error) => {
@@ -134,7 +128,6 @@ const HomePage = ({
     isLiked,
     userId = getUserIdFromToken()
   ) => {
-    console.log(userId, destination_id, isLiked);
     axios
       .post('http://localhost/TripTipApi/backend/likesInsertOrDelete.php', {
         userId: userId,
@@ -142,7 +135,6 @@ const HomePage = ({
         isLiked: isLiked,
       })
       .then((response) => {
-        console.log(response.data);
         fetchUserLikes();
       })
       .catch((error) => {
@@ -205,8 +197,6 @@ const HomePage = ({
             <div className='sort-by'>Past 24 hours</div>
           </div>
           <div className='cards'>
-            {console.log(destinations)}
-            {console.log(destinations.length)}
             {destinations.length <= 0 ? (
               <h1>Brak destynacji</h1>
             ) : (
