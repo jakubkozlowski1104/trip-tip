@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  NavLink,
+  useNavigate,
+} from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 import SignUp from '../../components/SignUp/SignUp';
 import LogIn from '../../components/LogIn/LogIn';
@@ -26,6 +32,8 @@ const Navbar = ({ activeCategory }) => {
   const [selectedIndicator, setSelectedIndicator] = useState('1');
   const [isScrolled, setIsScrolled] = useState();
   const [showSearchbar, setShowSearchbar] = useState();
+
+  const token = localStorage.getItem('token');
 
   const handleLinkClick = (left, width) => {
     setAnimationData({
@@ -119,12 +127,25 @@ const Navbar = ({ activeCategory }) => {
           </p>
         </div>
         <div className='buttons'>
-          <NavLink to='user/login'>
-            <button className='button-login'>Log in</button>
-          </NavLink>
-          <NavLink to='user/signup'>
-            <button className='button-signup'>Sign up</button>
-          </NavLink>
+          {(token && token.length) > 0 ? (
+            // When token exists and it's not 'undefined'
+            <>
+              <button className='button-logout'>Log out</button>
+              {/* Additional components or buttons for logged-in users */}
+            </>
+          ) : token !== 'undefined' ? (
+            // When token is 'undefined' or not present
+            <>
+              <NavLink to='user/login'>
+                <button className='button-login'>Log in</button>
+              </NavLink>
+              <NavLink to='user/signup'>
+                <button className='button-signup'>Sign up</button>
+              </NavLink>
+            </>
+          ) : (
+            <p>Token is undefined</p>
+          )}
         </div>
       </StyledNav>
 

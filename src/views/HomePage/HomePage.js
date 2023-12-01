@@ -36,7 +36,8 @@ const HomePage = ({
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    if (!token || token === 'undefined' || token === 'undefined') {
+    
+    if (!token || token === 'undefined' || token === null) {
       navigate('/user/login'); // Przekierowanie do komponentu logowania
     }
   }, [token, navigate]);
