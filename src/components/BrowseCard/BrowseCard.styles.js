@@ -6,17 +6,50 @@ export const StyledCenter = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 120px;
   z-index: 30;
   background-color: white;
-  padding: 120px 20px 20px 20px;
+  padding: 100px 20px 20px 20px;
 
   .content-container {
-    background-color: red;
     width: 70%;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .slider {
+      position: relative;
+
+      .dots {
+        position: absolute;
+        height: 40px;
+        bottom: -6%;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: center;
+        padding: 5px;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .dot {
+          width: 15px;
+          height: 15px;
+          margin: 3px;
+          background-color: #b9c1c0;
+          border-radius: 50px;
+          transition: 0.7s;
+          cursor: pointer;
+        }
+
+        .dot.active {
+          width: 18px;
+          height: 18px;
+          background-color: #f55153;
+        }
+      }
+    }
 
     .read-section {
       margin-top: 30px;

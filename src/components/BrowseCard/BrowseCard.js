@@ -55,16 +55,19 @@ const searchQuery = 'bali';
 const BrowseCard = () => {
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [intervalId, setIntervalId] = useState(null);
   const [reviews, setReviews] = useState({
     user_name: 'kuba2115',
     review_type: 4,
     review_content: 'bardzo fajne miejsce!',
   });
 
+  
+
   const fetchPexelsPhotos = async () => {
     try {
       const response = await axios.get(
-        `https://api.pexels.com/v1/search?query=${searchQuery}&per_page=15`,
+        `https://api.pexels.com/v1/search?query=${searchQuery}&per_page=20`,
         {
           headers: {
             Authorization: PEXELS_API_KEY,
@@ -80,9 +83,29 @@ const BrowseCard = () => {
     }
   };
 
+  const handleDotClick = (index) => {
+    setCurrentIndex(index);
+    clearInterval(intervalId);
+    const newInterval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 5000);
+    setIntervalId(newInterval);
+  };
+
+  const renderDots = () => {
+    return images.map((image, index) => (
+      <div
+        key={index}
+        className={index === currentIndex ? 'dot active' : 'dot'}
+        onClick={() => handleDotClick(index)}
+      ></div>
+    ));
+  };
+
   const renderRate = () => {
     const dots = [];
-
     for (let i = 1; i <= 5; i++) {
       if (i <= reviews.reviewStars) {
         dots.push(<div key={i} className='dot fill'></div>);
@@ -90,7 +113,6 @@ const BrowseCard = () => {
         dots.push(<div key={i} className='dot'></div>);
       }
     }
-
     return dots;
   };
 
@@ -104,13 +126,14 @@ const BrowseCard = () => {
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
     }, 5000);
+    setIntervalId(interval);
     return () => clearInterval(interval);
   }, [images]);
 
   return (
     <StyledCenter>
       <div className='content-container'>
-        <div className='slider-container'>
+        <div className='slider'>
           {images.map((image, index) => (
             <div key={image.id}>
               {index === currentIndex && (
@@ -118,6 +141,7 @@ const BrowseCard = () => {
               )}
             </div>
           ))}
+          <div className='dots'>{renderDots()}</div>
         </div>
         <div className='read-section'>
           <div className='description'>
