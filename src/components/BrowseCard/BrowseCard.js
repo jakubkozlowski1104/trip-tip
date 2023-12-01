@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { StyledCenter } from '../BrowseCard/BrowseCard.styles';
+import { useLocation } from 'react-router-dom';
 
 const LOREM_CONTENT = (
   <p>
@@ -56,13 +57,22 @@ const BrowseCard = () => {
   const [images, setImages] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [intervalId, setIntervalId] = useState(null);
-  const [reviews, setReviews] = useState({
-    user_name: 'kuba2115',
-    review_type: 4,
-    review_content: 'bardzo fajne miejsce!',
-  });
+  const [reviews, setReviews] = useState([]);
+  const location = useLocation();
+  const destination = location.state?.destination;
 
-  
+  const getReviews = (destinationId) => {
+    axios
+      .post('http://localhost/TripTipApi/backend/getOneReview.php', {
+        destinationId,
+      })
+      .then((response) => {
+        setReviews(response.data.review);
+      })
+      .catch((error) => {
+        console.error('Błąd pobierania kategorii:', error);
+      });
+  };
 
   const fetchPexelsPhotos = async () => {
     try {
@@ -104,10 +114,10 @@ const BrowseCard = () => {
     ));
   };
 
-  const renderRate = () => {
+  const renderRate = (idx) => {
     const dots = [];
     for (let i = 1; i <= 5; i++) {
-      if (i <= reviews.reviewStars) {
+      if (i <= reviews[idx].review_type) {
         dots.push(<div key={i} className='dot fill'></div>);
       } else {
         dots.push(<div key={i} className='dot'></div>);
@@ -118,6 +128,7 @@ const BrowseCard = () => {
 
   useEffect(() => {
     fetchPexelsPhotos();
+    getReviews(destination.destination_id);
   }, []);
 
   useEffect(() => {
@@ -151,25 +162,33 @@ const BrowseCard = () => {
           <div className='reviews'>
             <div className='title'>Reviews</div>
             <div className='review'>
-              <div className='header-review'>
-                <div className='user-name'>
-                  <p>
-                    {reviews ? (
-                      <p>{reviews.user_name}</p>
-                    ) : (
-                      <p>No reviews for this destination</p>
-                    )}
-                  </p>
-                  <div className='rating'>{renderRate()}</div>
-                </div>
-              </div>
-              <div className='content'>
-                {reviews.review_content ? (
-                  <p>{reviews.review_content}</p>
-                ) : (
-                  <p>No reviews for this destination</p>
-                )}
-              </div>
+              {reviews ? (
+                reviews.map((review, idx) => (
+                  <div key={idx}>
+                    <div className='header-review'>
+                      <div className='user-name'>
+                        <p>
+                          {review ? (
+                            <p>{review.user_name}</p>
+                          ) : (
+                            <p>No reviews for this destination</p>
+                          )}
+                        </p>
+                        <div className='rating'>{renderRate(idx)}</div>
+                      </div>
+                    </div>
+                    <div className='content'>
+                      {review.review_content ? (
+                        <p>{review.review_content}</p>
+                      ) : (
+                        <p>No review for this destination</p>
+                      )}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p>brak</p>
+              )}
             </div>
           </div>
         </div>
