@@ -19,6 +19,33 @@ export const StyledCenter = styled.div`
     .slider {
       position: relative;
 
+      .arrow {
+        position: absolute;
+        background-color: red;
+        width: 50px;
+        height: 50px;
+        border-radius: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+        i {
+          color: white;
+          font-size: 1.5rem;
+        }
+      }
+      .left {
+        position: absolute;
+        left: -7%;
+      }
+
+      .right {
+        right: -7%;
+      }
+
       .dots {
         position: absolute;
         height: 40px;

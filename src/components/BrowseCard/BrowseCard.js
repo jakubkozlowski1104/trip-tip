@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { StyledCenter } from '../BrowseCard/BrowseCard.styles';
 import { useLocation } from 'react-router-dom';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons';
 const LOREM_CONTENT = (
   <p>
     {' '}
@@ -93,6 +94,27 @@ const BrowseCard = () => {
     }
   };
 
+  const handleArrowClick = (direction) => {
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+    if (direction === 'left') {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === 0 ? images.length - 1 : prevIndex - 1
+      );
+    } else if (direction === 'right') {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }
+    const newInterval = setInterval(() => {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 4000);
+    setIntervalId(newInterval);
+  };
+
   const handleDotClick = (index) => {
     setCurrentIndex(index);
     clearInterval(intervalId);
@@ -100,7 +122,7 @@ const BrowseCard = () => {
       setCurrentIndex((prevIndex) =>
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 5000);
+    }, 4000);
     setIntervalId(newInterval);
   };
 
@@ -136,7 +158,7 @@ const BrowseCard = () => {
       setCurrentIndex((prevIndex) =>
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 5000);
+    }, 4000);
     setIntervalId(interval);
     return () => clearInterval(interval);
   }, [images]);
@@ -153,6 +175,19 @@ const BrowseCard = () => {
             </div>
           ))}
           <div className='dots'>{renderDots()}</div>
+          <div className='arrow left' onClick={() => handleArrowClick('left')}>
+            <i>
+              <FontAwesomeIcon icon={faLeftLong} />
+            </i>
+          </div>
+          <div
+            className='arrow right'
+            onClick={() => handleArrowClick('right')}
+          >
+            <i>
+              <FontAwesomeIcon icon={faRightLong} />
+            </i>
+          </div>
         </div>
         <div className='read-section'>
           <div className='description'>
