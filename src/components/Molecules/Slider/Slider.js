@@ -51,10 +51,6 @@ const Slider = () => {
   }, []);
 
   useEffect(() => {
-    console.log(images);
-  }, [images]);
-
-  useEffect(() => {
     const interval = setInterval(() => {
       const newIndex = (activeIndex + 1) % images.length;
       setActiveIndex(newIndex);

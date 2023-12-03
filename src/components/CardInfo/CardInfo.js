@@ -8,6 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const CardInfo = ({ destination, userSaves, userLikes }) => {
   const [categories, setCategories] = useState([]);
@@ -15,6 +16,7 @@ const CardInfo = ({ destination, userSaves, userLikes }) => {
   const [reviewStars, setReviewStars] = useState(2);
   const [savesCountPerDestination, setSavesCountPerDestination] = useState();
   const [likesCountPerDestination, setLikesCountPerDestination] = useState();
+  const navigate = useNavigate();
 
   const navigateToMaps = () => {
     window.open(destination.map_link, '_blank');
@@ -38,6 +40,12 @@ const CardInfo = ({ destination, userSaves, userLikes }) => {
       return result.likes_count;
     }
     return 0;
+  };
+
+  const handleReadMoreClick = (clickedDestination) => {
+    navigate('/user/card', {
+      state: { destination: clickedDestination },
+    });
   };
 
   const fetchSaved = async () => {
@@ -219,7 +227,12 @@ const CardInfo = ({ destination, userSaves, userLikes }) => {
             )}
           </div>
         </div>
-        <button className='btn read-more'>Read more</button>
+        <button
+          className='btn read-more'
+          onClick={() => handleReadMoreClick(destination)}
+        >
+          Read more
+        </button>
       </div>
     </CardIndoWrapper>
   );

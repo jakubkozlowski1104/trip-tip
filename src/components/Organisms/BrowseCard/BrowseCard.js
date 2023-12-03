@@ -82,6 +82,7 @@ const BrowseCard = () => {
 
   useEffect(() => {
     getReviews(destination.destination_id);
+    console.log(destination);
   }, []);
 
   return (
@@ -95,35 +96,33 @@ const BrowseCard = () => {
           </div>
           <div className='reviews'>
             <div className='title'>Reviews</div>
-            <div className='review'>
-              {reviews ? (
-                reviews.map((review, idx) => (
-                  <div key={idx}>
-                    <div className='header-review'>
-                      <div className='user-name'>
-                        <p>
-                          {review ? (
-                            <p>{review.user_name}</p>
-                          ) : (
-                            <p>No reviews for this destination</p>
-                          )}
-                        </p>
-                        <div className='rating'>{renderRate(idx)}</div>
-                      </div>
-                    </div>
-                    <div className='content'>
-                      {review.review_content ? (
-                        <p>{review.review_content}</p>
-                      ) : (
-                        <p>No review for this destination</p>
-                      )}
+            {reviews ? (
+              reviews.map((review, idx) => (
+                <div className='review' key={idx}>
+                  <div className='header-review'>
+                    <div className='user-name'>
+                      <p>
+                        {review ? (
+                          <p>{review.user_name}</p>
+                        ) : (
+                          <p>No reviews for this destination</p>
+                        )}
+                      </p>
+                      <div className='rating'>{renderRate(idx)}</div>
                     </div>
                   </div>
-                ))
-              ) : (
-                <p>brak</p>
-              )}
-            </div>
+                  <div className='content'>
+                    {review.review_content ? (
+                      <p>{review.review_content}</p>
+                    ) : (
+                      <p>No review for this destination</p>
+                    )}
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>brak</p>
+            )}
           </div>
         </div>
       </div>

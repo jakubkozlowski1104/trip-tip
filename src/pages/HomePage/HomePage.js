@@ -37,7 +37,7 @@ const HomePage = ({
 
   useEffect(() => {
     if (!token || token === 'undefined' || token === null) {
-      navigate('/user/login'); // Przekierowanie do komponentu logowania
+      navigate('/user/login');
     }
   }, [token, navigate]);
 

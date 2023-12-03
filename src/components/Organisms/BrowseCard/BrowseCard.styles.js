@@ -21,69 +21,74 @@ export const StyledCenter = styled.div`
       display: flex;
 
       .description {
-        flex-basis: 70%;
-        border-right: 2px solid black;
+        border-right: 1px solid black;
         margin-top: 40px;
         padding: 0 40px 40px 40px;
+        flex-basis: 70%;
 
         .title {
+          margin-bottom: 20px;
+          display: flex;
+          justify-content: center;
+          font-size: 1.4rem;
+        }
+        .content {
+        }
+      }
+
+      .reviews {
+        flex-basis: 30%;
+
+        width: 1000px;
+        margin: 40px;
+        .title {
+          margin-bottom: 20px;
           display: flex;
           justify-content: center;
           font-size: 1.4rem;
         }
 
-        .content {
-        }
-      }
-    }
+        .review {
+          margin-top: 30px;
+          .title {
+            padding-bottom: 3px;
+            color: #f55153;
+            font-weight: bold;
+          }
 
-    .reviews {
-      margin: 40px;
-      flex-grow: 1;
-      .title {
-        display: flex;
-        justify-content: center;
-        font-size: 1.4rem;
-      }
+          .header-review {
+            .user-name {
+              position: relative;
+              color: #0abfbc;
+              font-weight: bold;
+              margin-bottom: 5px;
+              .rating {
+                position: absolute;
+                top: 0;
+                right: 0;
+                height: 20px;
+                display: flex;
+                gap: 3px;
 
-      .review {
-        flex-grow: 5;
-        .title {
-          padding-bottom: 3px;
-          color: #f55153;
-          font-weight: bold;
-        }
+                .dot {
+                  width: 15px;
+                  height: 15px;
+                  border: 1px solid #f55153;
+                  border-radius: 50px;
+                }
 
-        .header-review {
-          .user-name {
-            position: relative;
-            color: #0abfbc;
-            .rating {
-              position: absolute;
-              top: 0;
-              right: 0;
-              height: 20px;
-              display: flex;
-              gap: 3px;
-
-              .dot {
-                width: 15px;
-                height: 15px;
-                border: 1px solid #0abfbc;
-                border-radius: 50px;
-              }
-
-              .dot.fill {
-                background-color: #0abfbc;
+                .dot.fill {
+                  background-color: #f55153;
+                }
               }
             }
           }
-        }
-        .content {
-          p {
-            font-size: 0.9rem;
-            font-weight: normal;
-            color: #4f4f4f;
+          .content {
+            p {
+              font-size: 0.9rem;
+              font-weight: normal;
+              color: #4f4f4f;
+            }
           }
         }
       }
