@@ -39,7 +39,7 @@ export const StyledCenter = styled.div`
       }
       .left {
         position: absolute;
-        left: -7%;
+        left: -10%;
       }
 
       .right {
