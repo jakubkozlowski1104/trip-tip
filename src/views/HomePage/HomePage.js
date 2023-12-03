@@ -42,7 +42,9 @@ const HomePage = ({
   }, [token, navigate]);
 
   const handleReadMoreClick = (clickedDestination) => {
-    navigate('/user/card', { state: { destination: clickedDestination } });
+    navigate('/user/card', {
+      state: { destination: clickedDestination },
+    });
   };
 
   const getUserIdFromToken = () => {

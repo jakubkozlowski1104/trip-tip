@@ -1,10 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { StyledCenter } from '../BrowseCard/BrowseCard.styles';
 import { useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons';
+import Slider from './Slider';
 const LOREM_CONTENT = (
   <p>
     {' '}
@@ -51,14 +51,7 @@ const LOREM_CONTENT = (
   </p>
 );
 
-const PEXELS_API_KEY =
-  'U1xaJzxEdI3UoLLPQdR49iQfkDp980LzgSoWIq55uhIgnaPlWKK305Rg';
-const searchQuery = 'bali';
-
 const BrowseCard = () => {
-  const [images, setImages] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [intervalId, setIntervalId] = useState(null);
   const [reviews, setReviews] = useState([]);
   const location = useLocation();
   const destination = location.state?.destination;
@@ -76,67 +69,6 @@ const BrowseCard = () => {
       });
   };
 
-  const fetchPexelsPhotos = async () => {
-    try {
-      const response = await axios.get(
-        `https://api.pexels.com/v1/search?query=${searchQuery}&per_page=20`,
-        {
-          headers: {
-            Authorization: PEXELS_API_KEY,
-          },
-        }
-      );
-      const horizontalImages = response.data.photos.filter(
-        (photo) => photo.width > photo.height
-      );
-      setImages(horizontalImages);
-    } catch (error) {
-      console.error('Błąd pobierania zdjęć:', error);
-    }
-  };
-
-  const handleArrowClick = (direction) => {
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
-    if (direction === 'left') {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === 0 ? images.length - 1 : prevIndex - 1
-      );
-    } else if (direction === 'right') {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
-    }
-    const newInterval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 4000);
-    setIntervalId(newInterval);
-  };
-
-  const handleDotClick = (index) => {
-    setCurrentIndex(index);
-    clearInterval(intervalId);
-    const newInterval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 4000);
-    setIntervalId(newInterval);
-  };
-
-  const renderDots = () => {
-    return images.map((image, index) => (
-      <div
-        key={index}
-        className={index === currentIndex ? 'dot active' : 'dot'}
-        onClick={() => handleDotClick(index)}
-      ></div>
-    ));
-  };
-
   const renderRate = (idx) => {
     const dots = [];
     for (let i = 1; i <= 5; i++) {
@@ -150,46 +82,13 @@ const BrowseCard = () => {
   };
 
   useEffect(() => {
-    fetchPexelsPhotos();
     getReviews(destination.destination_id);
   }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === images.length - 1 ? 0 : prevIndex + 1
-      );
-    }, 4000);
-    setIntervalId(interval);
-    return () => clearInterval(interval);
-  }, [images]);
 
   return (
     <StyledCenter>
       <div className='content-container'>
-        <div className='slider'>
-          {images.map((image, index) => (
-            <div key={image.id}>
-              {index === currentIndex && (
-                <img src={image.src.large} alt={`Slide ${index}`} />
-              )}
-            </div>
-          ))}
-          <div className='dots'>{renderDots()}</div>
-          <div className='arrow left' onClick={() => handleArrowClick('left')}>
-            <i>
-              <FontAwesomeIcon icon={faLeftLong} />
-            </i>
-          </div>
-          <div
-            className='arrow right'
-            onClick={() => handleArrowClick('right')}
-          >
-            <i>
-              <FontAwesomeIcon icon={faRightLong} />
-            </i>
-          </div>
-        </div>
+        <Slider />
         <div className='read-section'>
           <div className='description'>
             <div className='title'>Desctiption</div>
