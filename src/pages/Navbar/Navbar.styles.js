@@ -143,6 +143,15 @@ export const StyledUl = styled.ul`
       `}
     width: 80px;
   }
+
+  .link:nth-child(5) {
+    ${(props) =>
+      props.$selectedIndicator === '5' &&
+      `
+          color: black;
+      `}
+    width: 80px;
+  }
 `;
 
 export const AnimatedLine = styled.div`

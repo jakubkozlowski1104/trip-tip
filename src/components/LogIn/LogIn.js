@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { StyledLogin, StyledCenter, StyledForm } from '../LogIn/LogIn.styles';
@@ -10,12 +11,11 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { jwtDecode } from 'jwt-decode';
 
-const LogIn = () => {
+const LogIn = ({ checkIsUserAdmin }) => {
   const [inputs, setInputs] = useState({});
   const [isLogIn, setIsLogIn] = useState(false);
   const [isloginwrong, setIsLoginWrong] = useState(false);
   const [userId, setUserId] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
 
   const helloUser = () => {
@@ -44,6 +44,7 @@ const LogIn = () => {
         helloUser();
         setUserId(response.data.user.id);
         if (response.data.status === 1) {
+          checkIsUserAdmin(response.data.user.id);
           setIsLogIn(true);
           setIsLoginWrong(false);
         } else {
@@ -51,28 +52,6 @@ const LogIn = () => {
         }
       });
   };
-
-  const chekcIsUserAdmin = async () => {
-    try {
-      const response = await axios.post(
-        'http://localhost/TripTipApi/backend/isAdmin.php',
-        {
-          userId: userId,
-        }
-      );
-      if (response.data.is_admin === 0) {
-        setIsAdmin(false);
-      } else {
-        setIsAdmin(true);
-      }
-    } catch (error) {
-      console.error('Wystąpił błąd:', error);
-    }
-  };
-
-  useEffect(() => {
-    chekcIsUserAdmin();
-  }, [userId]);
 
   const changePath = () => {
     if (isLogIn) {

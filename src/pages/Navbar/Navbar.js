@@ -18,6 +18,8 @@ import { faGlobe, faGear } from '@fortawesome/free-solid-svg-icons';
 import Newest from '../../components/Newest/Newest';
 import SearchBar from '../../components/Atoms/SearchBar/SearchBar';
 import Slider from '../../components/Organisms/BrowseCard/BrowseCard';
+import axios from 'axios';
+import { jwtDecode } from 'jwt-decode';
 
 const Navbar = ({ activeCategory }) => {
   const [animationData, setAnimationData] = useState({
@@ -27,12 +29,8 @@ const Navbar = ({ activeCategory }) => {
   const [selectedIndicator, setSelectedIndicator] = useState('1');
   const [isScrolled, setIsScrolled] = useState();
   const [showSearchbar, setShowSearchbar] = useState();
-
+  const [isAdmin, setIsAdmin] = useState(false);
   const token = localStorage.getItem('token');
-
-  useEffect(() => {
-    console.log(token);
-  }, [token]);
 
   const handleLinkClick = (left, width) => {
     setAnimationData({
@@ -59,9 +57,51 @@ const Navbar = ({ activeCategory }) => {
   }, []);
 
   const logoutUser = () => {
-    console.log('wylogowano');
     localStorage.removeItem('token');
-    console.log(token);
+    localStorage.removeItem('isAdmin');
+    setIsAdmin(false);
+  };
+
+  const helloUser = () => {
+    const userToken = localStorage.getItem('token');
+    if (userToken) {
+      const decodedToken = jwtDecode(userToken);
+      console.log(decodedToken);
+    }
+  };
+
+  useEffect(() => {
+    const isAdminFromStorage = localStorage.getItem('isAdmin');
+    if (isAdminFromStorage === 'true') {
+      setIsAdmin(true);
+    } else {
+      setIsAdmin(false);
+    }
+    helloUser();
+  }, []);
+
+  const checkIsUserAdmin = async (userId) => {
+    try {
+      console.log(userId);
+      const response = await axios.post(
+        'http://localhost/TripTipApi/backend/isAdmin.php',
+        {
+          userId: userId,
+        }
+      );
+      console.log(response);
+      const isAdminValue = parseInt(response.data.is_admin, 10); // Konwersja na liczbę
+      console.log('czy admin w use', isAdminValue);
+      if (isAdminValue === 1) {
+        setIsAdmin(true);
+        localStorage.setItem('isAdmin', 'true');
+      } else {
+        setIsAdmin(false);
+        localStorage.setItem('isAdmin', 'false');
+      }
+    } catch (error) {
+      console.error('Wystąpił błąd:', error);
+    }
   };
 
   return (
@@ -114,12 +154,24 @@ const Navbar = ({ activeCategory }) => {
             to='/user/liked'
             className='link'
             onClick={() => {
-              handleLinkClick('263px', '80px');
+              handleLinkClick('263px', '70px');
               setSelectedIndicator('4');
             }}
           >
             Liked
           </NavLink>
+          {isAdmin && (
+            <NavLink
+              to='/user/admin'
+              className='link'
+              onClick={() => {
+                handleLinkClick('320px', '100px');
+                setSelectedIndicator('5');
+              }}
+            >
+              admin
+            </NavLink>
+          )}
           <AnimatedLine $animationData={animationData}></AnimatedLine>
         </StyledUl>
         <div className='search-bar'>{showSearchbar && <SearchBar />}</div>
@@ -189,7 +241,10 @@ const Navbar = ({ activeCategory }) => {
           }
         />
         <Route path='user/signup' element={<SignUp />} />
-        <Route path='user/login' element={<LogIn />} />
+        <Route
+          path='user/login'
+          element={<LogIn checkIsUserAdmin={checkIsUserAdmin} />}
+        />
         <Route path='user/card' element={<Slider />} />
       </Routes>
     </BrowserRouter>
