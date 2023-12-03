@@ -14,7 +14,7 @@ import {
 
 import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { GlobalStyle } from '../../assets/styles/GlobalStyle';
-import SearchBar from '../../components/Atoms/SearchBar';
+import SearchBar from '../../components/Atoms/SearchBar/SearchBar';
 import CardInfo from '../../components/CardInfo/CardInfo';
 import { jwtDecode } from 'jwt-decode';
 import { useNavigate } from 'react-router-dom';

@@ -1,5 +1,5 @@
 import React from 'react';
-import HomePage from '../../views/HomePage/HomePage';
+import HomePage from '../../pages/HomePage/HomePage';
 
 const SavedDestinations = ({
   setIsScrolled,

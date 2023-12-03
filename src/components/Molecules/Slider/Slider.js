@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CarouselItem } from './SliderItem';
+import { CarouselItem } from '../../Atoms/SliderItem/SliderItem';
 import { StyledCenter } from './Slider.styles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons';
@@ -99,7 +99,6 @@ const Slider = () => {
               <FontAwesomeIcon icon={faLeftLong} />
             </i>
           </div>
-
           <div
             className='arrow right'
             onClick={() => {

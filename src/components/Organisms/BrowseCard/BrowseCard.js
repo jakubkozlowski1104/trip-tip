@@ -3,7 +3,7 @@ import axios from 'axios';
 import { StyledCenter } from '../BrowseCard/BrowseCard.styles';
 import { useLocation } from 'react-router-dom';
 
-import Slider from './Slider';
+import Slider from '../../Molecules/Slider/Slider';
 const LOREM_CONTENT = (
   <p>
     {' '}
