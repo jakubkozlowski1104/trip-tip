@@ -16,68 +16,6 @@ export const StyledCenter = styled.div`
     flex-direction: column;
     align-items: center;
 
-    .slider {
-      position: relative;
-
-      .arrow {
-        position: absolute;
-        background-color: red;
-        width: 50px;
-        height: 50px;
-        border-radius: 30px;
-        top: 50%;
-        transform: translateY(-50%);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-
-        i {
-          color: white;
-          font-size: 1.5rem;
-        }
-      }
-      .left {
-        position: absolute;
-        left: -10%;
-      }
-
-      .right {
-        right: -7%;
-      }
-
-      .dots {
-        position: absolute;
-        height: 40px;
-        bottom: -6%;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        justify-content: center;
-        padding: 5px;
-        border-radius: 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        .dot {
-          width: 15px;
-          height: 15px;
-          margin: 3px;
-          background-color: #b9c1c0;
-          border-radius: 50px;
-          transition: 0.7s;
-          cursor: pointer;
-        }
-
-        .dot.active {
-          width: 18px;
-          height: 18px;
-          background-color: #f55153;
-        }
-      }
-    }
-
     .read-section {
       margin-top: 30px;
       display: flex;
