@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { StyledLogin, StyledCenter, StyledForm } from '../LogIn/LogIn.styles';
 import { useNavigate } from 'react-router-dom';
@@ -14,14 +14,13 @@ const LogIn = () => {
   const [inputs, setInputs] = useState({});
   const [isLogIn, setIsLogIn] = useState(false);
   const [isloginwrong, setIsLoginWrong] = useState(false);
+  const [userId, setUserId] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
 
   const helloUser = () => {
-    console.log(localStorage);
     const userToken = localStorage.getItem('token');
     if (userToken) {
-      console.log(userToken);
-
       const decodedToken = jwtDecode(userToken);
       console.log(decodedToken);
     }
@@ -43,6 +42,7 @@ const LogIn = () => {
       .then((response) => {
         localStorage.setItem('token', response.data.token);
         helloUser();
+        setUserId(response.data.user.id);
         if (response.data.status === 1) {
           setIsLogIn(true);
           setIsLoginWrong(false);
@@ -51,6 +51,28 @@ const LogIn = () => {
         }
       });
   };
+
+  const chekcIsUserAdmin = async () => {
+    try {
+      const response = await axios.post(
+        'http://localhost/TripTipApi/backend/isAdmin.php',
+        {
+          userId: userId,
+        }
+      );
+      if (response.data.is_admin === 0) {
+        setIsAdmin(false);
+      } else {
+        setIsAdmin(true);
+      }
+    } catch (error) {
+      console.error('Wystąpił błąd:', error);
+    }
+  };
+
+  useEffect(() => {
+    chekcIsUserAdmin();
+  }, [userId]);
 
   const changePath = () => {
     if (isLogIn) {
