@@ -62,6 +62,7 @@ export const StyledNav = styled.nav`
     justify-content: center;
     flex-basis: 20%;
     margin-right: auto;
+    justify-self: flex-end;
 
     button {
       border: 1px solid gray;

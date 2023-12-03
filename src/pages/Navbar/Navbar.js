@@ -30,6 +30,10 @@ const Navbar = ({ activeCategory }) => {
 
   const token = localStorage.getItem('token');
 
+  useEffect(() => {
+    console.log(token);
+  }, [token]);
+
   const handleLinkClick = (left, width) => {
     setAnimationData({
       left,
@@ -53,6 +57,12 @@ const Navbar = ({ activeCategory }) => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const logoutUser = () => {
+    console.log('wylogowano');
+    localStorage.removeItem('token');
+    console.log(token);
+  };
 
   return (
     <BrowserRouter>
@@ -123,9 +133,11 @@ const Navbar = ({ activeCategory }) => {
         </div>
         <div className='buttons'>
           {(token && token.length) > 0 ? (
-            <>
-              <button className='button-logout'>Log out</button>
-            </>
+            <NavLink to='user/login'>
+              <button className='button-logout' onClick={() => logoutUser()}>
+                Log out
+              </button>
+            </NavLink>
           ) : token !== 'undefined' ? (
             <>
               <NavLink to='user/login'>
