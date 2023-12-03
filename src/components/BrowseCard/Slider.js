@@ -111,85 +111,25 @@ const Slider = () => {
             </i>
           </div>
 
-          <div className='indicators'>
+          <div className='dots'>
             {images.map((item, index) => {
               return (
                 <button
-                  className='indicator-buttons'
+                  className='dot'
                   onClick={() => {
                     updateIndex(index);
                   }}
-                >
-                  <span
-                    className={`material-symbols-outlined ${
-                      index === activeIndex
-                        ? 'indicator-symbol-active'
-                        : 'indicator-symbol'
-                    }`}
-                  >
-                    O
-                  </span>
-                </button>
+                  style={{
+                    backgroundColor:
+                      index === activeIndex ? '#f55153' : '#b9c1c0',
+                  }}
+                ></button>
               );
             })}
           </div>
         </div>
       </div>
     </StyledCenter>
-
-    // <StyledCenter>
-    //   <div className='carousel'>
-    //     <div
-    //       className='inner'
-    //       style={{ transform: `translate(-${activeIndex * 100}%)` }}
-    //     >
-    //       {images.map((item) => {
-    //         return <CarouselItem item={item} width={'100%'} />;
-    //       })}
-    //     </div>
-
-    //     <div className='carousel-buttons'>
-    //       <button
-    //         className='button-arrow'
-    //         onClick={() => {
-    //           updateIndex(activeIndex - 1);
-    //         }}
-    //       >
-    //         <span class='material-symbols-outlined'>BACK</span>{' '}
-    //       </button>
-    //       <div className='indicators'>
-    //         {images.map((item, index) => {
-    //           return (
-    //             <button
-    //               className='indicator-buttons'
-    //               onClick={() => {
-    //                 updateIndex(index);
-    //               }}
-    //             >
-    //               <span
-    //                 className={`material-symbols-outlined ${
-    //                   index === activeIndex
-    //                     ? 'indicator-symbol-active'
-    //                     : 'indicator-symbol'
-    //                 }`}
-    //               >
-    //                 O
-    //               </span>
-    //             </button>
-    //           );
-    //         })}
-    //       </div>
-    //       <button
-    //         className='button-arrow'
-    //         onClick={() => {
-    //           updateIndex(activeIndex + 1);
-    //         }}
-    //       >
-    //         <span class='material-symbols-outlined'>NEXT</span>
-    //       </button>
-    //     </div>
-    //   </div>
-    // </StyledCenter>
   );
 };
 

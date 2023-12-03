@@ -9,11 +9,10 @@ export const StyledCenter = styled.div`
 
   .content-container {
     overflow: hidden;
-    width: 700px;
+    width: 1000px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: red;
 
     .slider {
       white-space: nowrap;
@@ -50,7 +49,7 @@ export const StyledCenter = styled.div`
 
   .arrow {
     position: absolute;
-    background-color: blue;
+    background-color: #b9c1c0;
     width: 50px;
     height: 50px;
     border-radius: 30px;
@@ -60,11 +59,9 @@ export const StyledCenter = styled.div`
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    z-index: 1000000;
-    /* ... pozostałe style strzałki */
 
     i {
-      color: black;
+      color: #f55153;
       font-size: 1.5rem;
     }
   }
@@ -74,31 +71,31 @@ export const StyledCenter = styled.div`
   }
 
   .right {
-    right: -7%;
+    right: -10%;
   }
 
-  .indicators {
+  .dots {
+    position: absolute;
+    height: 40px;
+    bottom: -6%;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    margin-top: 20px;
   }
 
-  .indicator-buttons {
-    border: none;
+  .dot {
+    width: 15px;
+    height: 15px;
+    margin: 3px;
+    border-radius: 50px;
+    transition: 0.7s;
     cursor: pointer;
-  }
-
-  .indicators > button {
-    margin: 5px;
-    background: none;
-  }
-
-  .indicator-symbol {
-    color: #26343f;
-  }
-
-  .indicator-symbol-active {
-    color: #ffffff;
+    border: none;
   }
 `;
