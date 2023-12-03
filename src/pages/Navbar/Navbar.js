@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
-
 import React, { useState, useEffect } from 'react';
 import SignUp from '../../components/SignUp/SignUp';
 import LogIn from '../../components/LogIn/LogIn';
@@ -20,6 +19,7 @@ import SearchBar from '../../components/Atoms/SearchBar/SearchBar';
 import Slider from '../../components/Organisms/BrowseCard/BrowseCard';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import AdminPanel from '../../components/Organisms/AdminPanel/AdminPanel';
 
 const Navbar = ({ activeCategory }) => {
   const [animationData, setAnimationData] = useState({
@@ -240,6 +240,7 @@ const Navbar = ({ activeCategory }) => {
             />
           }
         />
+        <Route path='user/admin' element={<AdminPanel />} />
         <Route path='user/signup' element={<SignUp />} />
         <Route
           path='user/login'
