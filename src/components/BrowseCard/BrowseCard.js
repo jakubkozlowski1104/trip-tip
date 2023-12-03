@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { StyledCenter } from '../BrowseCard/BrowseCard.styles';
 import { useLocation } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons';
+
 import Slider from './Slider';
 const LOREM_CONTENT = (
   <p>

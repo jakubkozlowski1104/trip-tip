@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { CarouselItem } from './SliderItem';
 import { StyledCenter } from './Slider.styles';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLeftLong, faRightLong } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 const Slider = () => {
@@ -76,9 +78,9 @@ const Slider = () => {
 
   return (
     <StyledCenter>
-      <div className='carousel'>
+      <div className='content-container'>
         <div
-          className='inner'
+          className='slider'
           style={{ transform: `translate(-${activeIndex * 100}%)` }}
         >
           {images.map((item) => {
@@ -87,14 +89,28 @@ const Slider = () => {
         </div>
 
         <div className='carousel-buttons'>
-          <button
-            className='button-arrow'
+          <div
+            className='arrow left'
             onClick={() => {
               updateIndex(activeIndex - 1);
             }}
           >
-            <span class='material-symbols-outlined'>arrow_back_ios</span>{' '}
-          </button>
+            <i>
+              <FontAwesomeIcon icon={faLeftLong} />
+            </i>
+          </div>
+
+          <div
+            className='arrow right'
+            onClick={() => {
+              updateIndex(activeIndex + 1);
+            }}
+          >
+            <i>
+              <FontAwesomeIcon icon={faRightLong} />
+            </i>
+          </div>
+
           <div className='indicators'>
             {images.map((item, index) => {
               return (
@@ -111,23 +127,69 @@ const Slider = () => {
                         : 'indicator-symbol'
                     }`}
                   >
-                    radio_button_checked
+                    O
                   </span>
                 </button>
               );
             })}
           </div>
-          <button
-            className='button-arrow'
-            onClick={() => {
-              updateIndex(activeIndex + 1);
-            }}
-          >
-            <span class='material-symbols-outlined'>arrow_forward_ios</span>
-          </button>
         </div>
       </div>
     </StyledCenter>
+
+    // <StyledCenter>
+    //   <div className='carousel'>
+    //     <div
+    //       className='inner'
+    //       style={{ transform: `translate(-${activeIndex * 100}%)` }}
+    //     >
+    //       {images.map((item) => {
+    //         return <CarouselItem item={item} width={'100%'} />;
+    //       })}
+    //     </div>
+
+    //     <div className='carousel-buttons'>
+    //       <button
+    //         className='button-arrow'
+    //         onClick={() => {
+    //           updateIndex(activeIndex - 1);
+    //         }}
+    //       >
+    //         <span class='material-symbols-outlined'>BACK</span>{' '}
+    //       </button>
+    //       <div className='indicators'>
+    //         {images.map((item, index) => {
+    //           return (
+    //             <button
+    //               className='indicator-buttons'
+    //               onClick={() => {
+    //                 updateIndex(index);
+    //               }}
+    //             >
+    //               <span
+    //                 className={`material-symbols-outlined ${
+    //                   index === activeIndex
+    //                     ? 'indicator-symbol-active'
+    //                     : 'indicator-symbol'
+    //                 }`}
+    //               >
+    //                 O
+    //               </span>
+    //             </button>
+    //           );
+    //         })}
+    //       </div>
+    //       <button
+    //         className='button-arrow'
+    //         onClick={() => {
+    //           updateIndex(activeIndex + 1);
+    //         }}
+    //       >
+    //         <span class='material-symbols-outlined'>NEXT</span>
+    //       </button>
+    //     </div>
+    //   </div>
+    // </StyledCenter>
   );
 };
 
