@@ -184,8 +184,8 @@ export const StyledHomeWrapper = styled.div`
           padding: 0;
           margin: 0;
           position: absolute;
-          top: 5%;
-          right: 6%;
+          top: 4%;
+          right: 5%;
           z-index: 30;
           display: flex;
           width: 50px;
