@@ -1,21 +1,33 @@
 import React from 'react';
+import { StyledNav } from './AdminNavigation.styles';
 import { NavLink } from 'react-router-dom';
 
 const AdminNavigation = () => {
   return (
-    <nav>
+    <StyledNav>
       <ul>
         <li>
-          <NavLink to="/user/admin/users">Users</NavLink>
+          <NavLink to='/user/admin/' className='link'>
+            Main
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/user/admin/reviews">Reviews</NavLink>
+          <NavLink to='/user/admin/users' className='link'>
+            Users
+          </NavLink>
         </li>
         <li>
-          <NavLink to="/user/admin/destinations">Destinations</NavLink>
+          <NavLink to='/user/admin/reviews' className='link'>
+            Reviews
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to='/user/admin/destinations' className='link'>
+            Destinations
+          </NavLink>
         </li>
       </ul>
-    </nav>
+    </StyledNav>
   );
 };
 

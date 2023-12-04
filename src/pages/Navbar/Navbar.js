@@ -240,7 +240,7 @@ const Navbar = ({ activeCategory }) => {
             />
           }
         />
-        <Route path='user/admin' element={<AdminPanel />} />
+        <Route path='user/admin/*' element={<AdminPanel />} />
         <Route path='user/signup' element={<SignUp />} />
         <Route
           path='user/login'
