@@ -2,11 +2,10 @@ import styled from 'styled-components';
 
 export const StyledContainer = styled.div`
   position: relative;
-  margin-top: 120px;
-  left: 20%;
-  width: 600px;
-  height: 700px;
+  width: 100%;
+  height: 100vh;
   background-color: red;
+  z-index: 10;
 
   .admin-content {
     position: absolute;

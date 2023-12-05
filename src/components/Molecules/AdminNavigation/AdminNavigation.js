@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyledNav } from './AdminNavigation.styles';
+import { StyledNav, StyledNavLink } from './AdminNavigation.styles';
 import { NavLink } from 'react-router-dom';
 
 const AdminNavigation = () => {
@@ -7,24 +7,24 @@ const AdminNavigation = () => {
     <StyledNav>
       <ul>
         <li>
-          <NavLink to='/user/admin/' className='link'>
+          <StyledNavLink to='/user/admin/' className='link'>
             Main
-          </NavLink>
+          </StyledNavLink>
         </li>
         <li>
-          <NavLink to='/user/admin/users' className='link'>
+          <StyledNavLink to='/user/admin/users' className='link'>
             Users
-          </NavLink>
+          </StyledNavLink>
         </li>
         <li>
-          <NavLink to='/user/admin/reviews' className='link'>
+          <StyledNavLink to='/user/admin/reviews' className='link'>
             Reviews
-          </NavLink>
+          </StyledNavLink>
         </li>
         <li>
-          <NavLink to='/user/admin/destinations' className='link'>
+          <StyledNavLink to='/user/admin/destinations' className='link'>
             Destinations
-          </NavLink>
+          </StyledNavLink>
         </li>
       </ul>
     </StyledNav>

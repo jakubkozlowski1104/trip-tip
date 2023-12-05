@@ -13,7 +13,6 @@ const AdminPanel = () => {
     <StyledContainer>
       <div className='admin-content'>
         <AdminNavigation />
-
         <Routes>
           <Route path='/' element={<AdminMain />} />
           <Route path='users' element={<AdminUsers />} />
