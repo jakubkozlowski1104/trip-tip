@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyledNav, StyledNavLink } from './AdminNavigation.styles';
-import { NavLink } from 'react-router-dom';
 
 const AdminNavigation = () => {
   return (
