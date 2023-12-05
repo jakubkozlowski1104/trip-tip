@@ -1,7 +1,5 @@
 import { StyledContainer } from './AdminPanel.styles';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Routes, Route, NavLink } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import AdminUsers from '../../Molecules/PanelAdmin/AdminUsers/AdminUsers';
 import AdminReviews from '../../Molecules/PanelAdmin/AdminReviews/AdminReviews';
 import AdminDestinations from '../../Molecules/PanelAdmin/AdminDestinations/AdminDestinations';
