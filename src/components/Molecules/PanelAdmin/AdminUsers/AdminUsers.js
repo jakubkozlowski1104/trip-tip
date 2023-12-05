@@ -31,9 +31,18 @@ const AdminUsers = () => {
       <h1>Lista Użytkowników</h1>
       <AddUser setNewUser={setNewUser} />
       <ul>
-        {users.map((user) => (
+        <li className='header'>
+          <div className='idx elem'>ID</div>
+          <div className='name elem'>Name</div>
+          <div className='email elem'>Email</div>
+          <div className='is-admin elem'>Admin</div>
+        </li>
+        {users.map((user, idx) => (
           <li key={user.id}>
-            {user.name} - {user.email}
+            <div className='idx elem'>{idx + 1}. </div>
+            <div className='name elem'>{user.name}</div>
+            <div className='email elem'>{user.email}</div>
+            <div className='is-admin elem'>{user.is_admin ? 'yes' : 'no'}</div>
           </li>
         ))}
       </ul>
