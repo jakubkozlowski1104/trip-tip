@@ -98,7 +98,8 @@ const AdminUsers = () => {
           <EditUser
             setNewUser={setNewUser}
             userData={selectedUserData} // Przekazanie danych wybranego użytkownika
-            setSelectedUserData={setSelectedUserData} // Funkcja do aktualizacji danych użytkownika po edycji
+            setSelectedUserData={setSelectedUserData}
+            setIsModalOpen={setIsModalOpen} // Funkcja do aktualizacji danych użytkownika po edycji
           />
         </div>
       )}

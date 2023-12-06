@@ -18,6 +18,18 @@ export const StyledForm = styled.form`
     border: 1px solid #4ccac7;
     font-size: 0.9rem;
   }
+
+  .close {
+    position: absolute;
+    color: white;
+    width: 20px;
+    height: 20px;
+    right: 0;
+    top: 0;
+    font-weight: bold;
+    font-size: 1.3rem;
+    cursor: pointer;
+  }
 `;
 
 export const StyledHeader = styled.h2`
