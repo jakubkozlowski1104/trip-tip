@@ -16,7 +16,6 @@ export const StyledWrapper = styled.nav`
     li {
       list-style: none;
       display: flex;
-      background-color: white;
 
       .elem {
         flex-basis: 250px;
@@ -30,5 +29,13 @@ export const StyledWrapper = styled.nav`
         flex-basis: 40px;
       }
     }
+  }
+
+  .modal-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
   }
 `;
