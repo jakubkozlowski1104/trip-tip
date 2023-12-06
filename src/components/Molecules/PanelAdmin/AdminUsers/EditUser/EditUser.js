@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { StyledForm, StyledHeader } from './EditUser.styles';
 
@@ -9,9 +9,8 @@ const EditUser = ({
   setIsModalOpen,
 }) => {
   console.log(userData);
-  const [name, setName] = useState(userData.name || ''); // Ustawienie początkowej wartości na podstawie danych użytkownika
-  const [email, setEmail] = useState(userData.email || ''); // Ustawienie początkowej wartości na podstawie danych użytkownika
-  const [password, setPassword] = useState('');
+  const [name, setName] = useState(userData.name || '');
+  const [email, setEmail] = useState(userData.email || '');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,23 +19,20 @@ const EditUser = ({
       const response = await axios.post(
         'http://localhost/TripTipApi/backend/updateUser.php',
         {
-          id: userData.id, // Dodanie ID użytkownika do żądania aktualizacji
+          userId: userData.id,
           name: name,
           email: email,
-          password: password,
         }
       );
 
       if (response.data.status === 1) {
-        setNewUser(response.data.status);
+        console.log('User updated successfully');
+        setIsModalOpen(false);
+      } else {
+        console.error('Wystąpił błąd podczas aktualizacji użytkownika');
       }
-
-      setSelectedUserData({ ...userData, name, email }); // Aktualizacja danych użytkownika po zapisie
-      setName('');
-      setEmail('');
-      setPassword('');
     } catch (error) {
-      console.error(error);
+      console.error('Wystąpił błąd:', error);
     }
   };
 

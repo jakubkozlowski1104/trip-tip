@@ -8,7 +8,6 @@ const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const [newUser, setNewUser] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedUserId, setSelectedUserId] = useState(null); // Nowy stan do przechowywania ID wybranego użytkownika do edycji
   const [selectedUserData, setSelectedUserData] = useState({
     name: '',
     email: '',
@@ -27,7 +26,6 @@ const AdminUsers = () => {
 
   const handleEdit = async (userId) => {
     setIsModalOpen(true);
-    setSelectedUserId(userId); // Ustawienie ID wybranego użytkownika do edycji
 
     const userData = users[userId]; // Dane użytkownika do edycji z odpowiedzi
     console.log(userData);
@@ -60,7 +58,7 @@ const AdminUsers = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, [newUser]);
+  }, [newUser, isModalOpen]);
 
   return (
     <StyledWrapper>
@@ -94,13 +92,15 @@ const AdminUsers = () => {
       </ul>
 
       {isModalOpen && (
-        <div className='modal-container'>
-          <EditUser
-            setNewUser={setNewUser}
-            userData={selectedUserData} // Przekazanie danych wybranego użytkownika
-            setSelectedUserData={setSelectedUserData}
-            setIsModalOpen={setIsModalOpen} // Funkcja do aktualizacji danych użytkownika po edycji
-          />
+        <div className='modal-overlay'>
+          <div className='modal-container'>
+            <EditUser
+              setNewUser={setNewUser}
+              userData={selectedUserData}
+              setSelectedUserData={setSelectedUserData}
+              setIsModalOpen={setIsModalOpen}
+            />
+          </div>
         </div>
       )}
     </StyledWrapper>

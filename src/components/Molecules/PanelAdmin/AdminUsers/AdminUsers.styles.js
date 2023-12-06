@@ -31,15 +31,26 @@ export const StyledWrapper = styled.nav`
     }
   }
 
-  .modal-container {
-    position: absolute;
-    background-color: black;
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Przezroczyste szare tło */
+    z-index: 40; /* Ustaw odpowiednie z-index, aby overlay był nad resztą treści */
     display: flex;
-    flex-direction: column;
-    top: 50%;
-    left: 50%;
-    border-radius: 10px;
     justify-content: center;
     align-items: center;
+
+    .modal-container {
+      position: absolute;
+      background-color: black;
+      display: flex;
+      flex-direction: column;
+      border-radius: 10px;
+      justify-content: center;
+      align-items: center;
+    }
   }
 `;
