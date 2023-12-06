@@ -2,12 +2,18 @@ import { StyledWrapper } from './AdminUsers.styles';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AddUser from './AddUser/AddUser.js';
+import EditUser from './EditUser/EditUser.js';
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
   const [newUser, setNewUser] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(true);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedUserId, setSelectedUserId] = useState(null); // Nowy stan do przechowywania ID wybranego użytkownika do edycji
+  const [selectedUserData, setSelectedUserData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
   const fetchUsers = async () => {
     try {
       const response = await axios.get(
@@ -21,23 +27,11 @@ const AdminUsers = () => {
 
   const handleEdit = async (userId) => {
     setIsModalOpen(true);
-    console.log(userId);
-    try {
-      const response = await axios.post(
-        'http://localhost/TripTipApi/backend/deleteUser.php',
-        {
-          userId: userId,
-        }
-      );
-      console.log(response);
-      if (response.data.status === 1) {
-        fetchUsers();
-      } else {
-        console.error('Nie udało się usunąć użytkownika.');
-      }
-    } catch (error) {
-      console.error('Wystąpił błąd:', error);
-    }
+    setSelectedUserId(userId); // Ustawienie ID wybranego użytkownika do edycji
+
+    const userData = users[userId]; // Dane użytkownika do edycji z odpowiedzi
+    console.log(userData);
+    setSelectedUserData(userData); // Ustawienie danych wybranego użytkownika do edycji
   };
 
   const handleDelete = async (userId) => {
@@ -86,7 +80,7 @@ const AdminUsers = () => {
             <div className='name elem'>{user.name}</div>
             <div className='email elem'>{user.email}</div>
             <div className='is-admin elem'>{user.is_admin ? 'yes' : 'no'}</div>
-            <button className='btn edit' onClick={() => handleEdit(user.id)}>
+            <button className='btn edit' onClick={() => handleEdit(idx)}>
               EDIT
             </button>
             <button
@@ -101,7 +95,11 @@ const AdminUsers = () => {
 
       {isModalOpen && (
         <div className='modal-container'>
-          <AddUser setNewUser={setNewUser} />
+          <EditUser
+            setNewUser={setNewUser}
+            userData={selectedUserData} // Przekazanie danych wybranego użytkownika
+            setSelectedUserData={setSelectedUserData} // Funkcja do aktualizacji danych użytkownika po edycji
+          />
         </div>
       )}
     </StyledWrapper>

@@ -33,9 +33,13 @@ export const StyledWrapper = styled.nav`
 
   .modal-container {
     position: absolute;
+    background-color: black;
     display: flex;
     flex-direction: column;
     top: 50%;
     left: 50%;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
   }
 `;
