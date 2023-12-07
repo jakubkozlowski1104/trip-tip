@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import AddUser from './AddUser/AddUser.js';
 import EditUser from './EditUser/EditUser.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 const AdminUsers = () => {
   const [users, setUsers] = useState([]);
@@ -78,15 +80,16 @@ const AdminUsers = () => {
             <div className='name elem'>{user.name}</div>
             <div className='email elem'>{user.email}</div>
             <div className='is-admin elem'>{user.is_admin ? 'yes' : 'no'}</div>
-            <button className='btn edit' onClick={() => handleEdit(idx)}>
-              EDIT
-            </button>
-            <button
-              className='btn delete'
-              onClick={() => handleDelete(user.id)}
-            >
-              DELETE
-            </button>
+            <div className='btn edit' onClick={() => handleEdit(idx)}>
+              <i>
+                <FontAwesomeIcon icon={faPenToSquare} />
+              </i>
+            </div>
+            <div className='btn delete' onClick={() => handleDelete(user.id)}>
+              <i>
+                <FontAwesomeIcon icon={faTrashCan} />
+              </i>
+            </div>
           </li>
         ))}
       </ul>

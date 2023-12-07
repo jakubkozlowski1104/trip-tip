@@ -4,10 +4,10 @@ export const StyledContainer = styled.div`
   position: relative;
   width: 100%;
   height: 100vh;
-  background-color: red;
   z-index: 10;
   display: flex;
   justify-content: center;
+  background-color: white;
 
   .admin-content {
     position: absolute;
@@ -15,6 +15,5 @@ export const StyledContainer = styled.div`
     left: 0;
     width: 80%;
     height: 500px;
-    background-color: blue;
   }
 `;

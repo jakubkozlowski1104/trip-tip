@@ -52,7 +52,7 @@ const EditUser = ({
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <button type='submit'>SAVE</button>
+        <button type='submit' className='btn save'>SAVE</button>
         <div className='close' onClick={() => setIsModalOpen(false)}>
           X
         </div>

@@ -30,8 +30,23 @@ export const StyledForm = styled.form`
     font-size: 1.3rem;
     cursor: pointer;
   }
+  .save {
+    padding: 10px 20px;
+    background-color: white;
+    color: #f55153;
+    border: 1px solid #f55153;
+    border-radius: 10px;
+    transition: 0.3s;
+  }
+
+  .save:hover {
+    background-color: #f55153;
+    color: white;
+    cursor: pointer;
+  }
 `;
 
 export const StyledHeader = styled.h2`
   color: white;
+  padding: 5px;
 `;

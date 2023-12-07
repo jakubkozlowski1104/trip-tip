@@ -5,7 +5,6 @@ export const StyledWrapper = styled.nav`
   flex-direction: column;
   align-items: center;
   width: 1000px;
-  background-color: green;
 
   ul {
     display: flex;
@@ -27,6 +26,24 @@ export const StyledWrapper = styled.nav`
       .is-admin,
       .idx {
         flex-basis: 40px;
+      }
+    }
+
+    .btn {
+      cursor: pointer;
+    }
+
+    .btn.delete {
+      i {
+        color: red;
+      }
+    }
+
+    .btn.edit {
+      margin-right: 10px;
+      padding-bottom: 3px;
+      i {
+        color: orange;
       }
     }
   }
