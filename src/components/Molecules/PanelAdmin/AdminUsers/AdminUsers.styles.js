@@ -4,7 +4,16 @@ export const StyledWrapper = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 1000px;
+  justify-content: center;
+  width: 1100px;
+  margin-left: 100px;
+  margin-top: 40px;
+
+  .container {
+    width: 100%;
+    display: flex;
+    gap: 100px;
+  }
 
   ul {
     display: flex;
@@ -25,7 +34,11 @@ export const StyledWrapper = styled.nav`
       }
       .is-admin,
       .idx {
-        flex-basis: 40px;
+        flex-basis: 60px;
+      }
+
+      .admin-action {
+        margin-right: 20px;
       }
     }
 
@@ -42,6 +55,7 @@ export const StyledWrapper = styled.nav`
     .btn.edit {
       margin-right: 10px;
       padding-bottom: 3px;
+      margin-left: 20px;
       i {
         color: orange;
       }
@@ -68,6 +82,38 @@ export const StyledWrapper = styled.nav`
       border-radius: 10px;
       justify-content: center;
       align-items: center;
+      width: 400px;
+    }
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+
+    input {
+      margin: 5px;
+      padding: 10px 15px;
+      border-radius: 10px;
+      outline: none;
+      border: 1px solid #4ccac7;
+      font-size: 0.9rem;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      background-color: white;
+      color: #f55153;
+      border: 1px solid #f55153;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #f55153;
+      color: white;
+      cursor: pointer;
     }
   }
 `;

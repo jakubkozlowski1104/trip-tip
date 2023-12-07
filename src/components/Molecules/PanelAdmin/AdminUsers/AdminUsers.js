@@ -64,35 +64,38 @@ const AdminUsers = () => {
 
   return (
     <StyledWrapper>
-      <h1>Lista Użytkowników</h1>
-      <AddUser setNewUser={setNewUser} />
-      <ul>
-        <li className='header'>
-          <div className='idx elem'>ID</div>
-          <div className='name elem'>Name</div>
-          <div className='email elem'>Email</div>
-          <div className='is-admin elem'>Admin</div>
-          <div className=''>Delete</div>
-        </li>
-        {users.map((user, idx) => (
-          <li key={user.id}>
-            <div className='idx elem'>{idx + 1}. </div>
-            <div className='name elem'>{user.name}</div>
-            <div className='email elem'>{user.email}</div>
-            <div className='is-admin elem'>{user.is_admin ? 'yes' : 'no'}</div>
-            <div className='btn edit' onClick={() => handleEdit(idx)}>
-              <i>
-                <FontAwesomeIcon icon={faPenToSquare} />
-              </i>
-            </div>
-            <div className='btn delete' onClick={() => handleDelete(user.id)}>
-              <i>
-                <FontAwesomeIcon icon={faTrashCan} />
-              </i>
-            </div>
+      <div className='container'>
+        <ul>
+          <li className='header'>
+            <div className='idx elem'>ID</div>
+            <div className='name elem'>Name</div>
+            <div className='email elem'>Email</div>
+            <div className='is-admin elem admin-action'>Admin</div>
+            <div className='action'>Action</div>
           </li>
-        ))}
-      </ul>
+          {users.map((user, idx) => (
+            <li key={user.id}>
+              <div className='idx elem'>{idx + 1}. </div>
+              <div className='name elem'>{user.name}</div>
+              <div className='email elem'>{user.email}</div>
+              <div className='is-admin elem'>
+                {user.is_admin ? 'yes' : 'no'}
+              </div>
+              <div className='btn edit' onClick={() => handleEdit(idx)}>
+                <i>
+                  <FontAwesomeIcon icon={faPenToSquare} />
+                </i>
+              </div>
+              <div className='btn delete' onClick={() => handleDelete(user.id)}>
+                <i>
+                  <FontAwesomeIcon icon={faTrashCan} />
+                </i>
+              </div>
+            </li>
+          ))}
+        </ul>
+        <AddUser setNewUser={setNewUser} />
+      </div>
 
       {isModalOpen && (
         <div className='modal-overlay'>

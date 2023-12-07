@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 
 export const StyledForm = styled.form`
-  width: 500px;
-  height: 400px;
-  background-color: white;
+  height: 300px;
+  width: 400px;
   display: flex;
   flex-direction: column;
-  padding: 100px;
-  gap: 10px;
+  gap: 5px;
+  padding: 30px;
   color: white;
   border-radius: 10px;
 
@@ -31,7 +30,7 @@ export const StyledForm = styled.form`
     cursor: pointer;
   }
   .save {
-    padding: 10px 20px;
+    padding: 10px 40px;
     background-color: white;
     color: #f55153;
     border: 1px solid #f55153;
