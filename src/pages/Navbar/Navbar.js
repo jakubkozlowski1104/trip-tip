@@ -20,6 +20,7 @@ import Slider from '../../components/Organisms/BrowseCard/BrowseCard';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import AdminPanel from '../../components/Organisms/AdminPanel/AdminPanel';
+import useUserIdFromToken from '../../hooks/useUserIdFromToken';
 
 const Navbar = ({ activeCategory }) => {
   const [animationData, setAnimationData] = useState({
@@ -31,6 +32,8 @@ const Navbar = ({ activeCategory }) => {
   const [showSearchbar, setShowSearchbar] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
   const [isBellOpen, setIsBellOpen] = useState(true);
+  const [notifications, setNotifications] = useState([]);
+  const userId = useUserIdFromToken();
   const token = localStorage.getItem('token');
 
   const mock = [
@@ -44,22 +47,24 @@ const Navbar = ({ activeCategory }) => {
     },
   ];
 
-
-  const fetchFilteredReviews = async (userId) => {
+  const fetchFilteredReviews = async () => {
     try {
-      const response = await axios.post('http://localhost/TripTipApi/backend/getFilteredReviews.php', {
-        userId: userId,
-      });
-  
+      const response = await axios.post(
+        'http://localhost/TripTipApi/backend/getNotifyReviews.php',
+        {
+          userId: userId,
+        }
+      );
       if (response.data.status === 1) {
-        const filteredReviews = response.data.reviews;
-        console.log(filteredReviews); // Tutaj możesz wykorzystać dane recenzji
-        // ... (np. ustawienie stanu w komponencie React)
+        setNotifications(response.data.reviews);
       } else {
         console.log('Brak przefiltrowanych recenzji');
       }
     } catch (error) {
-      console.error('Błąd podczas pobierania przefiltrowanych recenzji:', error);
+      console.error(
+        'Błąd podczas pobierania przefiltrowanych recenzji:',
+        error
+      );
     }
   };
 
@@ -114,6 +119,10 @@ const Navbar = ({ activeCategory }) => {
     }
     helloUser();
   }, []);
+
+  useEffect(() => {
+    fetchFilteredReviews();
+  }, [toggleBell]);
 
   const checkIsUserAdmin = async (userId) => {
     try {
@@ -224,9 +233,20 @@ const Navbar = ({ activeCategory }) => {
             {isBellOpen && (
               <div className='notifications-wrapper'>
                 <div className='title'>Notifications</div>
-                {mock.map((notify) => (
+                {notifications.map((notify) => (
                   <div className='notify'>
-                    <p>{notify.content}</p>
+                    {notify.is_accepted ? (
+                      <p className='green'>
+                        Your review for <b>{notify.short_title}</b> has been
+                        successfully approved by the administrator
+                      </p>
+                    ) : (
+                      <p>
+                        Unfortunately, your review for{' '}
+                        <b>{notify.short_title}</b> was rejected by the
+                        Administrator because it violated privacy rules
+                      </p>
+                    )}
                   </div>
                 ))}
               </div>

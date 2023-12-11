@@ -62,13 +62,16 @@ export const StyledNav = styled.nav`
       position: relative;
 
       .notifications-wrapper {
+        border-radius: 10px;
         position: fixed;
         top: 8%;
         right: 8%;
         width: 350px;
+        max-height: 300px;
         background-color: white;
         padding: 5px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        overflow: auto;
 
         .title {
           padding: 5px;
@@ -79,13 +82,20 @@ export const StyledNav = styled.nav`
         }
 
         .notify {
-          border: 3px solid orange;
           margin: 4px;
-          padding: 5px;
           p {
+            border-radius: 10px;
+            border: 3px solid red;
             font-size: 1rem;
             color: black;
-            padding: 0;
+            padding: 5px;
+            margin: 0;
+          }
+          p.green {
+            border: 3px solid green;
+            font-size: 1rem;
+            color: black;
+            padding: 5px;
             margin: 0;
           }
         }
