@@ -76,6 +76,20 @@ const BrowseCard = () => {
     setIsMessageOpen(true);
   };
 
+  useEffect(() => {
+    let messageTimer;
+
+    if (isMessageOpen) {
+      messageTimer = setTimeout(() => {
+        setIsMessageOpen(false);
+      }, 10000);
+    }
+
+    return () => {
+      clearTimeout(messageTimer);
+    };
+  }, [isMessageOpen]);
+
   const handleDotClick = (index) => {
     setSelectedDot(index);
   };

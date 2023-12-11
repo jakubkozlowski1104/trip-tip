@@ -7,7 +7,7 @@ export const StyledAsideNavWrapper = styled.div`
   background-color: white;
   width: 10%;
   height: calc(100vh - 60px);
-  z-index: 9;
+  z-index: 2;
   border-right: 1px solid #dbdbdb;
 
   .pick-category {

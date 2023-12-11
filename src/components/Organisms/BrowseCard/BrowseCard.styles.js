@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
 export const StyledCenter = styled.div`
+  position: absolute;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  z-index: 30;
-  background-color: white;
   padding: 100px 20px 20px 20px;
-
+  z-index: 5;
+  background-color: white;
   .content-container {
     position: relative;
     width: 70%;
