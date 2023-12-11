@@ -61,6 +61,22 @@ export const StyledNav = styled.nav`
       cursor: pointer;
       position: relative;
 
+      .counter {
+        position: absolute;
+        top: 0%;
+        right: 0%;
+        width: 20px;
+        height: 20px;
+        background-color: orange;
+        border-radius: 50px;
+        color: black;
+        font-size: 1rem;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
       .notifications-wrapper {
         border-radius: 10px;
         position: fixed;

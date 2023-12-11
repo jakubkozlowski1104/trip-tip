@@ -226,10 +226,11 @@ const Navbar = ({ activeCategory }) => {
           <p>
             <FontAwesomeIcon icon={faGear} />
           </p>
-          <div className='bell'>
-            <i onClick={toggleBell}>
+          <div className='bell' onClick={toggleBell}>
+            <i>
               <FontAwesomeIcon icon={faBell} />
             </i>
+            <div className='counter'>4</div>
             {isBellOpen && (
               <div className='notifications-wrapper'>
                 <div className='title'>Notifications</div>
