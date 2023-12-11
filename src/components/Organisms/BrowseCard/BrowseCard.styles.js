@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const StyledCenter = styled.div`
-  position: absolute;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -11,6 +10,7 @@ export const StyledCenter = styled.div`
   padding: 100px 20px 20px 20px;
 
   .content-container {
+    position: relative;
     width: 70%;
     display: flex;
     flex-direction: column;

@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 
 import Slider from '../../Molecules/Slider/Slider';
+import Message from '../../Atoms/Message/Message';
 const LOREM_CONTENT = (
   <p>
     {' '}
@@ -54,10 +55,10 @@ const LOREM_CONTENT = (
 const BrowseCard = () => {
   const [reviews, setReviews] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMessageOpen, setIsMessageOpen] = useState(false);
   const [selectedDot, setSelectedDot] = useState(1);
   const [destId, setDestId] = useState(0);
   const [content, setContent] = useState('');
-
   const location = useLocation();
   const destination = location.state?.destination;
 
@@ -68,6 +69,11 @@ const BrowseCard = () => {
       return decodedToken.user_id;
     }
     return null;
+  };
+
+  const showMessage = (message) => {
+    setContent(message);
+    setIsMessageOpen(true);
   };
 
   const handleDotClick = (index) => {
@@ -100,7 +106,10 @@ const BrowseCard = () => {
         }
       );
 
-      console.log(response.data); // Możesz obsłużyć odpowiedź serwera tutaj
+      console.log(response.data.status);
+      if (response.data.status === 1) {
+        showMessage();
+      }
     } catch (error) {
       console.error('Błąd podczas wysyłania danych:', error);
     }
@@ -226,6 +235,9 @@ const BrowseCard = () => {
             )}
           </div>
         </div>
+        {isMessageOpen && (
+          <Message content={content} onClose={() => setIsMessageOpen(false)} />
+        )}
       </div>
     </StyledCenter>
   );

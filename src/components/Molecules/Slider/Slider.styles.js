@@ -49,7 +49,7 @@ export const StyledCenter = styled.div`
 
   .arrow {
     position: absolute;
-    background-color: #b9c1c0;
+    background-color: white;
     width: 50px;
     height: 50px;
     border-radius: 30px;
@@ -59,6 +59,7 @@ export const StyledCenter = styled.div`
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    z-index: 12312;
 
     i {
       color: #f55153;
@@ -67,17 +68,18 @@ export const StyledCenter = styled.div`
   }
   .left {
     position: absolute;
-    left: -10%;
+    left: 1%;
   }
 
   .right {
-    right: -10%;
+    right: 1%;
   }
 
   .dots {
+    background-color: white;
     position: absolute;
-    height: 40px;
-    bottom: -6%;
+    height: 30px;
+    bottom: 3%;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
