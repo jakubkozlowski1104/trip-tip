@@ -4,6 +4,7 @@ import { StyledCenter } from '../BrowseCard/BrowseCard.styles';
 import { useLocation } from 'react-router-dom';
 
 import Slider from '../../Molecules/Slider/Slider';
+import AddNewReview from '../../Molecules/AddNewReview/AddNewReview';
 const LOREM_CONTENT = (
   <p>
     {' '}
@@ -52,8 +53,17 @@ const LOREM_CONTENT = (
 
 const BrowseCard = () => {
   const [reviews, setReviews] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const destination = location.state?.destination;
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const getReviews = (destinationId) => {
     axios
@@ -122,6 +132,18 @@ const BrowseCard = () => {
               ))
             ) : (
               <p>brak</p>
+            )}
+            <button className='btn new-review' onClick={openModal}>
+              Dodaj opinię
+            </button>
+            {isModalOpen && (
+              <div className='modal-overlay'>
+                <div className='modal-container'>
+                  <button className='close-btn' onClick={closeModal}>
+                    Zamknij
+                  </button>
+                </div>
+              </div>
             )}
           </div>
         </div>

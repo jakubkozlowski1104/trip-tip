@@ -48,6 +48,50 @@ export const StyledCenter = styled.div`
           font-size: 1.4rem;
         }
 
+        .new-review {
+          margin-top: 20px;
+          border: 1px solid gray;
+          border-radius: 50px;
+          padding: 7px 20px;
+          color: #f55153;
+          background-color: white;
+          border: 1px solid #f55153;
+          cursor: pointer;
+          font-size: 0.8rem;
+          transition: 0.2s;
+          font-family: 'montserrat', sans-serif;
+          font-weight: 600;
+        }
+
+        .new-review:hover {
+          background-color: #f55153;
+          color: white;
+        }
+
+        .modal-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5); 
+          z-index: 40; 
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .modal-container {
+            position: absolute;
+            background-color: black;
+            display: flex;
+            flex-direction: column;
+            border-radius: 10px;
+            justify-content: center;
+            align-items: center;
+            width: 400px;
+          }
+        }
+
         .review {
           margin-top: 30px;
           .title {
