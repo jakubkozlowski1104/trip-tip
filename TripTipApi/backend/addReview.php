@@ -8,12 +8,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userId = $requestData->userId;
     $content = $requestData->content;
     $reviewType = $requestData->reviewType;
+    $destId = $requestData->destId; 
 
-    $sql = "INSERT INTO reviews (content, review_type, user_id, is_accepted, is_checked, show_notify) VALUES (:content, :reviewType, :userId, 0, 0, 0)";
+    $sql = "INSERT INTO reviews (content, review_type, user_id, dest_id, is_accepted, is_checked, show_notify) VALUES (:content, :reviewType, :userId, :destId, 0, 0, 0)";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(':content', $content);
     $stmt->bindParam(':reviewType', $reviewType);
     $stmt->bindParam(':userId', $userId);
+    $stmt->bindParam(':destId', $destId); 
 
     try {
         $stmt->execute();
