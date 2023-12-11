@@ -13,7 +13,7 @@ import {
 } from './Navbar.styles';
 import logo from '../../assets/images/logo.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGlobe, faGear } from '@fortawesome/free-solid-svg-icons';
+import { faGlobe, faGear, faBell } from '@fortawesome/free-solid-svg-icons';
 import Newest from '../../components/Newest/Newest';
 import SearchBar from '../../components/Atoms/SearchBar/SearchBar';
 import Slider from '../../components/Organisms/BrowseCard/BrowseCard';
@@ -181,6 +181,9 @@ const Navbar = ({ activeCategory }) => {
           </p>
           <p>
             <FontAwesomeIcon icon={faGear} />
+          </p>
+          <p>
+            <FontAwesomeIcon icon={faBell} />
           </p>
         </div>
         <div className='buttons'>
