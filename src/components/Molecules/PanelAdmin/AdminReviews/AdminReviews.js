@@ -25,6 +25,26 @@ const AdminReviews = () => {
     }
   };
 
+  const handleDelete = async (reviewId) => {
+    try {
+      const response = await axios.post(
+        'http://localhost/TripTipApi/backend/updateReviewDelete.php',
+        {
+          reviewId: reviewId,
+        }
+      );
+
+      if (response.data.status === 1) {
+        fetchUncheckedReviews();
+        console.log('Flags updated successfully');
+      } else {
+        console.error('Failed to update flags');
+      }
+    } catch (error) {
+      console.error('Error updating flags:', error);
+    }
+  };
+
   const fetchUncheckedReviews = async () => {
     try {
       const response = await axios.get(
@@ -64,9 +84,7 @@ const AdminReviews = () => {
               <div className='idx elem'>{idx + 1}. </div>
               <div className='userName elem'>{review.user_name}</div>
               <div className='destId elem'>{review.dest_id}</div>
-              <div className='content elem'>
-                {review.content}asd asdasdadasdasdad sadasddsasdasddasasd
-              </div>
+              <div className='content elem'>{review.content}</div>
               <div className='buttons'>
                 <div
                   className='btn accept'
@@ -76,7 +94,7 @@ const AdminReviews = () => {
                 </div>
                 <div
                   className='btn delete'
-                  // onClick={() => handleDelete(review.id)}
+                  onClick={() => handleDelete(review.id)}
                 >
                   Delete
                 </div>
