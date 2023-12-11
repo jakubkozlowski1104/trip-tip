@@ -60,6 +60,8 @@ const HomePage = ({
     }
   };
 
+
+
   const fetchDestinations = async () => {
     try {
       const response = await axios.post(

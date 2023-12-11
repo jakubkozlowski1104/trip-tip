@@ -30,7 +30,42 @@ const Navbar = ({ activeCategory }) => {
   const [isScrolled, setIsScrolled] = useState();
   const [showSearchbar, setShowSearchbar] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isBellOpen, setIsBellOpen] = useState(true);
   const token = localStorage.getItem('token');
+
+  const mock = [
+    {
+      content:
+        'wiadomosc została zaakceptopwna odnoscie destybacji Nowa zelania!',
+    },
+    {
+      content:
+        'Niesty ale admin nie zaakceptował twojej opinni ponieważ naruszała zasady prywatnosci naszej strony',
+    },
+  ];
+
+
+  const fetchFilteredReviews = async (userId) => {
+    try {
+      const response = await axios.post('http://localhost/TripTipApi/backend/getFilteredReviews.php', {
+        userId: userId,
+      });
+  
+      if (response.data.status === 1) {
+        const filteredReviews = response.data.reviews;
+        console.log(filteredReviews); // Tutaj możesz wykorzystać dane recenzji
+        // ... (np. ustawienie stanu w komponencie React)
+      } else {
+        console.log('Brak przefiltrowanych recenzji');
+      }
+    } catch (error) {
+      console.error('Błąd podczas pobierania przefiltrowanych recenzji:', error);
+    }
+  };
+
+  const toggleBell = () => {
+    setIsBellOpen((prevState) => !prevState); // Zastosowanie poprzedniego stanu, aby przełączać między true/false
+  };
 
   const handleLinkClick = (left, width) => {
     setAnimationData({
@@ -182,9 +217,21 @@ const Navbar = ({ activeCategory }) => {
           <p>
             <FontAwesomeIcon icon={faGear} />
           </p>
-          <p>
-            <FontAwesomeIcon icon={faBell} />
-          </p>
+          <div className='bell'>
+            <i onClick={toggleBell}>
+              <FontAwesomeIcon icon={faBell} />
+            </i>
+            {isBellOpen && (
+              <div className='notifications-wrapper'>
+                <div className='title'>Notifications</div>
+                {mock.map((notify) => (
+                  <div className='notify'>
+                    <p>{notify.content}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
         <div className='buttons'>
           {(token && token.length) > 0 ? (

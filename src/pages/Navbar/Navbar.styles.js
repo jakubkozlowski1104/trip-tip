@@ -55,6 +55,46 @@ export const StyledNav = styled.nav`
     p:hover {
       color: #4ccac7;
     }
+
+    .bell {
+      padding: 10px;
+      cursor: pointer;
+      position: relative;
+
+      .notifications-wrapper {
+        position: fixed;
+        top: 8%;
+        right: 8%;
+        width: 350px;
+        background-color: white;
+        padding: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+
+        .title {
+          padding: 5px;
+          text-align: center;
+          color: black;
+          font-weight: bold;
+          font-size: 1.3rem;
+        }
+
+        .notify {
+          border: 3px solid orange;
+          margin: 4px;
+          padding: 5px;
+          p {
+            font-size: 1rem;
+            color: black;
+            padding: 0;
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    .bell:hover {
+      color: #4ccac7;
+    }
   }
 
   .buttons {
