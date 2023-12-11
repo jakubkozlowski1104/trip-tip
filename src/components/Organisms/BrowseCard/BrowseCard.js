@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { StyledCenter } from '../BrowseCard/BrowseCard.styles';
 import { useLocation } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 import Slider from '../../Molecules/Slider/Slider';
-import AddNewReview from '../../Molecules/AddNewReview/AddNewReview';
 const LOREM_CONTENT = (
   <p>
     {' '}
@@ -55,12 +55,27 @@ const BrowseCard = () => {
   const [reviews, setReviews] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDot, setSelectedDot] = useState(1);
+  const [destId, setDestId] = useState(0);
+  const [content, setContent] = useState('');
 
   const location = useLocation();
   const destination = location.state?.destination;
 
+  const getUserIdFromToken = () => {
+    const userToken = localStorage.getItem('token');
+    if (userToken) {
+      const decodedToken = jwtDecode(userToken);
+      return decodedToken.user_id;
+    }
+    return null;
+  };
+
   const handleDotClick = (index) => {
     setSelectedDot(index);
+  };
+
+  const handleContentChange = (e) => {
+    setContent(e.target.value);
   };
 
   const openModal = () => {
@@ -71,7 +86,28 @@ const BrowseCard = () => {
     setIsModalOpen(false);
   };
 
+  const handleAddReview = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(
+        'http://localhost/TripTipApi/backend/addReview.php',
+        {
+          userId: getUserIdFromToken(),
+          content: content,
+          reviewType: selectedDot,
+          destId: destId,
+        }
+      );
+
+      console.log(response.data); // Możesz obsłużyć odpowiedź serwera tutaj
+    } catch (error) {
+      console.error('Błąd podczas wysyłania danych:', error);
+    }
+  };
+
   const getReviews = (destinationId) => {
+    setDestId(destinationId);
     axios
       .post('http://localhost/TripTipApi/backend/getOneReview.php', {
         destinationId,
@@ -164,13 +200,25 @@ const BrowseCard = () => {
                     placeholder='Wpisz swoją opinię...'
                     rows={8}
                     cols={50}
+                    onChange={handleContentChange}
                   />
                   <div className='buttons'>
-                    <button className='btn close-btn' onClick={closeModal}>
-                      Cancel
-                    </button>
-                    <button className='btn close-btn' onClick={closeModal}>
+                    <button
+                      className='btn close-btn'
+                      onClick={(e) => {
+                        closeModal();
+                        handleAddReview(e);
+                      }}
+                    >
                       Add
+                    </button>
+                    <button
+                      className='btn close-btn'
+                      onClick={() => {
+                        closeModal();
+                      }}
+                    >
+                      Cancel
                     </button>
                   </div>
                 </div>
