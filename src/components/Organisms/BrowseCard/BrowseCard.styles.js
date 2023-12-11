@@ -74,21 +74,77 @@ export const StyledCenter = styled.div`
           left: 0;
           width: 100%;
           height: 100%;
-          background-color: rgba(0, 0, 0, 0.5); 
-          z-index: 40; 
+          background-color: rgba(0, 0, 0, 0.5);
+          z-index: 40;
           display: flex;
           justify-content: center;
           align-items: center;
 
           .modal-container {
             position: absolute;
-            background-color: black;
+            background-color: white;
             display: flex;
             flex-direction: column;
             border-radius: 10px;
             justify-content: center;
             align-items: center;
             width: 400px;
+            padding: 10px;
+
+            .review-type {
+              width: 100%;
+              display: flex;
+              justify-content: space-around;
+              padding: 10px;
+              position: relative;
+
+              .dots {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+
+                .dot {
+                  width: 15px;
+                  height: 15px;
+                  border: 1px solid #f55153;
+                  border-radius: 50px;
+                  cursor: pointer;
+                }
+
+                .dot.fill {
+                  background-color: #f55153;
+                }
+              }
+            }
+
+            textarea {
+              resize: none;
+              height: 170px;
+            }
+
+            .buttons {
+              display: flex;
+              padding: 10px;
+              gap: 20px;
+              .close-btn {
+                border: 1px solid gray;
+                border-radius: 50px;
+                padding: 7px 20px;
+                color: #f55153;
+                background-color: white;
+                border: 1px solid #f55153;
+                cursor: pointer;
+                font-size: 0.8rem;
+                transition: 0.2s;
+                font-family: 'montserrat', sans-serif;
+                font-weight: 600;
+              }
+
+              .close-btn:hover {
+                background-color: #f55153;
+                color: white;
+              }
+            }
           }
         }
 

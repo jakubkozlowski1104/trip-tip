@@ -54,8 +54,14 @@ const LOREM_CONTENT = (
 const BrowseCard = () => {
   const [reviews, setReviews] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDot, setSelectedDot] = useState(1);
+
   const location = useLocation();
   const destination = location.state?.destination;
+
+  const handleDotClick = (index) => {
+    setSelectedDot(index);
+  };
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -139,9 +145,34 @@ const BrowseCard = () => {
             {isModalOpen && (
               <div className='modal-overlay'>
                 <div className='modal-container'>
-                  <button className='close-btn' onClick={closeModal}>
-                    Zamknij
-                  </button>
+                  <div className='review-type'>
+                    <p>Choose an review rate</p>
+                    <div className='dots'>
+                      {[1, 2, 3, 4, 5].map((dotIndex) => (
+                        <div
+                          key={dotIndex}
+                          className={
+                            dotIndex <= selectedDot ? 'dot fill' : 'dot'
+                          }
+                          onClick={() => handleDotClick(dotIndex)}
+                        ></div>
+                      ))}
+                    </div>
+                  </div>
+                  <textarea
+                    className='textarea'
+                    placeholder='Wpisz swoją opinię...'
+                    rows={8}
+                    cols={50}
+                  />
+                  <div className='buttons'>
+                    <button className='btn close-btn' onClick={closeModal}>
+                      Cancel
+                    </button>
+                    <button className='btn close-btn' onClick={closeModal}>
+                      Add
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
