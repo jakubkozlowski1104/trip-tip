@@ -35,7 +35,7 @@ export const StyledContainer = styled.div`
     bottom: 0;
     left: 0;
     height: 3px;
-    background-color: red;
+    background-color: green;
     animation: ${fadeOut} 10s linear;
   }
 

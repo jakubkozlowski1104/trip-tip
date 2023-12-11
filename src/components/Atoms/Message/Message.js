@@ -13,7 +13,7 @@ const Message = ({
     const timer = setTimeout(() => {
       setShowTimeBar(false);
       onClose();
-    }, 5000); // Ukryj pasek czasu po 5 sekundach
+    }, 10000); // Ukryj pasek czasu po 5 sekundach
 
     return () => clearTimeout(timer);
   }, [onClose]);
