@@ -20,9 +20,7 @@ users ON reviews.user_id = users.id
 WHERE 
 destinations_reviews.destination_id = :destinationId 
 ORDER BY 
-reviews.publish_date DESC 
-LIMIT 
-1;
+reviews.publish_date DESC;
 
 ";
 

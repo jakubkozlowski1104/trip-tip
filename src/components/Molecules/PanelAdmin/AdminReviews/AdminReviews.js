@@ -5,6 +5,29 @@ import { StyledWrapper } from './AdminReviews.styles';
 const AdminReviews = () => {
   const [uncheckedReviews, setUncheckedReviews] = useState([]);
 
+  const addDestinationReview = async (destinationId, reviewId) => {
+    try {
+      console.log('dest: ', destinationId, 'rev: ', reviewId);
+      const response = await axios.post(
+        'http://localhost/TripTipApi/backend/addReviewToMergedTable.php',
+        {
+          destinationId: destinationId,
+          reviewId: reviewId,
+        }
+      );
+
+      if (response.data.status === 1) {
+        console.log('Wpisy dodane do destinations_reviews');
+      } else {
+        console.error(
+          'Wystąpił problem podczas dodawania wpisów do destinations_reviews'
+        );
+      }
+    } catch (error) {
+      console.error('Wystąpił błąd:', error);
+    }
+  };
+
   const handleAccept = async (reviewId) => {
     try {
       const response = await axios.post(
@@ -15,6 +38,7 @@ const AdminReviews = () => {
       );
 
       if (response.data.status === 1) {
+        console.log(response.data);
         fetchUncheckedReviews();
         console.log('Flags updated successfully');
       } else {
@@ -79,6 +103,7 @@ const AdminReviews = () => {
             <div className='content elem'>Content</div>
             <div className='action'>Action</div>
           </li>
+          {console.log(uncheckedReviews)}
           {uncheckedReviews.map((review, idx) => (
             <li key={review.id}>
               <div className='idx elem'>{idx + 1}. </div>
@@ -88,13 +113,18 @@ const AdminReviews = () => {
               <div className='buttons'>
                 <div
                   className='btn accept'
-                  onClick={() => handleAccept(review.id)}
+                  onClick={() => {
+                    handleAccept(review.id);
+                    addDestinationReview(review.dest_id, review.id);
+                  }}
                 >
                   Accept
                 </div>
                 <div
                   className='btn delete'
-                  onClick={() => handleDelete(review.id)}
+                  onClick={() => {
+                    handleDelete(review.id);
+                  }}
                 >
                   Delete
                 </div>
