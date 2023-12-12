@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import SignUp from '../../components/SignUp/SignUp';
 import LogIn from '../../components/LogIn/LogIn';
 import SavedDestinations from '../../components/SavedDestinations/SavedDestinations';
@@ -31,23 +31,76 @@ const Navbar = ({ activeCategory }) => {
   const [isScrolled, setIsScrolled] = useState();
   const [showSearchbar, setShowSearchbar] = useState();
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isBellOpen, setIsBellOpen] = useState(true);
+  const [isBellOpen, setIsBellOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
+  const [notifyCount, setNotifyCount] = useState(0);
+  const [isRead, setIsRead] = useState({});
+  const [shouldFetchNotifications, setShouldFetchNotifications] =
+    useState(false);
   const userId = useUserIdFromToken();
   const token = localStorage.getItem('token');
+  const green = 'green';
 
-  const mock = [
-    {
-      content:
-        'wiadomosc została zaakceptopwna odnoscie destybacji Nowa zelania!',
-    },
-    {
-      content:
-        'Niesty ale admin nie zaakceptował twojej opinni ponieważ naruszała zasady prywatnosci naszej strony',
-    },
-  ];
+  const handleMouseEnter = (index, reviewId) => {
+    setIsRead((prevIsRead) => {
+      return {
+        ...prevIsRead,
+        [index]: true,
+      };
+    });
 
-  const fetchFilteredReviews = async () => {
+    fetchNotifyCount();
+    deleteShowNotify(reviewId);
+  };
+
+  const deleteShowNotify = (reviewId) => {
+    axios
+      .post('http://localhost/TripTipApi/backend/deleteShowNotify.php', {
+        userId: userId,
+        reviewId: reviewId,
+      })
+      .then((response) => {})
+      .catch((error) => {
+        console.error('Błąd podczas aktualizacji show_notify:', error);
+      });
+  };
+  const fetchNotifyCount = async () => {
+    try {
+      const response = await axios.post(
+        'http://localhost/TripTipApi/backend/countNotify.php',
+        {
+          userId: userId,
+        }
+      );
+
+      if (response.data.status === 1) {
+        setNotifyCount(response.data.notifyCount);
+      } else {
+        console.log('Brak danych o liczbie powiadomień');
+      }
+    } catch (error) {
+      console.error('Błąd podczas pobierania liczby powiadomień:', error);
+    }
+  };
+
+  useEffect(() => {
+    const shouldReload = localStorage.getItem('shouldReload');
+
+    if (shouldReload === 'true') {
+      localStorage.removeItem('shouldReload');
+      window.location.reload();
+    }
+  }, [shouldFetchNotifications]);
+
+  useEffect(() => {
+    fetchNotifyCount();
+  }, [isRead, token, userId]);
+
+  useEffect(() => {
+    fetchNotifyCount();
+  }, []);
+
+  const fetchFilteredReviews = useCallback(async () => {
     try {
       const response = await axios.post(
         'http://localhost/TripTipApi/backend/getNotifyReviews.php',
@@ -56,6 +109,7 @@ const Navbar = ({ activeCategory }) => {
         }
       );
       if (response.data.status === 1) {
+        console.log('idzie', response.data.reviews);
         setNotifications(response.data.reviews);
       } else {
         console.log('Brak przefiltrowanych recenzji');
@@ -66,10 +120,19 @@ const Navbar = ({ activeCategory }) => {
         error
       );
     }
-  };
+  }, [userId]);
+
+  useEffect(() => {
+    fetchFilteredReviews();
+  }, [isRead, userId, fetchFilteredReviews]);
 
   const toggleBell = () => {
-    setIsBellOpen((prevState) => !prevState); // Zastosowanie poprzedniego stanu, aby przełączać między true/false
+    setIsBellOpen((prevState) => {
+      if (!prevState) {
+        setShouldFetchNotifications(true);
+      }
+      return !prevState;
+    });
   };
 
   const handleLinkClick = (left, width) => {
@@ -120,22 +183,15 @@ const Navbar = ({ activeCategory }) => {
     helloUser();
   }, []);
 
-  useEffect(() => {
-    fetchFilteredReviews();
-  }, [toggleBell]);
-
   const checkIsUserAdmin = async (userId) => {
     try {
-      console.log(userId);
       const response = await axios.post(
         'http://localhost/TripTipApi/backend/isAdmin.php',
         {
           userId: userId,
         }
       );
-      console.log(response);
       const isAdminValue = parseInt(response.data.is_admin, 10); // Konwersja na liczbę
-      console.log('czy admin w use', isAdminValue);
       if (isAdminValue === 1) {
         setIsAdmin(true);
         localStorage.setItem('isAdmin', 'true');
@@ -230,26 +286,50 @@ const Navbar = ({ activeCategory }) => {
             <i>
               <FontAwesomeIcon icon={faBell} />
             </i>
-            <div className='counter'>4</div>
+
+            {notifyCount > 0 ? (
+              <div className='counter'>{notifyCount} </div>
+            ) : null}
+
             {isBellOpen && (
               <div className='notifications-wrapper'>
                 <div className='title'>Notifications</div>
-                {notifications.map((notify) => (
-                  <div className='notify'>
-                    {notify.is_accepted ? (
-                      <p className='green'>
-                        Your review for <b>{notify.short_title}</b> has been
-                        successfully approved by the administrator
-                      </p>
-                    ) : (
-                      <p>
-                        Unfortunately, your review for{' '}
-                        <b>{notify.short_title}</b> was rejected by the
-                        Administrator because it violated privacy rules
-                      </p>
-                    )}
-                  </div>
-                ))}
+                {notifications
+                  .slice()
+                  .reverse()
+                  .map((notify, idx) => (
+                    <div className='notify'>
+                      {notify.is_accepted ? (
+                        <p
+                          className={green}
+                          onMouseEnter={() => handleMouseEnter(idx, notify.id)}
+                          style={{
+                            backgroundColor: notify.show_notify
+                              ? 'lightgray'
+                              : 'white',
+                            padding: '20px',
+                          }}
+                        >
+                          Your review for <b>{notify.short_title}</b> has been
+                          successfully approved by the administrator
+                        </p>
+                      ) : (
+                        <p
+                          onMouseEnter={() => handleMouseEnter(idx, notify.id)}
+                          style={{
+                            backgroundColor: notify.show_notify
+                              ? 'lightgray'
+                              : 'white',
+                            padding: '20px',
+                          }}
+                        >
+                          Unfortunately, your review for{' '}
+                          <b>{notify.short_title}</b> was rejected by the
+                          Administrator because it violated privacy rules
+                        </p>
+                      )}
+                    </div>
+                  ))}
               </div>
             )}
           </div>
@@ -288,7 +368,17 @@ const Navbar = ({ activeCategory }) => {
             />
           }
         />
-        <Route path='user/newest' element={<Newest />} />
+        <Route
+          path='user/newest'
+          element={
+            <Newest
+              setIsScrolled={setIsScrolled}
+              showSearchbar={showSearchbar}
+              setShowSearchbar={setShowSearchbar}
+              activeCategory={activeCategory}
+            />
+          }
+        />
         <Route
           path='user/saved'
           element={

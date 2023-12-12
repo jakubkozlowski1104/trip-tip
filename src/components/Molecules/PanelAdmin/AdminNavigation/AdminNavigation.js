@@ -20,11 +20,6 @@ const AdminNavigation = () => {
             Reviews
           </StyledNavLink>
         </li>
-        <li>
-          <StyledNavLink to='/user/admin/destinations' className='link'>
-            Destinations
-          </StyledNavLink>
-        </li>
       </ul>
     </StyledNav>
   );

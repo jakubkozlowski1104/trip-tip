@@ -1,9 +1,22 @@
 import styled from 'styled-components';
 
 export const StyledCenter = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   padding-top: 150px;
+  width: 82%;
+  background-color: white;
+  height: 100vh;
+  z-index: 10000;
+  padding-left: 500px;
+
+  .wrapper {
+    position: relative;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export const StyledLogin = styled.div`

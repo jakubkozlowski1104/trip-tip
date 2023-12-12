@@ -61,54 +61,56 @@ const LogIn = ({ checkIsUserAdmin }) => {
 
   return (
     <StyledCenter>
-      <StyledLogin isloginwrong={isloginwrong ? 'true' : undefined}>
-        <h1>Login</h1>
-        <StyledForm onSubmit={handleSubmit}>
-          <div className='form-input'>
-            <input
-              placeholder='Email'
-              type='text'
-              name='email'
-              onChange={handleChange}
-            />
-            <div className='icon'>
-              <FontAwesomeIcon icon={faUser} />
+      <div className='wrapper'>
+        <StyledLogin isloginwrong={isloginwrong ? 'true' : undefined}>
+          <h1>Login</h1>
+          <StyledForm onSubmit={handleSubmit}>
+            <div className='form-input'>
+              <input
+                placeholder='Email'
+                type='text'
+                name='email'
+                onChange={handleChange}
+              />
+              <div className='icon'>
+                <FontAwesomeIcon icon={faUser} />
+              </div>
             </div>
-          </div>
-          <div className='form-input'>
-            <input
-              placeholder='Password'
-              type='password'
-              name='password'
-              onChange={handleChange}
-            />
-            <div className='icon'>
-              <FontAwesomeIcon icon={faLock} />
+            <div className='form-input'>
+              <input
+                placeholder='Password'
+                type='password'
+                name='password'
+                onChange={handleChange}
+              />
+              <div className='icon'>
+                <FontAwesomeIcon icon={faLock} />
+              </div>
             </div>
-          </div>
-          <div className='info'>
-            <div className='error'>
-              {isloginwrong && (
-                <>
-                  <FontAwesomeIcon
-                    className='error-icon'
-                    icon={faCircleExclamation}
-                  />
-                  <p>Entered data is incorrect</p>
-                </>
-              )}
+            <div className='info'>
+              <div className='error'>
+                {isloginwrong && (
+                  <>
+                    <FontAwesomeIcon
+                      className='error-icon'
+                      icon={faCircleExclamation}
+                    />
+                    <p>Entered data is incorrect</p>
+                  </>
+                )}
+              </div>
+              <p className='forgot'>Forgot Password?</p>
             </div>
-            <p className='forgot'>Forgot Password?</p>
-          </div>
-          <button onClick={changePath()}>Login</button>
-          <div className='register'>
-            <p>
-              Don't have an accont?
-              <span onClick={() => navigate('/user/signup')}> Register</span>
-            </p>
-          </div>
-        </StyledForm>
-      </StyledLogin>
+            <button onClick={changePath()}>Login</button>
+            <div className='register'>
+              <p>
+                Don't have an accont?
+                <span onClick={() => navigate('/user/signup')}> Register</span>
+              </p>
+            </div>
+          </StyledForm>
+        </StyledLogin>
+      </div>
     </StyledCenter>
   );
 };

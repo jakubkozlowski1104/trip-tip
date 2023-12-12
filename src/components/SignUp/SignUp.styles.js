@@ -1,9 +1,15 @@
 import styled from 'styled-components';
 
 export const StyledCenter = styled.div`
-  padding-top: 150px;
+  position: relative;
   display: flex;
   justify-content: center;
+  padding-top: 150px;
+  width: 82%;
+  background-color: white;
+  height: 100vh;
+  z-index: 10000;
+  padding-left: 450px;
 `;
 
 export const StyledLogin = styled.div`

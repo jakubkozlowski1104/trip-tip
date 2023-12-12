@@ -37,9 +37,9 @@ const AdminReviews = () => {
         }
       );
 
+      fetchUncheckedReviews();
       if (response.data.status === 1) {
         console.log(response.data);
-        fetchUncheckedReviews();
         console.log('Flags updated successfully');
       } else {
         console.error('Failed to update flags');
@@ -58,6 +58,7 @@ const AdminReviews = () => {
         }
       );
 
+      fetchUncheckedReviews();
       if (response.data.status === 1) {
         fetchUncheckedReviews();
         console.log('Flags updated successfully');
@@ -74,10 +75,14 @@ const AdminReviews = () => {
       const response = await axios.get(
         'http://localhost/TripTipApi/backend/getReviewsToCheck.php'
       );
+      console.log(response.data);
+
       if (response.data.status === 1) {
+        console.log('fetchuje');
         const uncheckedReviews = response.data.reviews;
         setUncheckedReviews(uncheckedReviews);
       } else {
+        setUncheckedReviews([]);
         console.log('Brak niezweryfikowanych opinii');
       }
     } catch (error) {
@@ -103,34 +108,34 @@ const AdminReviews = () => {
             <div className='content elem'>Content</div>
             <div className='action'>Action</div>
           </li>
-          {console.log(uncheckedReviews)}
-          {uncheckedReviews.map((review, idx) => (
-            <li key={review.id}>
-              <div className='idx elem'>{idx + 1}. </div>
-              <div className='userName elem'>{review.user_name}</div>
-              <div className='destId elem'>{review.dest_id}</div>
-              <div className='content elem'>{review.content}</div>
-              <div className='buttons'>
-                <div
-                  className='btn accept'
-                  onClick={() => {
-                    handleAccept(review.id);
-                    addDestinationReview(review.dest_id, review.id);
-                  }}
-                >
-                  Accept
+          {uncheckedReviews &&
+            uncheckedReviews.map((review, idx) => (
+              <li key={review.id}>
+                <div className='idx elem'>{idx + 1}. </div>
+                <div className='userName elem'>{review.user_name}</div>
+                <div className='destId elem'>{review.dest_id}</div>
+                <div className='content elem'>{review.content}</div>
+                <div className='buttons'>
+                  <div
+                    className='btn accept'
+                    onClick={() => {
+                      handleAccept(review.id);
+                      addDestinationReview(review.dest_id, review.id);
+                    }}
+                  >
+                    Accept
+                  </div>
+                  <div
+                    className='btn delete'
+                    onClick={() => {
+                      handleDelete(review.id);
+                    }}
+                  >
+                    Delete
+                  </div>
                 </div>
-                <div
-                  className='btn delete'
-                  onClick={() => {
-                    handleDelete(review.id);
-                  }}
-                >
-                  Delete
-                </div>
-              </div>
-            </li>
-          ))}
+              </li>
+            ))}
         </ul>
       </div>
     </StyledWrapper>
