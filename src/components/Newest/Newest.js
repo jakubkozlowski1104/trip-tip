@@ -9,7 +9,7 @@ const Newest = ({
 }) => {
   return (
     <HomePage
-      activeUserPick='saved'
+      activeUserPick='newest'
       setIsScrolled={setIsScrolled}
       showSearchbar={showSearchbar}
       setShowSearchbar={setShowSearchbar}

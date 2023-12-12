@@ -172,14 +172,31 @@ const HomePage = ({
     };
   }, []);
 
+  const fetchDestinationsByNewest = async () => {
+    try {
+      const response = await axios.post(
+        'http://localhost/TripTipApi/backend/getNewest.php'
+      );
+      if (response.data && response.data.destinations) {
+        setDestinations(response.data.destinations);
+      } else {
+        console.error('Invalid data format:', response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+
   useEffect(() => {
     fetchUserSaves();
     fetchUserLikes();
   }, []);
 
   useEffect(() => {
-    fetchDestinations();
-  }, [activeCategory, userLikes, userSaves]);
+    activeUserPick === 'newest'
+      ? fetchDestinationsByNewest()
+      : fetchDestinations();
+  }, [activeCategory, userLikes, userSaves, activeUserPick]);
 
   return (
     <>
@@ -199,7 +216,7 @@ const HomePage = ({
             <div className='sort-by'>Past 24 hours</div>
           </div>
           <div className='cards'>
-            {destinations.length <= 0 ? (
+            {!destinations && destinations.length <= 0 ? (
               <h1>Brak destynacji</h1>
             ) : (
               destinations.map(
